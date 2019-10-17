@@ -12,7 +12,7 @@ int main()
 {
 
 	Game_Init();
-
+	//this is a change
 
 	while (bGameIsRunning)
 	{
