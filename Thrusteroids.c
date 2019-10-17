@@ -12,8 +12,7 @@ int main()
 {
 
 	Game_Init();
-
-
+	//fuji does this work
 	while (bGameIsRunning)
 	{
 		Console_Printf(20, 20, "I love Potatoes!");
