@@ -12,7 +12,7 @@ int main()
 {
 
 	Game_Init();
-
+	//fuji does this work
 
 	while (bGameIsRunning)
 	{
