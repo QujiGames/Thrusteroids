@@ -5,18 +5,57 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Clock">
+      <UniqueIdentifier>{36fb9e78-b2d5-4a6d-ad6c-d247f57139c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Console">
+      <UniqueIdentifier>{b1ce0a13-fb73-492b-bdb3-d8686e6d38ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{70f3a886-92ea-4dd2-ae01-308ee4c01388}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Random">
+      <UniqueIdentifier>{55c7f2d7-4bf3-431f-b686-c7b5b01ed95a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{df196b1c-234e-483d-8c07-771a567cd45a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Thrusteroids.cpp">
+    <ClCompile Include="Clock\Clock.cpp">
+      <Filter>Clock</Filter>
+    </ClCompile>
+    <ClCompile Include="Console\Console.c">
+      <Filter>Console</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.c">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Random\Random.c">
+      <Filter>Random</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.c">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Thrusteroids.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Clock\Clock.h">
+      <Filter>Clock</Filter>
+    </ClInclude>
+    <ClInclude Include="Console\Console.h">
+      <Filter>Console</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Random\Random.h">
+      <Filter>Random</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
