@@ -21,3 +21,14 @@ void Game_Init()
 
 
 }
+//Sub routine to design the level, set as a straight line for now.
+void Make_Level(char(*arr), int width, int height)
+
+{
+	int i;
+
+	for (i = 0; i < width; i++)
+	{
+		arr[i + (30 * width)] = '#';
+	}
+}

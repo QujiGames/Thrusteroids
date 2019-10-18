@@ -10,12 +10,12 @@
 //								LOCAL VARIABLES
 //*********************************************************************************
 
-static HANDLE		sConsoleHandle			= 0x00;
-static bool			sConsoleInitialized		= false;
-static float		sConsoleDisplayRatio	= 4.f / 3.f;
+static HANDLE		sConsoleHandle = 0x00;
+static bool			sConsoleInitialized = false;
+static float		sConsoleDisplayRatio = 4.f / 3.f;
 static COORD		sConsoleSize;
-static CHAR_INFO*	sRenderBuffer			= 0x00;
-static int			sRenderBufferSize		= 0;
+static CHAR_INFO* sRenderBuffer = 0x00;
+static int			sRenderBufferSize = 0;
 
 static const COORD ORIGIN = { 0,0 };
 /**********************************************************************************/
@@ -71,7 +71,7 @@ void Console_SwapRenderBuffer()
 
 	// Copy the local rendering buffer to the ConsoleHandle Buffer
 	SMALL_RECT writeRegion = { 0,0,sConsoleSize.X, sConsoleSize.Y };
-	if (!WriteConsoleOutputA(sConsoleHandle, sRenderBuffer, sConsoleSize, ORIGIN, &writeRegion) )
+	if (!WriteConsoleOutputA(sConsoleHandle, sRenderBuffer, sConsoleSize, ORIGIN, &writeRegion))
 	{
 		DWORD error = GetLastError();
 		assert(1);
@@ -127,7 +127,7 @@ void Console_Init()
 	HANDLE inputHandle = GetStdHandle(STD_INPUT_HANDLE);
 	DWORD inputFlags;
 	GetConsoleMode(inputHandle, &inputFlags);
-	SetConsoleMode(inputHandle, ENABLE_EXTENDED_FLAGS | (inputFlags& ~ENABLE_QUICK_EDIT_MODE));
+	SetConsoleMode(inputHandle, ENABLE_EXTENDED_FLAGS | (inputFlags & ~ENABLE_QUICK_EDIT_MODE));
 
 	// Get the Current Font Ratio
 	CONSOLE_FONT_INFO fontInfo;
@@ -145,7 +145,7 @@ void Console_SetSquareFont()
 	fontInfo.dwFontSize.Y = 8;
 	fontInfo.FontWeight = FW_NORMAL;
 	sConsoleDisplayRatio = fontInfo.dwFontSize.X / (float)fontInfo.dwFontSize.Y;
-	
+
 	SetCurrentConsoleFontEx(sConsoleHandle, FALSE, &fontInfo);
 }
 
@@ -173,8 +173,14 @@ void Console_SetSize(int x, int y)
 	const COORD size = { x, y };
 	const SMALL_RECT windowSize = { 0, 0, size.X - 1, size.Y - 1 };
 
-	SetConsoleWindowInfo(sConsoleHandle, 1, &windowSize);
+	// HACK: sometimes the windows is not of the asked size, because the Buffer can never be smaller than the windows
+	// FIX: Force a small windows, set buffer, and resize windows to the correct size
+	const SMALL_RECT smallWindowSize = { 0, 0, 1, 1 };
+	SetConsoleWindowInfo(sConsoleHandle, 1, &smallWindowSize);
+	// END HACK
+
 	SetConsoleScreenBufferSize(sConsoleHandle, size);
+	SetConsoleWindowInfo(sConsoleHandle, 1, &windowSize);
 
 	sConsoleSize = size;
 }
@@ -294,7 +300,7 @@ void Console_SetCursorPos(int x, int y)
 	Console_HandleValidity_Assert();
 #endif
 
-	const COORD pos = {x, y};
+	const COORD pos = { x, y };
 	SetConsoleCursorPosition(sConsoleHandle, pos);
 }
 
@@ -342,7 +348,7 @@ void Console_Clear()
 	GetConsoleScreenBufferInfo(sConsoleHandle, &screenInfoBuffer);
 
 	const COORD firstCell = { 0, 0 };
-	const int cellCount = screenInfoBuffer.dwSize.X *screenInfoBuffer.dwSize.Y;
+	const int cellCount = screenInfoBuffer.dwSize.X * screenInfoBuffer.dwSize.Y;
 	DWORD writtenCells = 0;
 	FillConsoleOutputCharacter(sConsoleHandle, ' ', cellCount, firstCell, &writtenCells);
 }
@@ -387,7 +393,7 @@ void Console_TestAPI()
 	printf_s("Screen size: %d x %d !\n", Console_GetWidth(), Console_GetHeight());
 	getchar();
 
-	Console_SetWindowedMode(100,20, true);
+	Console_SetWindowedMode(100, 20, true);
 	printf_s("Screen size: %d x %d !\n", Console_GetWidth(), Console_GetHeight());
 	getchar();
 
