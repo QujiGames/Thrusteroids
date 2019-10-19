@@ -36,32 +36,25 @@ void Get_Inputs2()
 		velocityY = 0.005f ;
 		velocityX = -0.005f;
 			
-		
-
-
-
-
 		pressed = 1;
 
 	}
-
-		
-
 	
 	else
 	{
 		if (pressed == 1)
 		{
-			velocityY = -0.005f;
+			anglerad = ((double)angle * 3.1415 / 180.f);
+			velocityY = -0.005f  ;
 			velocityX = 0;
-			pressed = 0.f;
+			pressed = 0;
 		}
 	}
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
 
 		angle = angle + 10 * (Clock_GetDeltaTime() / 1000.f);
-		if (angle > 0)
+		if (angle > 360)
 		{
 			angle = angle - 360;
 		}
@@ -72,7 +65,7 @@ void Get_Inputs2()
 	{
 
 		angle = angle - 10 * (Clock_GetDeltaTime() / 1000.f);
-		if (angle < 360)
+		if (angle < 0)
 		{
 			angle = angle + 360;
 		}
@@ -99,7 +92,7 @@ void Draw_Screen()
 	float a = 0.1f, b = 0.1f;
 	
 	
-	velocity = velocity * acceleration;
+	velocityY = velocityY * acceleration;
 
 	anglerad = ((double)angle * 3.1415 / 180.f);
 	yTrans = yTrans + (velocityY)*cos(anglerad) * Clock_GetDeltaTime();
