@@ -39,18 +39,18 @@ void Get_Inputs2()
 void Draw_Screen()
 {
 
-	int i;
-	for (i = 0; i < 1600; i++)
-	{
-		aScreen[i] = aLevel[i];
-	}
+		int i;
+		for(i = 0; i < 1600; i++)
+		{
+			aScreen[i] = aLevel[i];
+		}
 
-	velocity = velocity * acceleration;
-	PlayerY = PlayerY + velocity * Clock_GetDeltaTime();
+		velocity = velocity * acceleration;
+	PlayerY = PlayerY+	velocity  * Clock_GetDeltaTime();
+		
 
 
-
-	aScreen[(int)round(PlayerX) + ((int)round(PlayerY) * 40)] = 'o';
+	aScreen[(int)round(PlayerX)+((int)round(PlayerY)*40)] = 'o';
 
 
 }
@@ -59,7 +59,7 @@ void Draw_Screen()
 
 int main()
 {
-
+	
 
 	Game_Init();
 	PlayerX = 20;
@@ -71,12 +71,12 @@ int main()
 
 	while (bGameIsRunning)
 	{
-		Clock_GameLoopStart();
-		Draw_Screen();
+				Clock_GameLoopStart();
+				Draw_Screen();
 
-		RenderScene(aScreen, 40, 40);
-		Get_Inputs2();
-
+				RenderScene(aScreen,40,40);
+				Get_Inputs2();
+				
 
 
 	}

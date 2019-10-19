@@ -18,7 +18,8 @@ void Game_Init()
 
 	Console_SetSquareFont();
 	Console_SetWindowedMode(40, 40, false);
-
+	Console_SetCursorVisibility(0);
+	Console_CreateRenderBuffer();
 
 }
 //Sub routine to design the level, set as a straight line for now.
@@ -31,4 +32,10 @@ void Make_Level(char(*arr), int width, int height)
 	{
 		arr[i + (30 * width)] = '#';
 	}
+}
+
+void GameShutdown()
+{
+
+	Console_CleanUp();
 }
