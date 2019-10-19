@@ -32,6 +32,12 @@ void Make_Level(char(*arr), int width, int height)
 	{
 		arr[i + (30 * width)] = '#';
 	}
+	arr[0 + (29 * width)] = '#';
+	arr[39 + (29 * width)] = '#';
+	arr[0 + (28 * width)] = '#';
+	arr[39 + (30 * width)] = '#';
+
+
 }
 
 void GameShutdown()
