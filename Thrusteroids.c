@@ -60,10 +60,10 @@ void Get_Inputs2()
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
 
-		angle = angle - 10 * (Clock_GetDeltaTime() / 1000.f);
-		if (angle < 0)
+		angle = angle + 10 * (Clock_GetDeltaTime() / 1000.f);
+		if (angle > 0)
 		{
-			angle = angle + 360;
+			angle = angle - 360;
 		}
 	}
 
@@ -71,10 +71,10 @@ void Get_Inputs2()
 	if (GetAsyncKeyState(VK_LEFT))
 	{
 
-		angle = angle + 10 * (Clock_GetDeltaTime() / 1000.f);
-		if (angle > 360)
+		angle = angle - 10 * (Clock_GetDeltaTime() / 1000.f);
+		if (angle < 360)
 		{
-			angle = angle - 360;
+			angle = angle + 360;
 		}
 	}
 
