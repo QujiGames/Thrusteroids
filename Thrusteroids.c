@@ -11,14 +11,16 @@ static int bGameIsRunning = 1;
 static char aLevel[1600];
 static char aScreen[1600];
 static double velocity = 0.0005f;
+static double velocityY = -0.005f;
+static double velocityX = 0.0f;
 static double PlayerY = 0.f;
 static double PlayerX = 0.f;
 static double acceleration = 0.001f;
 const unsigned short MSB = 0x8000;
 static int pressed = 0;
-static float angle = 0.0f;
-static int xTrans = 0;
-static int yTrans = 0;
+static float angle = 0.f;
+static float xTrans = 0;
+static float yTrans = 0;
 static float xMod = 0;
 static float yMod = 0;
 static float anglerad = 0.00000f;
@@ -30,22 +32,35 @@ void Get_Inputs2()
 {
 	if (GetAsyncKeyState(VK_UP) & MSB)
 	{
-		velocity = -0.005f;
+		anglerad = ((double)angle * 3.1415 / 180.f);
+		velocityY = 0.005f ;
+		velocityX = -0.005f;
+			
+		
+
+
+
+
 		pressed = 1;
 
 	}
+
+		
+
+	
 	else
 	{
 		if (pressed == 1)
 		{
-			velocity = 0.0005f;
-			pressed = 0;
+			velocityY = -0.005f;
+			velocityX = 0;
+			pressed = 0.f;
 		}
 	}
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
 
-		angle = angle - 10 * (Clock_GetDeltaTime() / 1000);
+		angle = angle - 10 * (Clock_GetDeltaTime() / 1000.f);
 		if (angle < 0)
 		{
 			angle = angle + 360;
@@ -56,7 +71,7 @@ void Get_Inputs2()
 	if (GetAsyncKeyState(VK_LEFT))
 	{
 
-		angle = angle + 10 * (Clock_GetDeltaTime() / 1000);
+		angle = angle + 10 * (Clock_GetDeltaTime() / 1000.f);
 		if (angle > 360)
 		{
 			angle = angle - 360;
@@ -82,9 +97,13 @@ void Draw_Screen()
 	ClearScreen();
 	int i, j;
 	float a = 0.1f, b = 0.1f;
+	
+	
+	velocity = velocity * acceleration;
 
 	anglerad = ((double)angle * 3.1415 / 180.f);
-
+	yTrans = yTrans + (velocityY)*cos(anglerad) * Clock_GetDeltaTime();
+	xTrans = xTrans + (velocityX)*sin(anglerad) * Clock_GetDeltaTime();
 
 	for (i = 0; i < 40; ++i)
 	{
@@ -94,13 +113,13 @@ void Draw_Screen()
 			{
 
 
-				a = ((i + xTrans - 20) * cos(anglerad)) - ((j + yTrans - 20) * sin(anglerad)) + 20;
-				b = ((i + xTrans - 20) * sin(anglerad)) + ((j + yTrans - 20) * cos(anglerad)) + 20;
+				a = ((i + yTrans - 20) * cos(anglerad)) - ((j + xTrans - 20) * sin(anglerad)) + 20;
+				b = ((i + yTrans) - 20) * sin(anglerad) + ((j + xTrans - 20) * cos(anglerad)) + 20;
 
 				if (a > 0 && b > 0 && a <= 39 && b <= 39)
 				{
 
-					aScreen[(int)round(b) + (int)round(a) * 40] = '#';
+					aScreen[(int)floor(b) + (int)floor(a) * 40] = '#';
 				}
 			}
 
@@ -116,13 +135,12 @@ void Draw_Screen()
 	//		aScreen[i] = aLevel[i];
 	//	}
 
-	velocity = velocity * acceleration;
-	anglerad = ((double)angle * 3.1415 / 180.f);
-	PlayerY = PlayerY + velocity * cos(anglerad) * Clock_GetDeltaTime();
-	PlayerX = PlayerX + velocity * sin(anglerad) * Clock_GetDeltaTime();
+	
+
+	
 
 
-	aScreen[(int)round(PlayerX) + ((int)round(PlayerY) * 40)] = 'o';
+	aScreen[(20) + (20) * (40)] = 'o';
 
 
 }
