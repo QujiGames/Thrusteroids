@@ -10,7 +10,7 @@
 
 static int bGameIsRunning = 1;
 static char aLevel[3200];
-static char aScreen[3200];
+static char aScreen[1600];
 static double velocity = 0.0005f;
 static double velocityY = -0.005f;
 static double velocityX = 0;
@@ -26,8 +26,10 @@ static float xMod = 0;
 static float yMod = 0;
 static float anglerad = 0.00000f;
 static int gunFired = 0;
-static int level_width = 40;
-static int level_height = 80;
+static int level_width = 80;
+static int level_height = 40;
+static int screen_width = 40;
+static int screen_height = 40;
 
 
 
@@ -107,11 +109,11 @@ void ClearScreen()
 	// sub routine to clear the screen array.  Probably should set this to pass an array rather than hardcoded
 	int i, j;
 
-	for (i = 0; i < level_width; ++i)
+	for (i = 0; i < screen_width; ++i)
 	{
-		for (j = 0; j < level_height; ++j)
+		for (j = 0; j < screen_height; ++j)
 		{
-			aScreen[i + j * level_width] = '\0';
+			aScreen[i + j * screen_width] = '\0';
 		}
 	}
 }
@@ -136,10 +138,10 @@ void Draw_Screen()
 	if (gunFired)
 
 	{
-		for (x = (level_height / 2 - 1); x > 0; x--)
+		for (x = (screen_height / 2 - 1); x > 0; x--)
 		{
 
-			aScreen[(level_width / 2) + x * level_width] = '|';
+			aScreen[(screen_width / 2) + x * screen_width] = '|';
 
 
 		}
@@ -160,10 +162,10 @@ void Draw_Screen()
 				newY = (float)(((x + xTrans - xAdjust) * sin(anglerad)) + ((y + yTrans - yAdjust) * cos(anglerad)) + yAdjust);
 				newX = (float)(((x + xTrans - xAdjust) * cos(anglerad)) - ((y + yTrans - yAdjust) * sin(anglerad)) + xAdjust);
 
-				if (newY > 0 && newX > 0 && newY <= (level_height-1) && newX <= (level_width-1))
+				if (newY > 0 && newX > 0 && newY <= (screen_height-1) && newX <= (screen_width-1))
 				{
 
-					aScreen[(int)floor(newX) + (int)floor(newY) * level_width] = '#';
+					aScreen[(int)floor(newX) + (int)floor(newY) * screen_width] = '#';
 				}
 			}
 
@@ -172,14 +174,14 @@ void Draw_Screen()
 
 	//Draw the rocket
 
-	aScreen[(xAdjust) + (yAdjust) * (level_width)] = '^';
-	aScreen[(xAdjust) + (yAdjust +1) * (level_width)] = 'O';
-	aScreen[(xAdjust-1) + (yAdjust +2) * (level_width)] = '/';
-	aScreen[(xAdjust+1) + (yAdjust + 2) * (level_width)] = '\\';
+	aScreen[(screen_width/2) + (screen_height/2) * (screen_width)] = '^';
+	aScreen[(screen_width / 2) + (screen_height / 2 +1) * (screen_width)] = 'O';
+	aScreen[(screen_width / 2 -1) + (screen_height / 2 +2) * (screen_width)] = '/';
+	aScreen[(screen_width / 2 +1) + (screen_height / 2 + 2) * (screen_width)] = '\\';
 
-	if (velocityY > 0)
+	if (pressed > 0)
 	{
-		aScreen[(xAdjust) + (yAdjust+2) * level_width] = '!';
+		aScreen[(screen_width/2) + (screen_height/2+2) * screen_width] = '!';
 
 	}
 
@@ -198,7 +200,7 @@ int main()
 {
 
 
-	Game_Init(level_width, level_height);
+	Game_Init(screen_width, screen_height);
 	 
 	
 	
@@ -212,7 +214,7 @@ int main()
 		Clock_GameLoopStart();
 		Draw_Screen();
 
-		RenderScene(aScreen, level_width , level_height);
+		RenderScene(aScreen, screen_width , screen_height);
 		Get_Inputs2();
 	}
 	GameShutdown();
