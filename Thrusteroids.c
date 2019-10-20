@@ -29,12 +29,14 @@ static int gunFired = 0;
 
 
 
+
+
 void Get_Inputs2()
 {
 	
 	if (GetAsyncKeyState(VK_UP) & MSB)
 	{
-		
+		// When up key is held swap the velocity, pressed variable is to allow the next part to work on release
 		velocityY = 0.005f ;
 		velocityX = -0.005f;
 			
@@ -46,6 +48,8 @@ void Get_Inputs2()
 	{
 		if (pressed == 1)
 		{
+
+			// return the velocity to unpressed values
 			velocityY = -0.005f  ;
 			velocityX = 0;
 			pressed = 0;
@@ -53,7 +57,7 @@ void Get_Inputs2()
 	}
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
-
+		//rotate 
 		angle = angle + 10 * (Clock_GetDeltaTime() / 1000.f);
 		if (angle > 360)
 		{
@@ -64,7 +68,7 @@ void Get_Inputs2()
 
 	if (GetAsyncKeyState(VK_LEFT))
 	{
-
+		//rotate
 		angle = angle - 10 * (Clock_GetDeltaTime() / 1000.f);
 		if (angle < 0)
 		{
@@ -74,7 +78,7 @@ void Get_Inputs2()
 
 	if (GetAsyncKeyState(VK_SPACE) & MSB)
 	{
-		
+		// check for psave bar pressed to fire laser
 		
 		gunFired = 1;
 		
@@ -87,6 +91,7 @@ void Get_Inputs2()
 }
 void ClearScreen()
 {
+	// sub routine to clear the screen array.  Probably should set this to pass an array rather than hardcoded
 	int i, j;
 
 	for (i = 0; i < 40; ++i)
@@ -102,15 +107,21 @@ void Draw_Screen()
 {
 	ClearScreen();
 	int i, j;
-	float a = 0.1f, b = 0.1f;
+	float newY = 0.1f, newX = 0.1f;
 	
-	
+	//increase velocity by gravity value, note this does nothing for directions other than down
 	velocityY = velocityY * Gravity;
 
+
+	//calculate translation vectors
 	anglerad = ((double)angle * 3.1415 / 180.f);
 	yTrans = (float)(yTrans + (velocityY)*cos(anglerad) * Clock_GetDeltaTime());
 	xTrans = (float)(xTrans + (velocityX)*sin(anglerad) * Clock_GetDeltaTime());
 
+
+
+	// take the fixed aLevel array, translate and rotate it based on current positions and angles, then copy it into aScreen array ready to render.
+	
 	for (i = 0; i < 40; ++i)
 	{
 		for (j = 0; j < 40; ++j)
@@ -119,18 +130,20 @@ void Draw_Screen()
 			{
 
 
-				a = (float)(((i + yTrans - 20) * cos(anglerad)) - ((j + xTrans - 20) * sin(anglerad)) + 20);
-				b = (float)(((i + yTrans - 20) * sin(anglerad)) + ((j + xTrans - 20) * cos(anglerad)) + 20);
+				newY = (float)(((i + yTrans - 20) * cos(anglerad)) - ((j + xTrans - 20) * sin(anglerad)) + 20);
+				newX = (float)(((i + yTrans - 20) * sin(anglerad)) + ((j + xTrans - 20) * cos(anglerad)) + 20);
 
-				if (a > 0 && b > 0 && a <= 39 && b <= 39)
+				if (newY > 0 && newX > 0 && newY <= 39 && newX <= 39)
 				{
 
-					aScreen[(int)floor(b) + (int)floor(a) * 40] = '#';
+					aScreen[(int)floor(newX) + (int)floor(newY) * 40] = '#';
 				}
 			}
 
 		}
 	}
+
+	//Draw the rocket
 
 	aScreen[(20) + (20) * (40)] = '^';
 	aScreen[(20) + (21) * (40)] = 'O';
@@ -145,7 +158,7 @@ void Draw_Screen()
 
 
 
-
+	//Draw the laser
 	if (gunFired)
 
 	{

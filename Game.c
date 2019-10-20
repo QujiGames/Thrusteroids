@@ -8,7 +8,7 @@
 #include "Random/Random.h"
 
 
-
+// Initiate game
 void Game_Init()
 {
 	Console_Init();
