@@ -10,7 +10,7 @@
 static long int level_size = 10000;
 
 
-int jitter[]()
+int jitter()
 {
 	int jitter_value;
 	
