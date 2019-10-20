@@ -137,6 +137,12 @@ void Draw_Screen()
 	aScreen[(19) + (22) * (40)] = '/';
 	aScreen[(21) + (22) * (40)] = '\\';
 
+	if (velocityY > 0)
+	{
+		aScreen[(20) + (22) * 40] = '!';
+
+	}
+
 
 
 

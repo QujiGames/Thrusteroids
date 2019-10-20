@@ -38,6 +38,11 @@ void RenderScene(char(*arr), int width, int height)
 				Console_SetRenderBuffer_Char(i, j, arr[i + j * 40],0,0,0x0002);
 				
 			}
+			else if (arr[i + j * 40] == '!')
+			{
+				Console_SetRenderBuffer_Char(i, j, arr[i + j * 40], 0x0004, 0, 0);
+
+			}
 			else
 			{
 
