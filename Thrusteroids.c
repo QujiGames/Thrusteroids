@@ -5,6 +5,7 @@
 #include "Engine.h"
 #include "Clock/Clock.h"
 #include <math.h>
+#include "ProceduralGeneration.h"
 #define Gravity 1.0001f;
 
 static int bGameIsRunning = 1;
@@ -213,9 +214,6 @@ int main()
 
 		RenderScene(aScreen, level_width , level_height);
 		Get_Inputs2();
-
-
-
 	}
 	GameShutdown();
 }
