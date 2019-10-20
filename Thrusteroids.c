@@ -108,8 +108,8 @@ void Draw_Screen()
 	velocityY = velocityY * Gravity;
 
 	anglerad = ((double)angle * 3.1415 / 180.f);
-	yTrans = yTrans + (velocityY)*cos(anglerad) * Clock_GetDeltaTime();
-	xTrans = xTrans + (velocityX)*sin(anglerad) * Clock_GetDeltaTime();
+	yTrans = (float)(yTrans + (velocityY)*cos(anglerad) * Clock_GetDeltaTime());
+	xTrans = (float)(xTrans + (velocityX)*sin(anglerad) * Clock_GetDeltaTime());
 
 	for (i = 0; i < 40; ++i)
 	{
@@ -119,8 +119,8 @@ void Draw_Screen()
 			{
 
 
-				a = ((i + yTrans - 20) * cos(anglerad)) - ((j + xTrans - 20) * sin(anglerad)) + 20;
-				b = ((i + yTrans) - 20) * sin(anglerad) + ((j + xTrans - 20) * cos(anglerad)) + 20;
+				a = (float)(((i + yTrans - 20) * cos(anglerad)) - ((j + xTrans - 20) * sin(anglerad)) + 20);
+				b = (float)(((i + yTrans - 20) * sin(anglerad)) + ((j + xTrans - 20) * cos(anglerad)) + 20);
 
 				if (a > 0 && b > 0 && a <= 39 && b <= 39)
 				{
