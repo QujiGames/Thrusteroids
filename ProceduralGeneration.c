@@ -1,4 +1,3 @@
-/*
 #include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -10,7 +9,7 @@
 
 static long int level_size = 10000;
 
-
+/*
 int jitter()
 {
 	int jitter_value;
@@ -37,14 +36,12 @@ int variance()
 *	y_variance is the randomness of the y_jitter
 *
 *
-*
+*/
 
 
 
-void Level_Generator(int jitter(), int jitter(), int variance(), int variance(), int level_size)
+void Level_Generator(int jitter, int jitte, int variance, int varianc, int level_size)
 {
 
 
 }
-
-*/
