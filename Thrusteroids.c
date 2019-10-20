@@ -101,7 +101,7 @@ void ClearScreen()
 void Draw_Screen()
 {
 	ClearScreen();
-	int i,j;
+	int i, j;
 	float a = 0.1f, b = 0.1f;
 	
 	
@@ -120,7 +120,7 @@ void Draw_Screen()
 
 
 				a = ((i + yTrans - 20) * cos(anglerad)) - ((j + xTrans - 20) * sin(anglerad)) + 20;
-				b = ((i + yTrans - 20) * sin(anglerad)) + ((j + xTrans - 20) * cos(anglerad)) + 20;
+				b = ((i + yTrans) - 20) * sin(anglerad) + ((j + xTrans - 20) * cos(anglerad)) + 20;
 
 				if (a > 0 && b > 0 && a <= 39 && b <= 39)
 				{
