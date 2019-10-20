@@ -192,7 +192,9 @@ void Console_CleanUp();
  * \note	Example: Console_SetRenderBuffer_Char(20,15,'A');
  * \note	The character will be displayed on your screen only after a Console_SwapRenderBuffer() call
  */
-void Console_SetRenderBuffer_Char(int x, int y, char c);
+void Console_SetRenderBuffer_Char(int x, int y, char c, int red, int blue, int green);
+
+
 
 
 /**

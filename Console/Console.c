@@ -78,7 +78,7 @@ void Console_SwapRenderBuffer()
 	}
 }
 
-void Console_SetRenderBuffer_Char(int x, int y, char c)
+void Console_SetRenderBuffer_Char(int x, int y, char c, int red, int blue, int green)
 {
 #ifdef _DEBUG
 	Console_HandleValidity_Assert();
@@ -90,7 +90,23 @@ void Console_SetRenderBuffer_Char(int x, int y, char c)
 		return;
 
 	sRenderBuffer[index].Char.AsciiChar = c;
-	sRenderBuffer[index].Attributes = FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN;
+	sRenderBuffer[index].Attributes = red | blue| green;
+	// FOREGROUND_RED | FOREGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_INTENSITY;
+}
+
+void Console_SetRenderBuffer_Char_Green(int x, int y, char c)
+{
+#ifdef _DEBUG
+	Console_HandleValidity_Assert();
+#endif
+
+	const int index = x + y * sConsoleSize.X;
+
+	if ((index >= sRenderBufferSize) || (index < 0))
+		return;
+
+	sRenderBuffer[index].Char.AsciiChar = c;
+	sRenderBuffer[index].Attributes =  FOREGROUND_GREEN;
 	// FOREGROUND_RED | FOREGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_INTENSITY;
 }
 
@@ -384,8 +400,8 @@ void Console_TestAPI()
 	Console_SetCursorPos(50, 25);
 	printf_s("Hello Digipen !~ ");
 
-	Console_SetRenderBuffer_Char(60, 27, 'A');
-	Console_SetRenderBuffer_Char(5, 27, 'B');
+	Console_SetRenderBuffer_Char(60, 27, 'A',0x0004, 0x0001, 0x0002);
+	Console_SetRenderBuffer_Char(5, 27, 'B', 0x0004, 0x0001, 0x0002);
 
 	printf_s("How is it going ?! ");
 
