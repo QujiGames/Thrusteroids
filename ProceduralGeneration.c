@@ -1,3 +1,4 @@
+/*
 #include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -36,7 +37,7 @@ int variance()
 *	y_variance is the randomness of the y_jitter
 *
 *
-*/
+*
 
 
 
@@ -45,3 +46,5 @@ void Level_Generator(int jitter(), int jitter(), int variance(), int variance(),
 
 
 }
+
+*/
