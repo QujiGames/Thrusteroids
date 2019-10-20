@@ -8,8 +8,8 @@
 #define Gravity 1.0001f;
 
 static int bGameIsRunning = 1;
-static char aLevel[6400];
-static char aScreen[6400];
+static char aLevel[3200];
+static char aScreen[3200];
 static double velocity = 0.0005f;
 static double velocityY = -0.005f;
 static double velocityX = 0;
@@ -25,7 +25,7 @@ static float xMod = 0;
 static float yMod = 0;
 static float anglerad = 0.00000f;
 static int gunFired = 0;
-static int level_width = 80;
+static int level_width = 40;
 static int level_height = 80;
 
 
@@ -131,6 +131,18 @@ void Draw_Screen()
 	xTrans = (float)(xTrans + (velocityX) * Clock_GetDeltaTime());
 
 
+	//firing the laser, call it first so the level overwrites it
+	if (gunFired)
+
+	{
+		for (x = (level_height / 2 - 1); x > 0; x--)
+		{
+
+			aScreen[(level_width / 2) + x * level_width] = '|';
+
+
+		}
+	}
 
 	// take the fixed aLevel array, translate and rotate it based on current positions and angles, then copy it into aScreen array ready to render.
 	int xAdjust = level_width / 2;
@@ -173,17 +185,7 @@ void Draw_Screen()
 
 
 	//Dwraw the laser
-	if (gunFired)
-
-	{
-		for (x = (level_height/2-1); x > 0; x--)
-		{
-
-			aScreen[(level_height/2) + x * level_height] = '|';
-
-
-		}
-	}
+	
 
 
 

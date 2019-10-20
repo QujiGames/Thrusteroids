@@ -27,22 +27,22 @@ void RenderScene(char(*arr), int width, int height)
 {
 	Console_ClearRenderBuffer();
 
-	int i, j;
+	int x, y;
 
-	for (i = 0; i < height; ++i)
+	for (y = 0; y < height; ++y)
 	{
-		for (j = 0; j < width; ++j)
+		for (x = 0; x < width; ++x)
 		{
-			if (arr[i + j * height] == '|')
+			if (arr[x + y * width] == '|')
  			{
 				// Draw laser as green
-				Console_SetRenderBuffer_Char(i, j, arr[i + j * width],0,0,0x0002);
+				Console_SetRenderBuffer_Char(x, y, arr[x + y * width],0,0,0x0002);
 				
 			}
-			else if (arr[i + j * height] == '!')
+			else if (arr[x + y * width] == '!')
 			{
 				// draw rocket tail red
-				Console_SetRenderBuffer_Char(i, j, arr[i + j * width], 0x0004, 0, 0);
+				Console_SetRenderBuffer_Char(x, y, arr[x + y * width], 0x0004, 0, 0);
 
 			}
 			else
@@ -50,7 +50,7 @@ void RenderScene(char(*arr), int width, int height)
 
 				//Draw screen elements
 
-				Console_SetRenderBuffer_Char(i, j, arr[i + j * width],0x0004, 0x0001, 0x0002);
+				Console_SetRenderBuffer_Char(x, y, arr[x + y * width],0x0004, 0x0001, 0x0002);
 			}
 		}
 	}
