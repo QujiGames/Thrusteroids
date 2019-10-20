@@ -35,13 +35,13 @@ static int level_height = 80;
 
 void Get_Inputs2()
 {
-	float x = 0.005f;
-	float y = 0.005f;
+	
+	
 	if (GetAsyncKeyState(VK_UP) & MSB)
 	{
 		// When up key is held swap the velocity, pressed variable is to allow the next part to work on release
 		
-
+		float y = 0.005f;
 		velocityY = y * cos(anglerad);
 		velocityX = y * sin(anglerad);
 		
@@ -67,7 +67,7 @@ void Get_Inputs2()
 			pressed = 0;
 		}
 	}
-	if (GetAsyncKeyState(VK_RIGHT))
+	if (GetAsyncKeyState(VK_LEFT))
 	{
 		//rotate 
 		angle = angle + 10 * (Clock_GetDeltaTime() / 1000.f);
@@ -78,7 +78,7 @@ void Get_Inputs2()
 	}
 
 
-	if (GetAsyncKeyState(VK_LEFT))
+	if (GetAsyncKeyState(VK_RIGHT))
 	{
 		//rotate
 		angle = angle - 10 * (Clock_GetDeltaTime() / 1000.f);
