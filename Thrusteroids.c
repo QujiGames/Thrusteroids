@@ -24,44 +24,38 @@ static float yTrans = 0;
 static float xMod = 0;
 static float yMod = 0;
 static float anglerad = 0.00000f;
+static int gunFired = 0;
 
 
 
 
 void Get_Inputs2()
 {
+	
 	if (GetAsyncKeyState(VK_UP) & MSB)
 	{
-		anglerad = ((double)angle * 3.1415 / 180.f);
+		
 		velocityY = 0.005f ;
 		velocityX = -0.005f;
 			
-		
-
-
-
-
 		pressed = 1;
 
 	}
-
-		
-
 	
 	else
 	{
 		if (pressed == 1)
 		{
-			velocityY = -0.005f;
+			velocityY = -0.005f  ;
 			velocityX = 0;
-			pressed = 0.f;
+			pressed = 0;
 		}
 	}
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
 
 		angle = angle + 10 * (Clock_GetDeltaTime() / 1000.f);
-		if (angle > 0)
+		if (angle > 360)
 		{
 			angle = angle - 360;
 		}
@@ -72,12 +66,24 @@ void Get_Inputs2()
 	{
 
 		angle = angle - 10 * (Clock_GetDeltaTime() / 1000.f);
-		if (angle < 360)
+		if (angle < 0)
 		{
 			angle = angle + 360;
 		}
 	}
 
+	if (GetAsyncKeyState(VK_SPACE) & MSB)
+	{
+		
+		
+		gunFired = 1;
+		
+
+	}
+	else 
+	{
+		gunFired = 0;
+	}
 }
 void ClearScreen()
 {
@@ -99,7 +105,7 @@ void Draw_Screen()
 	float a = 0.1f, b = 0.1f;
 	
 	
-	velocity = velocity * acceleration;
+	velocityY = velocityY * Gravity;
 
 	anglerad = ((double)angle * 3.1415 / 180.f);
 	yTrans = yTrans + (velocityY)*cos(anglerad) * Clock_GetDeltaTime();
@@ -126,21 +132,22 @@ void Draw_Screen()
 		}
 	}
 
-
-
-
-
-	//	for(i = 0; i < 1600; i++)
-	//	{
-	//		aScreen[i] = aLevel[i];
-	//	}
-
-	
-
-	
-
-
 	aScreen[(20) + (20) * (40)] = 'o';
+
+
+
+	if (gunFired)
+
+	{
+		for (i = 19; i > 0; i--)
+		{
+
+			aScreen[20 + i * 40] = '|';
+
+
+		}
+	}
+
 
 
 }
@@ -152,8 +159,7 @@ int main()
 
 
 	Game_Init();
-	PlayerX = 20;
-	PlayerY = 20;
+	
 	acceleration = Gravity;
 
 	Make_Level(aLevel, 40, 40);
