@@ -20,6 +20,9 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{df196b1c-234e-483d-8c07-771a567cd45a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Procedural Generation">
+      <UniqueIdentifier>{58885d72-f057-45c5-9a43-73e9b1b3c04f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clock\Clock.cpp">
@@ -40,6 +43,9 @@
     <ClCompile Include="Thrusteroids.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ProceduralGeneration.c">
+      <Filter>Procedural Generation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Clock\Clock.h">
@@ -56,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ProceduralGeneration.h">
+      <Filter>Procedural Generation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
