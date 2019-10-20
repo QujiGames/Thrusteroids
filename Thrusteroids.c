@@ -25,6 +25,9 @@ static float xMod = 0;
 static float yMod = 0;
 static float anglerad = 0.00000f;
 static int gunFired = 0;
+static float pi = 3.1415f;
+static int level_height = 100;
+static int level_width = 100;
 
 
 
@@ -114,7 +117,7 @@ void Draw_Screen()
 
 
 	//calculate translation vectors
-	anglerad = ((double)angle * 3.1415 / 180.f);
+	anglerad = (angle * pi / 180.f);
 	yTrans = (float)(yTrans + (velocityY)*cos(anglerad) * Clock_GetDeltaTime());
 	xTrans = (float)(xTrans + (velocityX)*sin(anglerad) * Clock_GetDeltaTime());
 
@@ -126,7 +129,7 @@ void Draw_Screen()
 	{
 		for (j = 0; j < 40; ++j)
 		{
-			if (aLevel[j + i * 40] == '#')
+			if (aLevel[j + (i * 40)] == '#')
 			{
 
 

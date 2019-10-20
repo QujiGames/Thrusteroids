@@ -1,10 +1,9 @@
-/*
 
-int jitter()
-
-int variance()
-
-void Level_Generator(int jitter(), int jitter(), int variance(), int variance(), int level_size)
+int Level_Seed(int min, int max);
 
 
-*/
+int Level_Size(int height, int width);
+
+char* Level_Generator(Level_Size());
+
+
