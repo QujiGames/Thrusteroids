@@ -1,4 +1,4 @@
-#include "Random/Random.h"
+﻿#include "Random/Random.h"
 #include "Console/Console.h"
 #include <Windows.h>
 #include "Game.h"
@@ -132,7 +132,11 @@ void Draw_Screen()
 		}
 	}
 
-	aScreen[(20) + (20) * (40)] = 'o';
+	aScreen[(20) + (20) * (40)] = '^';
+	aScreen[(20) + (21) * (40)] = 'O';
+	aScreen[(19) + (22) * (40)] = '/';
+	aScreen[(21) + (22) * (40)] = '\\';
+
 
 
 
