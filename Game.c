@@ -9,7 +9,7 @@
 
 
 // Initiate game
-void Game_Init()
+void Game_Init(int width, int height)
 {
 	Console_Init();
 	Random_Init();
@@ -17,7 +17,7 @@ void Game_Init()
 	Console_SetTitle("Fuji Sucks");
 
 	Console_SetSquareFont();
-	Console_SetWindowedMode(40, 40, false);
+	Console_SetWindowedMode(width, height, false);
 	Console_SetCursorVisibility(0);
 	Console_CreateRenderBuffer();
 
