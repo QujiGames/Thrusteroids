@@ -52,10 +52,10 @@ void Level_Generator(char(*Terrain), int height, int width)
 			int variance = Level_Seed(1, 2);
 			int direction = Level_Seed(-1, 1);
 
-			//if (y >= 100 && y <= 110)
-			//{
-				Terrain[x + (y * width)] = '@';
-			//}
+			if (y >= 100 && y <= 110)
+			{
+				Terrain[x + (y * width)] = '#';
+			}
 		}
 	}
 }
