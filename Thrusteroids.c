@@ -139,6 +139,17 @@ void ClearScreen()
 	}
 }
 
+void collision_detection()
+{
+
+	if (aScreen[(screen_width / 2) + ((screen_height / 2) * screen_width)] != '\0')
+	{
+		velocityX = 0;
+		velocityY = 0;
+	}
+
+}
+
 void Draw_Screen()
 {
 	ClearScreen();
@@ -192,6 +203,7 @@ void Draw_Screen()
 
 		}
 	}
+	collision_detection();
 
 	//Draw the rocket
 
@@ -226,6 +238,14 @@ void Update_positions()
 
 
 }
+
+
+
+
+
+
+
+
 
 int main()
 {
