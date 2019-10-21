@@ -19,7 +19,7 @@ static double PlayerX = 0.f;
 static double acceleration = 0.001f;
 const unsigned short MSB = 0x8000;
 static int pressed = 0;
-static float angle = 0.f;
+static float angle = 90.f;
 static float xTrans = 0;
 static float yTrans = 0;
 static float xMod = 0;
@@ -63,7 +63,7 @@ void Get_Inputs2()
 	{
 		acceleration = Gravity * Clock_GetDeltaTime() / 1000.f;
 		velocityY = velocityY + (acceleration * cos(anglerad));
-		/*
+		
 		if (velocityX >0)
 		{
 			velocityX = velocityX +  4*(acceleration);
@@ -73,7 +73,7 @@ void Get_Inputs2()
 		{
 			velocityX = velocityX -  4 *(acceleration);
 		}
-		*/
+		
 		
 
 		pressed = 0;
@@ -173,7 +173,7 @@ void Draw_Screen()
 
 
 	//calculate translation vectors
-	anglerad = (angle * 3.1415 / 180.f);
+	
 	//yTrans = (float)(yTrans + (velocityY) * Clock_GetDeltaTime());
 	//xTrans = (float)(xTrans + (velocityX) * Clock_GetDeltaTime());
 
@@ -244,7 +244,7 @@ void Draw_Screen()
 void Update_positions()
 {
 
-	//velocityY = velocityY * Gravity;
+	anglerad = (angle * 3.1415 / 180.f);
 	yTrans = (float)(yTrans + (velocityY)*Clock_GetDeltaTime());
 	xTrans = (float)(xTrans + (velocityX)*Clock_GetDeltaTime());
 
@@ -280,6 +280,7 @@ int main()
 		Clock_GameLoopStart();
 		Update_positions();
 		Get_Inputs2();
+
 		//Draw_Screen();
 		
 		Draw_Screen2(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, pressed, gunFired);
