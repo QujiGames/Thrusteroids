@@ -30,7 +30,7 @@ static int level_width = 640;
 static int level_height = 640;
 static int screen_width = 160;
 static int screen_height = 160;
-const float Gravity = -0.0005f;
+const float Gravity = -0.001f;
 
 
 
@@ -63,18 +63,18 @@ void Get_Inputs2()
 	{
 		acceleration = Gravity * Clock_GetDeltaTime() / 1000;
 		velocityY = velocityY + (acceleration * cos(anglerad));
-		/*
+		
 		if (velocityX >0)
 		{
-			velocityX = velocityX + 4* (acceleration);
+			velocityX = velocityX +  4*(acceleration);
 
 		}
 		else if (velocityX < 0)
 		{
-			velocityX = velocityX - 4* (acceleration);
+			velocityX = velocityX -  4 *(acceleration);
 		}
 
-		*/
+		
 		pressed = 0;
 
 		/*
