@@ -26,39 +26,12 @@ int Level_Seed(int min, int max)
 
 void Level_Generator(char(*Terrain), int height, int width)
 {
-	// doesn't work, need to use memory allocation to assign a variable to an array size
-	// const int level_size = height * width;
-	//char Terrain[409600];
-	
-	//
-	//	HARD CODED VALUES!!!
-	//
-
-	/*
-	//Outer loop is y axis || Inner loop is x axis
-	for (int y = 0; y < height; ++y)
-	{
-		
 			/*
 			*	jitter is x direction
 			*	variance is y direction
 			*	direction is the direction the terrain is generated; -1 is -y, 0 is +x, 1 is +y
-			*
-			int jitter = Level_Seed(1, 2);
-			int variance = Level_Seed(1, 2);
-			int direction = Level_Seed(-1, 1);
+			*/
 
-			if (y >= 110 && y <= 130)
-			{
-				
-				
-				
-				Terrain[x + (y * width)] = '#';
-			}
-		}
-	}
-
-	*/
 	int start_position = 120;
 
 	int jitterweight;
@@ -67,7 +40,7 @@ void Level_Generator(char(*Terrain), int height, int width)
 	int direction = Level_Seed(-1, 1);
 	int yposition = start_position + variance;
 
-	for (int x = 0; x < width; ++x)
+	for (int x = 0; x < width; x++)
 	{
 		jitterweight = Level_Seed(1, 100);
 		jitter = Level_Seed(1, 5);
@@ -78,14 +51,25 @@ void Level_Generator(char(*Terrain), int height, int width)
 		{
 			if (jitterweight <= 90)
 			{
-				Terrain[x + (yposition * width)] = '#';
+				if (variance == 1)
+				{
+					Terrain[x + (yposition * width)] = '#';
+				}
+				else if (variance > 1)
+				{
+					for (int i = 0; i < variance; i++)
+					{
+						Terrain[x + ((yposition + i) * width)] = '@';
+
+					}
+				}
 			}
 			else if (jitterweight > 90)
 			{
-				for (int i = 0; i < jitter; ++i)
+				for (int i = 0; i < jitter; i++)
 				{
-					Terrain[x + (yposition * width)] = '#';
-					++x;
+					Terrain[x + (yposition * width)] = 'X';
+					x++;
 				}
 			}
 
@@ -99,10 +83,9 @@ void Level_Generator(char(*Terrain), int height, int width)
 			}
 			else
 			{
-				yposition = yposition;
+				++yposition;
 			}
 		}
-
 	}
 
 }

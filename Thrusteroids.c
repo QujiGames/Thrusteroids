@@ -164,7 +164,7 @@ void Draw_Screen()
 	{
 		for (x = 0; x < level_width; ++x)
 		{
-			if (aLevel[x + y * level_width] == '#')
+			if (aLevel[x + y * level_width] != '\0')
 			{
 				
 
@@ -175,7 +175,7 @@ void Draw_Screen()
 				if (newY > 0 && newX > 0 && newY <= (screen_height-1) && newX <= (screen_width-1))
 				{
 
-					aScreen[(int)floor(newX) + (int)floor(newY) * screen_width] = '#';
+					aScreen[(int)floor(newX) + (int)floor(newY) * screen_width] = aLevel[x + y * level_width];
 				}
 			}
 
