@@ -6,7 +6,7 @@
 #include "Clock/Clock.h"
 #include <math.h>
 #include "ProceduralGeneration.h"
-#define Gravity 1.005f;
+#define Gravity 0.005f;
 
 static int bGameIsRunning = 1;
 static char aLevel[409600];
@@ -45,30 +45,40 @@ void Get_Inputs2()
 		// When up key is held swap the velocity, pressed variable is to allow the next part to work on release
 		
 		float y = 0.02f;
-		velocityY = y * cos(anglerad) -0.005f;
+		//velocityY = y * cos(anglerad) -0.005f;
+		//velocityX = y * sin(anglerad);
+		
+		
+		acceleration = 0.025f * Clock_GetDeltaTime() / 1000;
+
+		velocityY = (velocityY + acceleration) * cos(anglerad) ;
 		velocityX = y * sin(anglerad);
-		
-		
 	
 			
 		pressed = 1;
-
+		
 	}
 	
 	else
 	{
-		if (pressed == 1)
-		{
+		acceleration = 0.007f * Clock_GetDeltaTime() / 1000;
+		velocityY = (velocityY - acceleration);
+		velocityX = 0;
 
+
+		/*
+		if (pressed)
 			// return the velocity to unpressed values
-		
+		{
 			velocityY = -0.005f;
 			velocityX = 0;
-			
-				
-			
+
+
+
 			pressed = 0;
 		}
+		*/
+
 	}
 	if (GetAsyncKeyState(VK_LEFT))
 	{
@@ -125,11 +135,11 @@ void Draw_Screen()
 	float newY = 0.1f, newX = 0.1f;
 	
 	//increase velocity by gravity value, note this does nothing for directions other than down
-	velocityY = velocityY * Gravity;
+	velocityY = velocityY - 0.005f* Clock_GetDeltaTime()/1000;
 
 
 	//calculate translation vectors
-	anglerad = ((double)angle * 3.1415 / 180.f);
+	anglerad = (angle * 3.1415 / 180.f);
 	yTrans = (float)(yTrans + (velocityY) * Clock_GetDeltaTime());
 	xTrans = (float)(xTrans + (velocityX) * Clock_GetDeltaTime());
 
@@ -199,7 +209,7 @@ void Draw_Screen()
 void Update_positions()
 {
 
-	velocityY = velocityY * Gravity;
+	//velocityY = velocityY * Gravity;
 	yTrans = (float)(yTrans + (velocityY)*Clock_GetDeltaTime());
 	xTrans = (float)(xTrans + (velocityX)*Clock_GetDeltaTime());
 
@@ -214,7 +224,7 @@ int main()
 	 
 	
 	
-	acceleration = Gravity;
+	acceleration = 0.007f * Clock_GetDeltaTime() / 1000;
 
 	Level_Generator(aLevel, level_width, level_height);
 
@@ -223,8 +233,8 @@ int main()
 	{
 		Clock_GameLoopStart();
 		Draw_Screen();
-
-		//Draw_Screen2(velocityX, velocityY, xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, 1.001f);
+		Update_positions();
+		//Draw_Screen2(velocityX, velocityY, xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, 1.001f, pressed, gunFired, Clock_GetDeltaTime());
 
 		RenderScene(aScreen, screen_width , screen_height);
 		Get_Inputs2();

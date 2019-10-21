@@ -142,19 +142,20 @@ void ClearScreen2(char(*aScreen), int screen_width, int screen_height)
 
 
 
-void Draw_Screen2(int velocityX, int velocityY, int xTrans, int yTrans, float angle, int level_width, int level_height, int screen_width, int screen_height, char(*aLevel), char(*aScreen), float Gravity)
+void Draw_Screen2(int velocityX, int velocityY, int xTrans, int yTrans, float angle, int level_width, int level_height, int screen_width, int screen_height, char(*aLevel), char(*aScreen), float Gravity, int pressed, int gunFired, float time)
 {
 	ClearScreen();
 	int x, y;
 	float newY = 0.1f, newX = 0.1f;
 
 	//increase velocity by gravity value, note this does nothing for directions other than down
-	
+	velocityY = velocityY * Gravity;
 
 
 	//calculate translation vectors
-	float anglerad = ((double)angle * 3.1415 / 180.f);
-	
+	float anglerad = (angle * 3.1415 / 180.f);
+	yTrans = (float)(yTrans + (velocityY)*time);
+	xTrans = (float)(xTrans + (velocityX)*time);
 
 
 	//firing the laser, call it first so the level overwrites it
@@ -171,8 +172,8 @@ void Draw_Screen2(int velocityX, int velocityY, int xTrans, int yTrans, float an
 	}
 
 	// take the fixed aLevel array, translate and rotate it based on current positions and angles, then copy it into aScreen array ready to render.
-	int xAdjust = level_width / 2;
-	int yAdjust = level_height / 2;
+	int xAdjust = screen_width / 2;
+	int yAdjust = screen_height / 2;
 	for (y = 0; y < level_height; ++y)
 	{
 		for (x = 0; x < level_width; ++x)
@@ -202,6 +203,8 @@ void Draw_Screen2(int velocityX, int velocityY, int xTrans, int yTrans, float an
 	aScreen[(screen_width / 2 - 1) + (screen_height / 2 + 2) * (screen_width)] = '/';
 	aScreen[(screen_width / 2 + 1) + (screen_height / 2 + 2) * (screen_width)] = '\\';
 
+
+	//Only draw the flame when we accelerate
 	if (pressed > 0)
 	{
 		aScreen[(screen_width / 2) + (screen_height / 2 + 2) * screen_width] = '!';
