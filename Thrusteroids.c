@@ -6,11 +6,11 @@
 #include "Clock/Clock.h"
 #include <math.h>
 #include "ProceduralGeneration.h"
-#define Gravity 1.0001f;
+#define Gravity 1.005f;
 
 static int bGameIsRunning = 1;
-static char aLevel[3200];
-static char aScreen[1600];
+static char aLevel[409600];
+static char aScreen[25600];
 static double velocity = 0.0005f;
 static double velocityY = -0.005f;
 static double velocityX = 0;
@@ -26,10 +26,10 @@ static float xMod = 0;
 static float yMod = 0;
 static float anglerad = 0.00000f;
 static int gunFired = 0;
-static int level_width = 80;
-static int level_height = 40;
-static int screen_width = 40;
-static int screen_height = 40;
+static int level_width = 640;
+static int level_height = 640;
+static int screen_width = 160;
+static int screen_height = 160;
 
 
 
@@ -44,7 +44,7 @@ void Get_Inputs2()
 	{
 		// When up key is held swap the velocity, pressed variable is to allow the next part to work on release
 		
-		float y = 0.01f;
+		float y = 0.02f;
 		velocityY = y * cos(anglerad) -0.005f;
 		velocityX = y * sin(anglerad);
 		
@@ -179,6 +179,8 @@ void Draw_Screen()
 	aScreen[(screen_width / 2 -1) + (screen_height / 2 +2) * (screen_width)] = '/';
 	aScreen[(screen_width / 2 +1) + (screen_height / 2 + 2) * (screen_width)] = '\\';
 
+
+	//Only draw the flame when we accelerate
 	if (pressed > 0)
 	{
 		aScreen[(screen_width/2) + (screen_height/2+2) * screen_width] = '!';
