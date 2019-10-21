@@ -20,7 +20,6 @@
 int Level_Seed(int min, int max)
 {
 	return Random_Range(min, max);
-
 }
 
 
@@ -62,30 +61,47 @@ void Level_Generator(char(*Terrain), int height, int width)
 	*/
 	int start_position = 120;
 
-	int jitter = Level_Seed(1, 2);
+	int jitterweight;
+	int jitter = Level_Seed(1, 5);
 	int variance = Level_Seed(1, 5);
 	int direction = Level_Seed(-1, 1);
+	int yposition = start_position + variance;
 
 	for (int x = 0; x < width; ++x)
 	{
-		variance = Level_Seed(1, 5);
+		jitterweight = Level_Seed(1, 100);
+		jitter = Level_Seed(1, 5);
+		variance = Level_Seed(1, 2);
 		direction = Level_Seed(-1, 1);
-				
-		Terrain[x + ((start_position + variance) * width)] = '#';
+			
+		if (x < width && yposition < width && yposition > 0)
+		{
+			if (jitterweight <= 90)
+			{
+				Terrain[x + (yposition * width)] = '#';
+			}
+			else if (jitterweight > 90)
+			{
+				for (int i = 0; i < jitter; ++i)
+				{
+					Terrain[x + (yposition * width)] = '#';
+					++x;
+				}
+			}
 
-		if (direction > 0)
-		{
-			start_position = start_position + variance;
+			if (direction > 0)
+			{
+				yposition = yposition + variance;
+			}
+			else if (direction < 0)
+			{
+				yposition = yposition - variance;
+			}
+			else
+			{
+				yposition = yposition;
+			}
 		}
-		else if (direction < 0)
-		{
-			start_position = start_position - variance;
-		}
-		else
-		{
-			start_position = start_position;
-		}
-
 
 	}
 
