@@ -30,7 +30,7 @@ static int level_width = 640;
 static int level_height = 640;
 static int screen_width = 160;
 static int screen_height = 160;
-const float Gravity = -0.002f;
+const float Gravity = -0.0005f;
 
 
 
@@ -237,7 +237,10 @@ int main()
 	
 	acceleration = 0.007f * Clock_GetDeltaTime() / 1000;
 
-	Level_Generator(aLevel, level_width, level_height);
+	Level_Generator(aLevel, level_width, level_height, 30);
+	Level_Generator(aLevel, level_width, level_height, 120);
+	Level_Generator(aLevel, level_width, level_height, 300);
+	Level_Generator(aLevel, level_width, level_height, 500);
 
 
 	while (bGameIsRunning)

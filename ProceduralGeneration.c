@@ -24,7 +24,25 @@ int Level_Seed(int min, int max)
 
 
 
-void Level_Generator(char(*Terrain), int height, int width)
+void Bounding_Box(char(*Terrain), int width, int height)
+{
+	for (int x = 0; x < width; x++)
+	{
+		Terrain[x] = '#';
+		Terrain[x + (width * (height - 1))] = '#';
+	}
+
+	for (int y = 0; y < height; y++)
+	{
+		Terrain[(width - 1) + (y * width)] = '#';
+		Terrain[y * width] = '#';
+	}
+}
+
+
+
+
+void Level_Generator(char(*Terrain), int width, int height, int starting_position)
 {
 			/*
 			*	jitter is x direction
@@ -32,7 +50,11 @@ void Level_Generator(char(*Terrain), int height, int width)
 			*	direction is the direction the terrain is generated; -1 is -y, 0 is +x, 1 is +y
 			*/
 
-	int start_position = 120;
+
+	Bounding_Box(Terrain, width, height);
+
+	
+	int start_position = starting_position;
 
 	int jitterweight;
 	int jitter = Level_Seed(1, 5);
@@ -47,6 +69,22 @@ void Level_Generator(char(*Terrain), int height, int width)
 		variance = Level_Seed(1, 2);
 		direction = Level_Seed(-1, 1);
 			
+		int oldyposition = yposition;
+
+		if (direction > 0)
+		{
+			yposition = yposition + variance;
+		}
+		else if (direction < 0)
+		{
+			yposition = yposition - variance;
+		}
+		else
+		{
+			++yposition;
+		}
+		
+		
 		if (x < width && yposition < width && yposition > 0)
 		{
 			if (jitterweight <= 90)
@@ -66,24 +104,13 @@ void Level_Generator(char(*Terrain), int height, int width)
 			}
 			else if (jitterweight > 90)
 			{
-				for (int i = 0; i < jitter; i++)
+				Terrain[x + (yposition * width)] = 'X';
+				for (int i = 0; i <= jitter; i++)
 				{
-					Terrain[x + (yposition * width)] = 'X';
 					x++;
-				}
-			}
+					Terrain[x + (yposition * width)] = 'X';
 
-			if (direction > 0)
-			{
-				yposition = yposition + variance;
-			}
-			else if (direction < 0)
-			{
-				yposition = yposition - variance;
-			}
-			else
-			{
-				++yposition;
+				}
 			}
 		}
 	}
