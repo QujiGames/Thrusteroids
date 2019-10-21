@@ -6,7 +6,7 @@
 #include "Clock/Clock.h"
 #include <math.h>
 #include "ProceduralGeneration.h"
-#define Gravity 0.005f;
+
 
 static int bGameIsRunning = 1;
 static char aLevel[409600];
@@ -19,7 +19,7 @@ static double PlayerX = 0.f;
 static double acceleration = 0.001f;
 const unsigned short MSB = 0x8000;
 static int pressed = 0;
-static float angle = 0.f;
+static float angle = 180.f;
 static float xTrans = 0;
 static float yTrans = 0;
 static float xMod = 0;
@@ -30,7 +30,7 @@ static int level_width = 640;
 static int level_height = 640;
 static int screen_width = 160;
 static int screen_height = 160;
-
+const float Gravity = -0.005f;
 
 
 
@@ -49,9 +49,9 @@ void Get_Inputs2()
 		//velocityX = y * sin(anglerad);
 		
 		
-		acceleration = 0.025f * Clock_GetDeltaTime() / 1000;
+		acceleration = (0.03f +Gravity)* Clock_GetDeltaTime() / 1000;
 
-		velocityY = (velocityY + acceleration) * cos(anglerad) ;
+		velocityY = velocityY + (acceleration * cos(anglerad)) ;
 		velocityX = y * sin(anglerad);
 	
 			
@@ -61,10 +61,10 @@ void Get_Inputs2()
 	
 	else
 	{
-		acceleration = 0.007f * Clock_GetDeltaTime() / 1000;
-		velocityY = (velocityY - acceleration);
+		acceleration = Gravity * Clock_GetDeltaTime() / 1000;
+		velocityY = (velocityY + acceleration);
 		velocityX = 0;
-
+		pressed = 0;
 
 		/*
 		if (pressed)
