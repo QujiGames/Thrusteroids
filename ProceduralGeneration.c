@@ -27,11 +27,11 @@ int Level_Seed(int min, int max)
 
 
 
-char * Level_Generator(int height, int width)
+void Level_Generator(char(*Terrain), int height, int width)
 {
 	// doesn't work, need to use memory allocation to assign a variable to an array size
 	// const int level_size = height * width;
-	char Terrain[1600];
+	//char Terrain[409600];
 	
 	//
 	//	HARD CODED VALUES!!!
@@ -39,9 +39,9 @@ char * Level_Generator(int height, int width)
 
 	
 	//Outer loop is y axis || Inner loop is x axis
-	for (int i = 0; i < 40; ++i)
+	for (int y = 0; y < height; ++y)
 	{
-		for (int j = 0; j < 40; ++j)
+		for (int x = 0; x < width; ++x)
 		{
 			/*
 			*	jitter is x direction
@@ -52,19 +52,12 @@ char * Level_Generator(int height, int width)
 			int variance = Level_Seed(1, 2);
 			int direction = Level_Seed(-1, 1);
 
-
-			if (i >= 30 && i <= 35)
-			{
-				Terrain[j + (i * 40)] = '@';
-			}
-
+			//if (y >= 100 && y <= 110)
+			//{
+				Terrain[x + (y * width)] = '@';
+			//}
 		}
-
-
 	}
-
-	return Terrain;
-
 }
 
 

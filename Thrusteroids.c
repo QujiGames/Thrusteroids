@@ -216,7 +216,7 @@ int main()
 	
 	acceleration = Gravity;
 
-	Make_Level(aLevel, level_width, level_height);
+	Level_Generator(aLevel, level_width, level_height);
 
 
 	while (bGameIsRunning)
