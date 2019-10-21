@@ -19,7 +19,7 @@ static double PlayerX = 0.f;
 static double acceleration = 0.001f;
 const unsigned short MSB = 0x8000;
 static int pressed = 0;
-static float angle = 90.f;
+static float angle = 0.f;
 static float xTrans = 0;
 static float yTrans = 0;
 static float xMod = 0;
@@ -161,7 +161,7 @@ void collision_detection()
 
 
 }
-
+/*
 void Draw_Screen()
 {
 	ClearScreen();
@@ -240,7 +240,7 @@ void Draw_Screen()
 
 
 }
-
+*/
 void Update_positions()
 {
 
