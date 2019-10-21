@@ -9,82 +9,7 @@
 
 
 
-int pressed, gunFired;
 
-// Placeholder function does nothing at the moment
-void Get_Inputs(float velocityX, float velocityY, float angle, unsigned short MSB)
-
-{
-	
-	float anglerad = ((double)angle * 3.1415 / 180.f);
-	
-
-		if (GetAsyncKeyState(VK_UP) & MSB)
-		{
-			// When up key is held swap the velocity, pressed variable is to allow the next part to work on release
-
-			float y = 0.005f;
-			velocityY = y * cos(anglerad);
-			velocityX = y * sin(anglerad);
-
-
-
-
-			pressed = 1;
-
-		}
-
-		else
-		{
-			if (pressed == 1)
-			{
-
-				// return the velocity to unpressed values
-
-				velocityY = -0.005f;
-				velocityX = 0;
-
-
-
-				pressed = 0;
-			}
-		}
-		if (GetAsyncKeyState(VK_LEFT))
-		{
-			//rotate 
-			angle = angle + 10 * (Clock_GetDeltaTime() / 1000.f);
-			if (angle > 360)
-			{
-				angle = angle - 360;
-			}
-		}
-
-
-		if (GetAsyncKeyState(VK_RIGHT))
-		{
-			//rotate
-			angle = angle - 10 * (Clock_GetDeltaTime() / 1000.f);
-			if (angle < 0)
-			{
-				angle = angle + 360;
-			}
-		}
-
-		if (GetAsyncKeyState(VK_SPACE) & MSB)
-		{
-			// check for psave bar pressed to fire laser
-
-			gunFired = 1;
-
-
-		}
-		else
-		{
-			gunFired = 0;
-		}
-	
-
-}
 
 
 //sub routine to take an array input and draw it to the screen.  arr is the array passed eg aScreen
@@ -142,21 +67,17 @@ void ClearScreen2(char(*aScreen), int screen_width, int screen_height)
 
 
 
-void Draw_Screen2(int velocityX, int velocityY, int xTrans, int yTrans, float angle, int level_width, int level_height, int screen_width, int screen_height, char(*aLevel), char(*aScreen), float Gravity, int pressed, int gunFired, float time)
+void Draw_Screen2( float xTrans, float yTrans, float angle, int level_width, int level_height, int screen_width, int screen_height, char(*aLevel), char(*aScreen), int pressed, int gunFired)
 {
 	ClearScreen();
 	int x, y;
 	float newY = 0.1f, newX = 0.1f;
 
-	//increase velocity by gravity value, note this does nothing for directions other than down
-	velocityY = velocityY * Gravity;
+	
 
 
-	//calculate translation vectors
 	float anglerad = (angle * 3.1415 / 180.f);
-	yTrans = (float)(yTrans + (velocityY)*time);
-	xTrans = (float)(xTrans + (velocityX)*time);
-
+	
 
 	//firing the laser, call it first so the level overwrites it
 	if (gunFired)
@@ -178,7 +99,7 @@ void Draw_Screen2(int velocityX, int velocityY, int xTrans, int yTrans, float an
 	{
 		for (x = 0; x < level_width; ++x)
 		{
-			if (aLevel[x + y * level_width] == '#')
+			if (aLevel[x + y * level_width] != '\0')
 			{
 
 
@@ -189,12 +110,13 @@ void Draw_Screen2(int velocityX, int velocityY, int xTrans, int yTrans, float an
 				if (newY > 0 && newX > 0 && newY <= (screen_height - 1) && newX <= (screen_width - 1))
 				{
 
-					aScreen[(int)floor(newX) + (int)floor(newY) * screen_width] = '#';
+					aScreen[(int)floor(newX) + (int)floor(newY) * screen_width] = aLevel[x + y * level_width];
 				}
 			}
 
 		}
 	}
+	// collision_detection();
 
 	//Draw the rocket
 
@@ -219,5 +141,4 @@ void Draw_Screen2(int velocityX, int velocityY, int xTrans, int yTrans, float an
 
 
 }
-
 

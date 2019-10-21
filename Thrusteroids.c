@@ -30,7 +30,7 @@ static int level_width = 640;
 static int level_height = 640;
 static int screen_width = 160;
 static int screen_height = 160;
-const float Gravity = -0.001f;
+const float Gravity = -0.005f;
 
 
 
@@ -49,7 +49,7 @@ void Get_Inputs2()
 		//velocityX = y * sin(anglerad);
 		
 		
-		acceleration = (0.015f +Gravity)* Clock_GetDeltaTime() / 1000;
+		acceleration = (0.015f +Gravity)* Clock_GetDeltaTime() / 1000.f;
 
 		velocityY = velocityY + (acceleration * cos(anglerad)) ;
 		velocityX = velocityX + (acceleration * sin(anglerad));
@@ -61,9 +61,9 @@ void Get_Inputs2()
 	
 	else
 	{
-		acceleration = Gravity * Clock_GetDeltaTime() / 1000;
+		acceleration = Gravity * Clock_GetDeltaTime() / 1000.f;
 		velocityY = velocityY + (acceleration * cos(anglerad));
-		
+		/*
 		if (velocityX >0)
 		{
 			velocityX = velocityX +  4*(acceleration);
@@ -73,8 +73,9 @@ void Get_Inputs2()
 		{
 			velocityX = velocityX -  4 *(acceleration);
 		}
-
+		*/
 		
+
 		pressed = 0;
 
 		/*
@@ -141,12 +142,23 @@ void ClearScreen()
 
 void collision_detection()
 {
+	int i, j;
+	
 
-	if (aScreen[(screen_width / 2) + ((screen_height / 2) * screen_width)] != '\0')
+	for (i = -1; i < 2; i++)
 	{
-		velocityX = 0;
-		velocityY = 0;
+		for (j = -1; j < 2; j++)
+		{
+
+
+			if (aScreen[((screen_width / 2)-i) + (((screen_height / 2)-j) * screen_width)] != '\0')
+			{
+				velocityX = 0;
+				velocityY = 0;
+			}
+		}
 	}
+
 
 }
 
@@ -157,13 +169,13 @@ void Draw_Screen()
 	float newY = 0.1f, newX = 0.1f;
 	
 	//increase velocity by gravity value, note this does nothing for directions other than down
-	velocityY = velocityY - 0.005f* Clock_GetDeltaTime()/1000;
+	//velocityY = velocityY - 0.005f* Clock_GetDeltaTime()/1000;
 
 
 	//calculate translation vectors
 	anglerad = (angle * 3.1415 / 180.f);
-	yTrans = (float)(yTrans + (velocityY) * Clock_GetDeltaTime());
-	xTrans = (float)(xTrans + (velocityX) * Clock_GetDeltaTime());
+	//yTrans = (float)(yTrans + (velocityY) * Clock_GetDeltaTime());
+	//xTrans = (float)(xTrans + (velocityX) * Clock_GetDeltaTime());
 
 
 	//firing the laser, call it first so the level overwrites it
@@ -203,7 +215,7 @@ void Draw_Screen()
 
 		}
 	}
-	collision_detection();
+	 collision_detection();
 
 	//Draw the rocket
 
@@ -266,12 +278,15 @@ int main()
 	while (bGameIsRunning)
 	{
 		Clock_GameLoopStart();
-		Draw_Screen();
 		Update_positions();
-		//Draw_Screen2(velocityX, velocityY, xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, 1.001f, pressed, gunFired, Clock_GetDeltaTime());
+		Get_Inputs2();
+		//Draw_Screen();
+		
+		Draw_Screen2(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, pressed, gunFired);
+		
 
 		RenderScene(aScreen, screen_width , screen_height);
-		Get_Inputs2();
+		
 	}
 	GameShutdown();
 }
