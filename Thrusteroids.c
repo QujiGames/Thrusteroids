@@ -148,8 +148,8 @@ void Draw_Screen()
 	}
 
 	// take the fixed aLevel array, translate and rotate it based on current positions and angles, then copy it into aScreen array ready to render.
-	int xAdjust = level_width / 2;
-	int yAdjust = level_height / 2;
+	int xAdjust = screen_width / 2;
+	int yAdjust =screen_height / 2;
 	for (y = 0; y < level_height; ++y)
 	{
 		for (x = 0; x < level_width; ++x)
