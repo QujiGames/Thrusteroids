@@ -30,7 +30,7 @@ static int level_width = 640;
 static int level_height = 640;
 static int screen_width = 160;
 static int screen_height = 160;
-const float Gravity = -0.005f;
+const float Gravity = -0.0f;
 
 
 
@@ -234,7 +234,6 @@ void Draw_Screen()
 
 
 
-	//Dwraw the laser
 	
 
 
@@ -247,6 +246,7 @@ void Update_positions()
 	anglerad = (angle * 3.1415 / 180.f);
 	yTrans = (float)(yTrans + (velocityY)*Clock_GetDeltaTime());
 	xTrans = (float)(xTrans + (velocityX)*Clock_GetDeltaTime());
+	velocityY = velocityY - 0.005f * Clock_GetDeltaTime() / 1000;
 
 
 }
