@@ -63,6 +63,7 @@ void Get_Inputs2()
 	{
 		acceleration = Gravity * Clock_GetDeltaTime() / 1000;
 		velocityY = velocityY + (acceleration * cos(anglerad));
+		/*
 		if (velocityX >0)
 		{
 			velocityX = velocityX + 4* (acceleration);
@@ -73,7 +74,7 @@ void Get_Inputs2()
 			velocityX = velocityX - 4* (acceleration);
 		}
 
-
+		*/
 		pressed = 0;
 
 		/*
@@ -93,7 +94,7 @@ void Get_Inputs2()
 	if (GetAsyncKeyState(VK_LEFT))
 	{
 		//rotate 
-		angle = angle + 20 * (Clock_GetDeltaTime() / 1000.f);
+		angle = angle + 120 * (Clock_GetDeltaTime() / 1000.f);
 		if (angle > 360)
 		{
 			angle = angle - 360;
@@ -104,7 +105,7 @@ void Get_Inputs2()
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
 		//rotate
-		angle = angle - 20 * (Clock_GetDeltaTime() / 1000.f);
+		angle = angle - 120 * (Clock_GetDeltaTime() / 1000.f);
 		if (angle < 0)
 		{
 			angle = angle + 360;
