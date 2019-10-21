@@ -30,7 +30,7 @@ static int level_width = 640;
 static int level_height = 640;
 static int screen_width = 160;
 static int screen_height = 160;
-const float Gravity = -0.005f;
+const float Gravity = -0.002f;
 
 
 
@@ -49,10 +49,10 @@ void Get_Inputs2()
 		//velocityX = y * sin(anglerad);
 		
 		
-		acceleration = (0.03f +Gravity)* Clock_GetDeltaTime() / 1000;
+		acceleration = (0.015f +Gravity)* Clock_GetDeltaTime() / 1000;
 
 		velocityY = velocityY + (acceleration * cos(anglerad)) ;
-		velocityX = y * sin(anglerad);
+		velocityX = velocityX + (acceleration * sin(anglerad));
 	
 			
 		pressed = 1;
@@ -62,8 +62,18 @@ void Get_Inputs2()
 	else
 	{
 		acceleration = Gravity * Clock_GetDeltaTime() / 1000;
-		velocityY = (velocityY + acceleration);
-		velocityX = 0;
+		velocityY = velocityY + (acceleration * cos(anglerad));
+		if (velocityX >0)
+		{
+			velocityX = velocityX + 4* (acceleration);
+
+		}
+		else if (velocityX < 0)
+		{
+			velocityX = velocityX - 4* (acceleration);
+		}
+
+
 		pressed = 0;
 
 		/*
@@ -83,7 +93,7 @@ void Get_Inputs2()
 	if (GetAsyncKeyState(VK_LEFT))
 	{
 		//rotate 
-		angle = angle + 10 * (Clock_GetDeltaTime() / 1000.f);
+		angle = angle + 20 * (Clock_GetDeltaTime() / 1000.f);
 		if (angle > 360)
 		{
 			angle = angle - 360;
@@ -94,7 +104,7 @@ void Get_Inputs2()
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
 		//rotate
-		angle = angle - 10 * (Clock_GetDeltaTime() / 1000.f);
+		angle = angle - 20 * (Clock_GetDeltaTime() / 1000.f);
 		if (angle < 0)
 		{
 			angle = angle + 360;
