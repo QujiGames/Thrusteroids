@@ -53,7 +53,7 @@ void Get_Inputs()
 
 		velocityY = velocityY + (acceleration) * cos(anglerad);
 		velocityX = velocityX + (acceleration * sin(anglerad));
-		//velocityY = velocityY + Gravity;
+		velocityY = velocityY - (Gravity * Clock_GetDeltaTime()/1000);
 	
 			
 		pressed = 1;
@@ -68,17 +68,17 @@ void Get_Inputs()
 		
 		if (velocityX >0)
 		{
-			velocityX = velocityX + (acceleration * 4);
+			velocityX = velocityX + (acceleration * 2);
 
 		}
 		else if (velocityX < 0)
 		{
-			velocityX = velocityX - (acceleration * 4);
+			velocityX = velocityX - (acceleration * 2);
 
 
-
-			pressed = 0;
 		}
+			pressed = 0;
+		
 		/*
 		if (pressed)
 			// return the velocity to unpressed values
