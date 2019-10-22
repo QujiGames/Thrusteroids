@@ -11,12 +11,12 @@
 
 
 
-void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, int level_height, int level_width, float time, float angle)
+void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, int level_height, int level_width, float time, float angle, int size, int speed)
 {
 	int x =0, y=0;
 	float  a, b;
 
-	angle = angle + (30 * time / 1000);
+	angle = angle + (speed * time / 1000);
 
 
 	angle = (angle * 3.1415 / 180);
@@ -27,7 +27,7 @@ void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, in
 		//-200 is fix to make laser big enough for the moment.  Need to add collision detection
 		
 	//upwards
-	for (y = y_position; y > -200; y--)
+	for (y = y_position; y > y_position-size; y--)
 		{
 			a = (float)(((x) * sin(angle)) + ((y-y_position) * cos(angle)) + y_position);
 			b = (float)(((x) * cos(angle)) - ((y- y_position) * sin(angle)) + x_position);
@@ -43,7 +43,7 @@ void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, in
 		
 
 		//downwards
-		for (y = y_position; y < level_height - y_position; y++)
+		for (y = y_position; y < y_position+size; y++)
 		{
 			a = (float)(((x)*sin(angle)) + ((y-y_position)*cos(angle)) + y_position);
 			b = (float)(((x)*cos(angle)) - ((y-y_position)*sin(angle)) + x_position);
@@ -60,7 +60,7 @@ void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, in
 
 
 		//left
-		for (x = x_position; x > -200; x--)
+		for (x = x_position; x > x_position-size; x--)
 		{
 			a = (float)(((x-x_position)*sin(angle)) + ((y)*cos(angle)) + y_position);
 			b = (float)(((x-x_position)*cos(angle)) - ((y)*sin(angle)) + x_position);
@@ -79,7 +79,7 @@ void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, in
 		//right
 
 		
-		for (x = x_position; x < level_width - x_position; x++)
+		for (x = x_position; x < x_position+size; x++)
 		{
 			a = (float)(((x-x_position)*sin(angle)) + ((y)*cos(angle)) + y_position);
 			b = (float)(((x-x_position)*cos(angle)) - ((y)*sin(angle)) + x_position);

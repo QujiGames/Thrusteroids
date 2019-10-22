@@ -108,7 +108,7 @@ void Draw_Screen2( float xTrans, float yTrans, float angle, int level_width, int
 	if (gunFired)
 
 	{
-		for (x = (screen_height / 2 - 1); x > 0; x--)
+		for (x = screen_height/2; x > screen_height/2-30; x--)
 		{
 
 			aScreen[(screen_width / 2) + x * screen_width] = '|';
