@@ -40,7 +40,7 @@ void Get_Inputs2()
 {
 	
 	
-	if (GetAsyncKeyState(VK_UP) && MSB)
+	if ((GetAsyncKeyState(VK_UP) && MSB) || (GetAsyncKeyState(0x57) && MSB))
 	{
 		// When up key is held swap the velocity, pressed variable is to allow the next part to work on release
 		
@@ -92,7 +92,7 @@ void Get_Inputs2()
 		*/
 
 	}
-	if (GetAsyncKeyState(VK_LEFT))
+	if ((GetAsyncKeyState(VK_LEFT)) || (GetAsyncKeyState(0x41)))
 	{
 		//rotate 
 		angle = angle + 120 * (Clock_GetDeltaTime() / 1000.f);
@@ -103,7 +103,7 @@ void Get_Inputs2()
 	}
 
 
-	if (GetAsyncKeyState(VK_RIGHT))
+	if ((GetAsyncKeyState(VK_RIGHT)) || (GetAsyncKeyState(0x44)))
 	{
 		//rotate
 		angle = angle - 120 * (Clock_GetDeltaTime() / 1000.f);
