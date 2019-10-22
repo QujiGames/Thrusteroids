@@ -157,6 +157,7 @@
     <ClCompile Include="Game.c" />
     <ClCompile Include="ProceduralGeneration.c" />
     <ClCompile Include="Random\Random.c" />
+    <ClCompile Include="Enemies.c" />
     <ClCompile Include="Thrusteroids.c" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +165,7 @@
     <ClInclude Include="Console\Console.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Enemies.h" />
     <ClInclude Include="ProceduralGeneration.h" />
     <ClInclude Include="Random\Random.h" />
   </ItemGroup>

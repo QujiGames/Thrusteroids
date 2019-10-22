@@ -6,11 +6,13 @@
 #include "Clock/Clock.h"
 #include <math.h>
 #include "ProceduralGeneration.h"
+#include "Enemies.h"
 
 
 static int bGameIsRunning = 1;
 static char aLevel[1000000];
 static char aScreen[25600];
+static char aActors[1000000];
 
 static double velocityY = 0.000f;
 static double velocityX = 0;
@@ -255,9 +257,22 @@ void Draw_Screen()
 
 
 
+
 }
 */
-void Update_positions()
+
+
+
+void Draw_Actors()
+
+{
+	Draw_STAR(aActors, aLevel, 30, 30, level_height, level_width);
+
+
+}
+
+
+void Update()
 {
 
 	anglerad = (angle * 3.1415 / 180);
@@ -265,8 +280,12 @@ void Update_positions()
 	xTrans = (float)(xTrans + (velocityX)*Clock_GetDeltaTime());
 	//velocityY = velocityY + Gravity * Clock_GetDeltaTime() / 1000;
 
+	Draw_Screen2(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen,aActors, pressed, gunFired);
+	Draw_Actors();
+
 
 }
+
 
 
 
@@ -295,12 +314,12 @@ int main()
 	while (bGameIsRunning)
 	{
 		Clock_GameLoopStart();
-		Update_positions();
-		Get_Inputs();
-
-		//Draw_Screen();
 		
-		Draw_Screen2(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, pressed, gunFired);
+		Get_Inputs();
+		Update();
+		
+		
+		
 		
 
 		RenderScene(aScreen, screen_width , screen_height, score);
