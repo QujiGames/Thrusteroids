@@ -31,6 +31,9 @@ static int level_height = 1000;
 static int screen_width = 160;
 static int screen_height = 160;
 const float Gravity = -0.001f;
+int score = 0;
+
+
 
 
 
@@ -300,7 +303,7 @@ int main()
 		Draw_Screen2(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, pressed, gunFired);
 		
 
-		RenderScene(aScreen, screen_width , screen_height);
+		RenderScene(aScreen, screen_width , screen_height, score);
 		
 	}
 	GameShutdown();

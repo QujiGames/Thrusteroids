@@ -14,7 +14,7 @@
 
 //sub routine to take an array input and draw it to the screen.  arr is the array passed eg aScreen
 
-void RenderScene(char(*arr), int width, int height)
+void RenderScene(char(*arr), int width, int height, int score)
 {
 	Console_ClearRenderBuffer();
 
@@ -59,6 +59,16 @@ void RenderScene(char(*arr), int width, int height)
 
 		}
 	}
+
+
+	
+	char stringbuffer[20];
+
+	snprintf(stringbuffer, 20, "%d", score);
+	Console_SetRenderBuffer_String(0, 40, "Score: ");
+	Console_SetRenderBuffer_String(7, 40, stringbuffer);
+	
+
 
 	Console_SwapRenderBuffer();
 

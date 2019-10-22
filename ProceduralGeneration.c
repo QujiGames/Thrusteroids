@@ -78,41 +78,6 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 			{
 				if (variance == 1)
 				{
-					/******
-					*
-					*	Fix for holes? not yet anyway
-					*
-					*********
-					*********
-
-					if (direction > 0)
-					{
-						Terrain[x + ((yposition + 1) * width)] = '#';
-						Terrain[x + (yposition * width)] = '#';
-
-					}
-					else if (direction < 0)
-					{
-						Terrain[x + ((yposition - 1) * width)] = '#';
-						Terrain[x + (yposition * width)] = '#';
-
-					}
-					else
-					{
-						Terrain[(x - 1) + ((yposition) * width)] = '#';
-						Terrain[x + (yposition * width)] = '#';
-
-					}
-					********
-					********
-					*/
-
-					//
-					//	put in conditions to prevent XXX wrapping at end of level?
-					//
-					//
-					//
-
 					Terrain[x + (yposition * width)] = 'A';
 
 					if (direction > 0)
@@ -125,6 +90,7 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 					}
 					else
 					{
+						Terrain[(x - 1) + ((yposition - 1) * width)] = 'q';
 						Terrain[(x - 1) + (yposition * width)] = 'w';
 					}
 				}
@@ -134,21 +100,24 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 
 					if (direction > 0)
 					{
-						for (int i = 0; i < variance; i++)
+						Terrain[x + ((yposition - 1) * width)] = 'B';
+						for (int i = 0; i <= variance; i++)
 						{
 							Terrain[x + ((yposition + i) * width)] = 'B';
 						}
 					}
 					else if (direction < 0)
 					{
-						for (int i = 0; i < variance; i++)
+						Terrain[x + ((yposition + 1) * width)] = 'C';
+						for (int i = 0; i <= variance; i++)
 						{
 							Terrain[x + ((yposition - i) * width)] = 'C';
 						}
 					}
 					else
 					{
-						for (int i = 0; i < variance; i++)
+						Terrain[(x - 1) + ((yposition) * width)] = 'T';
+						for (int i = 0; i <= variance; i++)
 						{
 							Terrain[x + ((yposition + i) * width)] = 'Z';
 						}
@@ -157,12 +126,13 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 			}
 			else if (jitterweight > 90)
 			{
-				Terrain[x + (yposition * width)] = 'X';
+				Terrain[(x - 1) + (yposition * width)] = 'X';
+				Terrain[x + (yposition * width)] = 'R';
 				for (int i = 0; i <= jitter; i++)
 				{
 					x++;
 					Terrain[x + (yposition * width)] = 'J';
-
+					
 				}
 			}
 		}
