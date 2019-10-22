@@ -12,8 +12,8 @@
 
 void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, int level_height, int level_width)
 {
-	int x, y;
-	float angle, a, b;
+	int x =0, y=0;
+	float angle =0.1f, a, b;
 
 
 	aActors[x_position + y_position * level_width] = 'P';
@@ -30,7 +30,7 @@ void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, in
 
 		for (y = y_position; y < level_height - y_position; y++)
 		{
-			//aActors[(-y * sin(angle)) + y * level_width] = 'P';
+			aActors[1] = 'P';
 
 		}
 
