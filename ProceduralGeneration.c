@@ -279,8 +279,8 @@ void Level_Generator2(char(*Terrain), int width, int height, int screen_width, i
 	//	numbers not correct, must account for camera view offset (screen size / 2)
 	//
 
-	*xTrans = (float)(0 - Level_Seed(1, (width - (screen_width / 2))));
-	*yTrans = (float)(0 - Level_Seed(1, (height - (screen_height / 2))));
+	//*xTrans = (float)(0 - Level_Seed(1, (width - (screen_width / 2))));
+	// *yTrans = (float)(0 - Level_Seed(1, (height - (screen_height / 2))));
 
 
 

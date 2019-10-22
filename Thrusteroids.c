@@ -32,7 +32,7 @@ static int level_width = 1000;
 static int level_height = 1000;
 static int screen_width = 160;
 static int screen_height = 160;
-const float Gravity = -0.001f;
+const float Gravity = -0.000f;
 int score = 0;
 
 
@@ -266,7 +266,8 @@ void Draw_Screen()
 void Draw_Actors()
 
 {
-	Draw_STAR(aActors, aLevel, 30, 30, level_height, level_width);
+	
+	Draw_STAR(aLevel, aActors, 30, 30, level_height, level_width, Clock_GetElapsedTimeMs());
 
 
 }
@@ -280,8 +281,9 @@ void Update()
 	xTrans = (float)(xTrans + (velocityX)*Clock_GetDeltaTime());
 	//velocityY = velocityY + Gravity * Clock_GetDeltaTime() / 1000;
 
-	Draw_Screen2(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen,aActors, pressed, gunFired);
 	Draw_Actors();
+	Draw_Screen2(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen,aActors, pressed, gunFired);
+	
 
 
 }
