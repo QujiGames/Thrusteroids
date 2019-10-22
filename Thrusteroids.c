@@ -36,7 +36,7 @@ const float Gravity = -0.0f;
 
 
 
-void Get_Inputs2()
+void Get_Inputs()
 {
 	
 	
@@ -143,7 +143,7 @@ void ClearScreen()
 void collision_detection()
 {
 	int i, j;
-	
+
 
 	for (i = -1; i < 2; i++)
 	{
@@ -151,10 +151,23 @@ void collision_detection()
 		{
 
 
-			if (aScreen[((screen_width / 2)-i) + (((screen_height / 2)-j) * screen_width)] != '\0')
+			if (aScreen[((screen_width / 2) - i) + (((screen_height / 2) - j) * screen_width)] != '\0')
 			{
-				velocityX = 0;
-				velocityY = 0;
+				if (angle < 20 || angle >340)
+				{
+					velocityX = 0;
+					velocityY = 0;
+				}
+
+				else
+				{
+					Console_SetRenderBuffer_String(screen_width / 2, screen_height / 2, "You died");
+					velocityX = 0;
+					velocityY = 0;
+				}
+
+
+				
 			}
 		}
 	}
@@ -243,10 +256,10 @@ void Draw_Screen()
 void Update_positions()
 {
 
-	anglerad = (angle * 3.1415 / 180.f);
+	anglerad = (angle * 3.1415 / 180);
 	yTrans = (float)(yTrans + (velocityY)*Clock_GetDeltaTime());
 	xTrans = (float)(xTrans + (velocityX)*Clock_GetDeltaTime());
-	velocityY = velocityY - 0.005f * Clock_GetDeltaTime() / 1000;
+	velocityY = velocityY - Gravity * Clock_GetDeltaTime() / 1000;
 
 
 }
@@ -267,7 +280,7 @@ int main()
 	 
 	
 	
-	acceleration = 0.007f * Clock_GetDeltaTime() / 1000;
+	acceleration = 0.00f * Clock_GetDeltaTime() / 1000;
 
 	Level_Generator(aLevel, level_width, level_height, 30);
 	Level_Generator(aLevel, level_width, level_height, 120);
@@ -279,7 +292,7 @@ int main()
 	{
 		Clock_GameLoopStart();
 		Update_positions();
-		Get_Inputs2();
+		Get_Inputs();
 
 		//Draw_Screen();
 		
