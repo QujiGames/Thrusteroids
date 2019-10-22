@@ -11,8 +11,8 @@
 static int bGameIsRunning = 1;
 static char aLevel[1000000];
 static char aScreen[25600];
-static double velocity = 0.0005f;
-static double velocityY = -0.005f;
+
+static double velocityY = 0.000f;
 static double velocityX = 0;
 static double PlayerY = 0.f;
 static double PlayerX = 0.f;
@@ -44,15 +44,16 @@ void Get_Inputs()
 	{
 		// When up key is held swap the velocity, pressed variable is to allow the next part to work on release
 		
-		float y = 0.02f;
+		//float y = 0.02f;
 		//velocityY = y * cos(anglerad) -0.005f;
 		//velocityX = y * sin(anglerad);
 		
 		
-		acceleration = (0.015f +Gravity)* Clock_GetDeltaTime() / 1000.f;
+		acceleration =(0.01 * Clock_GetDeltaTime()) / 1000;
 
-		velocityY = velocityY + (acceleration * cos(anglerad)) ;
+		velocityY = velocityY + (acceleration) * cos(anglerad);
 		velocityX = velocityX + (acceleration * sin(anglerad));
+		//velocityY = velocityY + Gravity;
 	
 			
 		pressed = 1;
@@ -61,23 +62,23 @@ void Get_Inputs()
 	
 	else
 	{
-		acceleration = Gravity * Clock_GetDeltaTime() / 1000.f;
-		velocityY = velocityY + (acceleration * cos(anglerad));
+		acceleration = Gravity * Clock_GetDeltaTime() / 1000;
+		velocityY = velocityY + (acceleration);
+		//velocityX = velocityX + (acceleration * sin(anglerad));
 		
 		if (velocityX >0)
 		{
-			velocityX = velocityX +  4*(acceleration);
+			velocityX = velocityX + (acceleration * 4);
 
 		}
 		else if (velocityX < 0)
 		{
-			velocityX = velocityX -  4 *(acceleration);
+			velocityX = velocityX - (acceleration * 4);
+
+
+
+			pressed = 0;
 		}
-		
-		
-
-		pressed = 0;
-
 		/*
 		if (pressed)
 			// return the velocity to unpressed values
@@ -115,7 +116,7 @@ void Get_Inputs()
 
 	if ((GetAsyncKeyState(VK_SPACE) && MSB) || (GetAsyncKeyState(VK_RCONTROL) && MSB))
 	{
-		// check for psave bar pressed to fire laser
+		// check for space bar pressed to fire laser
 		
 		gunFired = 1;
 		
@@ -259,7 +260,7 @@ void Update_positions()
 	anglerad = (angle * 3.1415 / 180);
 	yTrans = (float)(yTrans + (velocityY)*Clock_GetDeltaTime());
 	xTrans = (float)(xTrans + (velocityX)*Clock_GetDeltaTime());
-	velocityY = velocityY + Gravity * Clock_GetDeltaTime() / 1000;
+	//velocityY = velocityY + Gravity * Clock_GetDeltaTime() / 1000;
 
 
 }
