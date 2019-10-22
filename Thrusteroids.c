@@ -9,7 +9,7 @@
 
 
 static int bGameIsRunning = 1;
-static char aLevel[409600];
+static char aLevel[1000000];
 static char aScreen[25600];
 static double velocity = 0.0005f;
 static double velocityY = -0.005f;
@@ -26,8 +26,8 @@ static float xMod = 0;
 static float yMod = 0;
 static float anglerad = 0.00000f;
 static int gunFired = 0;
-static int level_width = 640;
-static int level_height = 640;
+static int level_width = 1000;
+static int level_height = 1000;
 static int screen_width = 160;
 static int screen_height = 160;
 const float Gravity = -0.0f;

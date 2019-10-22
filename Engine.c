@@ -36,13 +36,27 @@ void RenderScene(char(*arr), int width, int height)
 				Console_SetRenderBuffer_Char(x, y, arr[x + y * width], 0x0004, 0, 0);
 
 			}
+
+			//
+			//	BELOW IS REALLY BAD, make an enum? or switch?
+			//	Some other way of specifying colour for various characters?
+			//	
+
+			else if (arr[x + y * width] == '#' || arr[x + y * width] == '/' || arr[x + y * width] == '\\' || arr[x + y * width] == '>' || arr[x + y * width] == '<' || arr[x + y * width] == 'O' || arr[x + y * width] == '-' || arr[x + y * width] == '^')
+			{
+				//Draw bounding box in white
+
+				Console_SetRenderBuffer_Char(x, y, arr[x + y * width], 0x0004, 0x0001, 0x0002);
+			}
 			else
 			{
+				// Draw Terrain in colour?
 
-				//Draw screen elements
+				
 
-				Console_SetRenderBuffer_Char(x, y, arr[x + y * width],0x0004, 0x0001, 0x0002);
+				Console_SetRenderBuffer_Char(x, y, arr[x + y * width],0x0001, 0x0001, 0x0001);
 			}
+
 		}
 	}
 
@@ -121,7 +135,11 @@ void Draw_Screen2( float xTrans, float yTrans, float angle, int level_width, int
 	//Draw the rocket
 
 	aScreen[(screen_width / 2) + (screen_height / 2) * (screen_width)] = '^';
+	aScreen[(screen_width / 2 - 1) + (screen_height / 2 + 1) * (screen_width)] = '<';
+	aScreen[(screen_width / 2 - 2) + (screen_height / 2 + 1) * (screen_width)] = '-';
 	aScreen[(screen_width / 2) + (screen_height / 2 + 1) * (screen_width)] = 'O';
+	aScreen[(screen_width / 2 + 1) + (screen_height / 2 + 1) * (screen_width)] = '>';
+	aScreen[(screen_width / 2 + 2) + (screen_height / 2 + 1) * (screen_width)] = '-';
 	aScreen[(screen_width / 2 - 1) + (screen_height / 2 + 2) * (screen_width)] = '/';
 	aScreen[(screen_width / 2 + 1) + (screen_height / 2 + 2) * (screen_width)] = '\\';
 
