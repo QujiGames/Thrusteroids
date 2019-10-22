@@ -305,10 +305,8 @@ int main()
 	
 	acceleration = 0.00f * Clock_GetDeltaTime() / 1000;
 
-	Level_Generator(aLevel, level_width, level_height, 30);
-	Level_Generator(aLevel, level_width, level_height, 120);
-	Level_Generator(aLevel, level_width, level_height, 300);
-	Level_Generator(aLevel, level_width, level_height, 500);
+	Level_Generator2(aLevel, level_width, level_height, screen_width, screen_height, &xTrans, &yTrans, 30);
+
 
 
 	while (bGameIsRunning)

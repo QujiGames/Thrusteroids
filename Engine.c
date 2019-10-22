@@ -62,11 +62,11 @@ void RenderScene(char(*arr), int width, int height, int score)
 
 
 	
-	char stringbuffer[20];
+	char scorebuffer[20];
 
-	snprintf(stringbuffer, 20, "%d", score);
+	snprintf(scorebuffer, 20, "%d", score);
 	Console_SetRenderBuffer_String(0, 40, "Score: ");
-	Console_SetRenderBuffer_String(7, 40, stringbuffer);
+	Console_SetRenderBuffer_String(7, 40, scorebuffer);
 	
 
 
