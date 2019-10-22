@@ -130,7 +130,7 @@ void Draw_Screen2( float xTrans, float yTrans, float angle, int level_width, int
 
 		}
 	}
-	 //collision_detection(aLevel);
+	 collision_detection();
 
 	//Draw the rocket
 

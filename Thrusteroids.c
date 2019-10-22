@@ -30,7 +30,7 @@ static int level_width = 1000;
 static int level_height = 1000;
 static int screen_width = 160;
 static int screen_height = 160;
-const float Gravity = -0.0f;
+const float Gravity = -0.001f;
 
 
 
@@ -259,7 +259,7 @@ void Update_positions()
 	anglerad = (angle * 3.1415 / 180);
 	yTrans = (float)(yTrans + (velocityY)*Clock_GetDeltaTime());
 	xTrans = (float)(xTrans + (velocityX)*Clock_GetDeltaTime());
-	velocityY = velocityY - Gravity * Clock_GetDeltaTime() / 1000;
+	velocityY = velocityY + Gravity * Clock_GetDeltaTime() / 1000;
 
 
 }
