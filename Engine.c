@@ -54,7 +54,7 @@ void RenderScene(char(*arr), int width, int height)
 
 				
 
-				Console_SetRenderBuffer_Char(x, y, arr[x + y * width],0x0001, 0x0001, 0x0001);
+				Console_SetRenderBuffer_Char(x, y, arr[x + y * width],0x0003, 0x0001, 0x0001);
 			}
 
 		}
