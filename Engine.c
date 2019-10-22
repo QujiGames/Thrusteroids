@@ -147,7 +147,7 @@ void Draw_Screen2( float xTrans, float yTrans, float angle, int level_width, int
 	{
 		for (x = 0; x < level_width; ++x)
 		{
-			if (aActors[x + y * level_width] =='P')
+			if (aActors[x + y * level_width] != '\0')
 			{
 
 
@@ -163,13 +163,13 @@ void Draw_Screen2( float xTrans, float yTrans, float angle, int level_width, int
 			}
 
 		}
-		ClearScreen2(aActors, screen_width, screen_height);
+		
 
 		
 	}
 
 	
-
+	
 
 
 

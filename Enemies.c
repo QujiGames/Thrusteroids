@@ -11,16 +11,16 @@
 
 
 
-void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, int level_height, int level_width, float time)
+void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, int level_height, int level_width, float time, float angle)
 {
 	int x =0, y=0;
-	float angle =0.0f, a, b;
+	float  a, b;
 
 	angle = angle + (30 * time / 1000);
 
 
 	angle = (angle * 3.1415 / 180);
-	ClearScreen2(aActors, level_width, level_height);
+	//ClearScreen2(aActors, level_width, level_height);
 
 	aActors[x_position + y_position * level_width] = 'P';
 
@@ -97,7 +97,18 @@ void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, in
 }
 
 
+void Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, int level_height, float velocityX, float velocityY, float time)
 
+{
+
+	Arr[x_position + y_position * level_width] = 'C';
+	Arr[x_position+ 1 + y_position * level_width] = 'O';
+	Arr[x_position + 2 + y_position * level_width] = 'O';
+	Arr[x_position + 3 + y_position * level_width] = 'D';
+
+
+
+}
 
 //x = xcos - ysin
 //y = xsin + ycos

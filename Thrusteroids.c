@@ -266,9 +266,11 @@ void Draw_Screen()
 void Draw_Actors()
 
 {
+	ClearScreen2(aActors, screen_width, screen_height);
+	//Draw_STAR(aLevel, aActors, 60, 60, level_height, level_width, Clock_GetElapsedTimeMs(), 0);
 	
-	Draw_STAR(aLevel, aActors, 30, 30, level_height, level_width, Clock_GetElapsedTimeMs());
-
+	Draw_STAR(aLevel, aActors, 120, 120, level_height, level_width, Clock_GetElapsedTimeMs(), 30);
+	Draw_Cruiser(aActors, 40, 40, level_width, level_height, 0, 0,0);
 
 }
 
@@ -283,7 +285,7 @@ void Update()
 
 	Draw_Actors();
 	Draw_Screen2(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen,aActors, pressed, gunFired);
-	
+	ClearScreen2(aActors, level_width, level_height);
 
 
 }
@@ -323,6 +325,7 @@ int main()
 		
 
 		RenderScene(aScreen, screen_width , screen_height, score);
+		
 		
 	}
 	GameShutdown();
