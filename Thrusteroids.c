@@ -40,7 +40,7 @@ void Get_Inputs2()
 {
 	
 	
-	if (GetAsyncKeyState(VK_UP) & MSB)
+	if (GetAsyncKeyState(VK_UP) && MSB)
 	{
 		// When up key is held swap the velocity, pressed variable is to allow the next part to work on release
 		
@@ -113,7 +113,7 @@ void Get_Inputs2()
 		}
 	}
 
-	if (GetAsyncKeyState(VK_SPACE) & MSB)
+	if ((GetAsyncKeyState(VK_SPACE) && MSB) || (GetAsyncKeyState(VK_RCONTROL) && MSB))
 	{
 		// check for psave bar pressed to fire laser
 		
