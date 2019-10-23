@@ -287,7 +287,7 @@ void Update()
 	//velocityY = velocityY + Gravity * Clock_GetDeltaTime() / 1000;
 
 	Draw_Actors();
-	Draw_Screen2(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen,aActors, pressed, gunFired);
+	Draw_Screen2(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, aActors, pressed, gunFired);
 	ClearScreen2(aActors, level_width, level_height);
 
 
@@ -327,7 +327,7 @@ int main()
 		
 		
 
-		RenderScene(aScreen, screen_width , screen_height, score, angle);
+		RenderScene(aScreen, screen_width , screen_height, score, angle, acceleration, velocityX, velocityY);
 		
 		
 	}

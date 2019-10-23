@@ -14,7 +14,7 @@
 
 //sub routine to take an array input and draw it to the screen.  arr is the array passed eg aScreen
 
-void RenderScene(char(*arr), int width, int height, int score, float angle)
+void RenderScene(char(*arr), int width, int height, int score, float angle, double accel, double velx, double vely)
 {
 	Console_ClearRenderBuffer();
 
@@ -75,6 +75,24 @@ void RenderScene(char(*arr), int width, int height, int score, float angle)
 	Console_SetRenderBuffer_String(7, 45, anglebuffer);
 
 
+	char velxbuffer[20];
+
+	snprintf(velxbuffer, 20, "%f", velx);
+	Console_SetRenderBuffer_String(0, 50, "VelX: ");
+	Console_SetRenderBuffer_String(7, 50, velxbuffer);
+
+	char velybuffer[20];
+
+	snprintf(velybuffer, 20, "%f", vely);
+	Console_SetRenderBuffer_String(0, 55, "VelY: ");
+	Console_SetRenderBuffer_String(7, 55, velybuffer);
+
+
+	char accelbuffer[20];
+
+	snprintf(accelbuffer, 20, "%f", accel);
+	Console_SetRenderBuffer_String(0, 60, "Accel: ");
+	Console_SetRenderBuffer_String(7, 60, accelbuffer);
 
 
 	Console_SwapRenderBuffer();
