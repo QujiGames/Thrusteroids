@@ -2,7 +2,7 @@
 
 
 void Get_Inputs();
-RenderScene(char(*arr), int width, int height, int score);
+void RenderScene(char(*arr), int width, int height, int score);
 
 void Get_Inputs(float velocityX, float velocityY, float angle, unsigned short MSB);
 

@@ -267,12 +267,12 @@ void Draw_Screen()
 void Draw_Actors()
 
 {
-	ClearScreen2(aActors, screen_width, screen_height);
+	
 	Draw_STAR(aLevel, aActors, 60, 60, level_height, level_width, Clock_GetElapsedTimeMs(), 0,20, 50);
 	
 	Draw_STAR(aLevel, aActors, 120, 120, level_height, level_width, Clock_GetElapsedTimeMs(), 30, 80,-100);
 	Draw_Cruiser(aActors, 40, 40, level_width, level_height, 0, 0,0);
-
+	
 }
 
 
