@@ -179,6 +179,7 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 	int variance = Level_Seed(1, 5);
 	int direction = Level_Seed(-1, 1);
 	int yposition = start_position + variance;
+	int i;
 
 	for (int x = 0; x < width; x++)
 	{
@@ -200,16 +201,27 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 
 					if (direction > 0)
 					{
-						Terrain[x + ((yposition - 1) * width)] = 'a';
+						
+						for(i = 4; i > 0; i--)
+						{
+
+							Terrain[x + ((yposition - i) * width)] = 'a';
+						}
 					}
 					else if (direction < 0)
 					{
-						Terrain[x + ((yposition + 1) * width)] = 'r';
+						for (i = 4; i > 0; i--)
+						{
+							Terrain[x + ((yposition - i) * width)] = 'r';
+						}
 					}
 					else
 					{
-						Terrain[(x - 1) + ((yposition - 1) * width)] = 'q';
-						Terrain[(x - 1) + (yposition * width)] = 'w';
+						for (i = 4; i > 0; i--)
+						{
+							Terrain[(x - 1) + ((yposition - i) * width)] = 'q';
+							Terrain[(x - 1) + (yposition * width)] = 'w';
+						}
 					}
 				}
 				else if (variance > 1)
@@ -218,38 +230,50 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 
 					if (direction > 0)
 					{
-						Terrain[x + ((yposition - 1) * width)] = 'B';
-						for (int i = 0; i <= variance; i++)
+						for (i = 4; i > 0; i--)
 						{
-							Terrain[x + ((yposition + i) * width)] = 'B';
+							Terrain[x + ((yposition - 1) * width)] = 'B';
+							for (int j = 0; j <= variance; j++)
+							{
+								Terrain[x + ((yposition + i) * width)] = 'B';
+							}
 						}
 					}
 					else if (direction < 0)
 					{
-						Terrain[x + ((yposition + 1) * width)] = 'C';
-						for (int i = 0; i <= variance; i++)
+						for (i = 4; i > 0; i--)
 						{
 							Terrain[x + ((yposition - i) * width)] = 'C';
+							for (int j = 0; j <= variance; j++)
+							{
+								Terrain[x + ((yposition - i) * width)] = 'C';
+							}
 						}
 					}
 					else
 					{
-						Terrain[(x - 1) + ((yposition) * width)] = 'T';
-						for (int i = 0; i <= variance; i++)
+						for (i = 4; i > 0; i--)
 						{
-							Terrain[x + ((yposition + i) * width)] = 'Z';
+							Terrain[(x - 1) + ((yposition-i)*width)] = 'T';
+							for (int j = 0; j <= variance; j++)
+							{
+								Terrain[x + ((yposition - i) * width)] = 'Z';
+							}
 						}
 					}
 				}
 			}
 			else if (jitterweight > 90)
 			{
-				Terrain[(x - 1) + (yposition * width)] = 'X';
-				Terrain[x + (yposition * width)] = 'R';
-				for (int i = 0; i <= jitter; i++)
+				for (i = 4; i > 0; i--)
 				{
-					x++;
-					Terrain[x + (yposition * width)] = 'J';	
+					Terrain[(x - 1) + ((yposition -i)* width)] = 'X';
+					Terrain[x + ((yposition- i) * width)] = 'R';
+					for (int j = 0; j <= jitter; j++)
+					{
+						x+j;
+						Terrain[x + ((yposition-i) * width)] = 'J';
+					}
 				}
 			}
 		}

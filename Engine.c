@@ -93,7 +93,7 @@ void ClearScreen2(char(*arr), int screen_width, int screen_height)
 
 void Draw_Screen2( float xTrans, float yTrans, float angle, int level_width, int level_height, int screen_width, int screen_height, char(*aLevel), char(*aScreen),char(*aActors), int pressed, int gunFired)
 {
-	ClearScreen();
+	ClearScreen2(aScreen, screen_width, screen_height);
 	
 	int x, y;
 	float newY = 0.1f, newX = 0.1f;

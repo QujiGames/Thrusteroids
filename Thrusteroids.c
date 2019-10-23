@@ -131,19 +131,17 @@ void Get_Inputs()
 	{
 		gunFired = 0;
 	}
-}
-void ClearScreen()
-{
-	// sub routine to clear the screen array.  Probably should set this to pass an array rather than hardcoded
-	int i, j;
 
-	for (i = 0; i < screen_width; ++i)
+	if ((GetAsyncKeyState(0x50)))
 	{
-		for (j = 0; j < screen_height; ++j)
-		{
-			aScreen[i + j * screen_width] = '\0';
-		}
+		// check for space bar pressed to fire laser
+
+		velocityX = 0;
+		velocityY = 0;
+
+
 	}
+	
 }
 
 void collision_detection()
@@ -310,7 +308,7 @@ int main()
 	
 	acceleration = 0.00f * Clock_GetDeltaTime() / 1000;
 
-	Level_Generator2(aLevel, level_width, level_height, screen_width, screen_height, &xTrans, &yTrans, 30);
+	Level_Generator(aLevel, level_width, level_height, screen_width, screen_height, &xTrans, &yTrans, 30);
 
 
 
