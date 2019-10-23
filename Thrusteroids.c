@@ -100,6 +100,21 @@ void Get_Inputs()
 	}
 
 
+	if (((GetAsyncKeyState(VK_UP) && MSB) || (GetAsyncKeyState(0x57) && MSB)) && (GetAsyncKeyState(0x46)))
+	{
+		//boost speed!!!
+		acceleration = (0.03 * Clock_GetDeltaTime()) / 1000;
+		velocityY = velocityY + (acceleration)*cos(anglerad);
+		velocityX = velocityX + (acceleration * sin(anglerad));
+
+
+	}
+
+
+
+
+
+
 
 
 	if ((GetAsyncKeyState(VK_LEFT)) || (GetAsyncKeyState(0x41)))
