@@ -10,3 +10,7 @@ void Level_Generator2(char(*Terrain), int width, int height, int screen_width, i
 
 
 void Draw_Wall(char(*Terrain), int width, int height, int starting_position);
+
+void Draw_Wall2(char(*Terrain), int width, int height, int starting_position);
+
+void Draw_Wall3(char(*Terrain), int width, int height, int starting_position);

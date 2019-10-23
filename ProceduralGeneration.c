@@ -123,14 +123,15 @@ void Draw_Wall(char(*Terrain), int width, int height, int starting_position)
 			}
 			else if (jitterweight > 90)
 			{
+				int xcount = 0;
 				Terrain[(x - 1) + (yposition * width)] = 'X';
 				Terrain[x + (yposition * width)] = 'R';
 				for (int i = 0; i <= jitter; i++)
 				{
-					x++;
-					Terrain[x + (yposition * width)] = 'J';
-
+					Terrain[(x + i) + (yposition * width)] = 'J';
+					xcount++;
 				}
+				x = x + xcount;
 			}
 		}
 
@@ -153,7 +154,278 @@ void Draw_Wall(char(*Terrain), int width, int height, int starting_position)
 
 
 
+void Draw_Wall2(char(*Terrain), int width, int height, int starting_position)
+{
+	
 
+	int jitterweight;
+	int jitter = Level_Seed(1, 5);
+	int variance = Level_Seed(1, 5);
+	int direction = Level_Seed(-1, 1);
+
+
+
+
+
+	for (int x = 0; x < width; x++)
+	{
+		jitterweight = Level_Seed(1, 100);
+		jitter = Level_Seed(1, 5);
+		variance = Level_Seed(1, 2);
+		direction = Level_Seed(-1, 1);
+		int oldyposition = starting_position;
+		int	yposition = starting_position + variance;
+
+
+
+
+
+
+
+
+
+		//
+		//
+		//  Boundary issues exist, generating level beyond boundary box, need to fix
+		//
+		//
+
+
+
+
+			/*
+			*	jitter is x direction
+			*	variance is y direction
+			*	direction is the direction the terrain is generated; -1 is -y, 0 is +x, 1 is +y
+			*/
+		
+		if (x <= width && yposition <= height && yposition > 0)
+		{
+			if (jitterweight <= 90)
+			{
+				if (variance == 1)
+				{
+
+
+					if (direction > 0)
+					{
+						for (int i = oldyposition; i < yposition + variance; i++)
+						{
+							Terrain[x + (yposition * width)] = 'J';
+						}
+
+						oldyposition = yposition;
+					}
+					else if (direction < 0)
+					{
+						for (int i = oldyposition; i < yposition + variance; i++)
+						{
+							Terrain[x + (yposition * width)] = 'J';
+						}
+
+						oldyposition = yposition;
+					}
+					else
+					{
+						for (int i = oldyposition; i < yposition + variance; i++)
+						{
+							Terrain[x + (yposition * width)] = 'J';
+						}
+
+						oldyposition = yposition;
+					}
+				}
+				else if (variance > 1)
+				{
+
+
+					if (direction > 0)
+					{
+						for (int i = oldyposition; i < yposition + variance; i++)
+						{
+							Terrain[x + (yposition * width)] = 'J';
+						}
+
+						oldyposition = yposition;
+					}
+					else if (direction < 0)
+					{
+						for (int i = oldyposition; i < yposition + variance; i++)
+						{
+							Terrain[x + (yposition * width)] = 'J';
+						}
+
+						oldyposition = yposition;
+					}
+					else
+					{
+						for (int i = oldyposition; i < yposition + variance; i++)
+						{
+							Terrain[x + (yposition * width)] = 'J';
+						}
+
+						oldyposition = yposition;
+					}
+				}
+			}
+			else if (jitterweight > 90)
+			{
+				for (int i = oldyposition; i < yposition + variance; i++)
+				{
+					Terrain[x + (yposition * width)] = 'J';
+				}
+
+				oldyposition = yposition;
+			}
+		}
+
+		/*
+		if (direction > 0)
+		{
+			yposition = yposition + variance;
+		}
+		else if (direction < 0)
+		{
+			yposition = yposition - variance;
+		}
+		else
+		{
+			yposition++;
+		}
+		*/
+	}
+}
+
+
+
+void Draw_Wall3(char(*Terrain), int width, int height, int starting_position)
+{
+	int start_position = starting_position;
+
+	int jitterweight;
+	int jitter = Level_Seed(1, 5);
+	int variance = Level_Seed(1, 5);
+	int direction = Level_Seed(-1, 1);
+	int yposition = start_position + variance;
+
+	for (int x = 0; x < width; x++)
+	{
+		jitterweight = Level_Seed(1, 100);
+		jitter = Level_Seed(1, 5);
+		variance = Level_Seed(1, 2);
+		direction = Level_Seed(-1, 1);
+
+		int oldyposition = yposition;
+
+
+		//
+		//
+		//  Boundary issues exist, generating level beyond boundary box, need to fix
+		//
+		//
+
+
+
+
+		if (x <= width && yposition <= height && yposition > 0)
+		{
+			if (jitterweight <= 90)
+			{
+				if (variance == 1)
+				{
+					if (direction > 0)
+					{
+						Terrain[x + ((yposition) * width)] = 'w';
+						Terrain[x + ((yposition - 1) * width)] = 'W';
+					}
+					else if (direction < 0)
+					{
+						Terrain[x + ((yposition) * width)] = 'e';
+						Terrain[x + ((yposition + 1) * width)] = 'E';
+					}
+					else
+					{
+						Terrain[x + (yposition * width)] = 'R';
+						Terrain[x + 1 + (yposition * width)] = 'r';
+					}
+				}
+				
+				else if (variance > 1)
+				{
+					if (direction > 0)
+					{
+						int ycount = 0;
+						for (int i = 0; i <= variance; i++)
+						{
+							Terrain[x + ((yposition + 1 + i) * width)] = 'T';
+							ycount++;
+						}
+						yposition = yposition + ycount - 1;
+					}
+					else if (direction < 0)
+					{
+						int ycount = 0;
+						for (int i = 0; i <= variance; i++)
+						{
+
+							Terrain[x + ((yposition - 1 - i) * width)] = 'J';
+							ycount++;
+						}
+						yposition = yposition - ycount + 1;
+					}
+					else
+					{
+						for (int i = 0; i <= variance; i++)
+						{
+
+							Terrain[x + ((yposition)*width)] = 'X';
+						}
+					}
+				}
+				
+			}
+			else if (jitterweight > 90)
+			{
+				int xcount = 0;
+
+				for (int i = 0; i <= jitter; i++)
+				{
+					Terrain[(x + i) + (yposition * width)] = 'Z';
+					xcount++;
+				}
+				x = x + xcount - 1;
+			}
+		}
+
+		if (direction > 0)
+		{
+			if (variance > 1)
+			{
+				yposition = yposition + variance - 2;
+			}
+			else
+			{
+				yposition = yposition + variance - 1;
+			}
+		}
+		else if (direction < 0)
+		{
+			if (variance > 1)
+			{
+				yposition = yposition - variance + 2;
+			}
+			else
+			{
+				yposition = yposition - variance + 1;
+			}
+		}
+		else
+		{
+			yposition++;
+		}
+
+	}
+}
 
 
 
@@ -254,7 +526,7 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 					{
 						for (i = 4; i > 0; i--)
 						{
-							Terrain[(x - 1) + ((yposition-i)*width)] = 'T';
+							Terrain[(x - 1) + ((yposition - i)*width)] = 'T';
 							for (int j = 0; j <= variance; j++)
 							{
 								Terrain[x + ((yposition - i) * width)] = 'Z';
@@ -268,11 +540,11 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 				for (i = 4; i > 0; i--)
 				{
 					Terrain[(x - 1) + ((yposition -i)* width)] = 'X';
-					Terrain[x + ((yposition- i) * width)] = 'R';
+					Terrain[x + ((yposition - i) * width)] = 'R';
 					for (int j = 0; j <= jitter; j++)
 					{
 						x+j;
-						Terrain[x + ((yposition-i) * width)] = 'J';
+						Terrain[x + ((yposition - i) * width)] = 'J';
 					}
 				}
 			}
@@ -318,7 +590,7 @@ void Level_Generator2(char(*Terrain), int width, int height, int screen_width, i
 	Bounding_Box(Terrain, width, height);
 
 
-	Draw_Wall(Terrain, width, height, starting_position);
+	Draw_Wall3(Terrain, width, height, starting_position);
 	Draw_Wall(Terrain, width, height, 120);
 	Draw_Wall(Terrain, width, height, 300);
 	Draw_Wall(Terrain, width, height, 500);

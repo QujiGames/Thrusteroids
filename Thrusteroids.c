@@ -54,7 +54,7 @@ void Get_Inputs()
 		//velocityX = y * sin(anglerad);
 		
 		
-		acceleration =(0.01 * Clock_GetDeltaTime()) / 1000;
+		acceleration = (0.01 * Clock_GetDeltaTime()) / 1000;
 
 		velocityY = velocityY + (acceleration) * cos(anglerad);
 		velocityX = velocityX + (acceleration * sin(anglerad));
@@ -71,7 +71,7 @@ void Get_Inputs()
 		velocityY = velocityY + (acceleration);
 		//velocityX = velocityX + (acceleration * sin(anglerad));
 		
-		if (velocityX >0)
+		if (velocityX > 0)
 		{
 			velocityX = velocityX + (acceleration * 2);
 
@@ -98,6 +98,10 @@ void Get_Inputs()
 		*/
 
 	}
+
+
+
+
 	if ((GetAsyncKeyState(VK_LEFT)) || (GetAsyncKeyState(0x41)))
 	{
 		//rotate 
@@ -119,7 +123,7 @@ void Get_Inputs()
 		}
 	}
 
-	if ((GetAsyncKeyState(VK_SPACE)) || (GetAsyncKeyState(VK_RCONTROL) ))
+	if ((GetAsyncKeyState(VK_SPACE)) || (GetAsyncKeyState(VK_RCONTROL)))
 	{
 		// check for space bar pressed to fire laser
 		
@@ -132,7 +136,7 @@ void Get_Inputs()
 		gunFired = 0;
 	}
 
-	if ((GetAsyncKeyState(0x50)))
+	if ((GetAsyncKeyState(0x50)) || (GetAsyncKeyState(0x45)))
 	{
 		// check for space bar pressed to fire laser
 
@@ -308,7 +312,7 @@ int main()
 	
 	acceleration = 0.00f * Clock_GetDeltaTime() / 1000;
 
-	Level_Generator(aLevel, level_width, level_height, screen_width, screen_height, &xTrans, &yTrans, 30);
+	Level_Generator2(aLevel, level_width, level_height, screen_width, screen_height, &xTrans, &yTrans, 30);
 
 
 
@@ -323,7 +327,7 @@ int main()
 		
 		
 
-		RenderScene(aScreen, screen_width , screen_height, score);
+		RenderScene(aScreen, screen_width , screen_height, score, angle);
 		
 		
 	}
