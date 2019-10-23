@@ -60,7 +60,16 @@ void Draw_Wall(char(*Terrain), int width, int height, int starting_position)
 		int oldyposition = yposition;
 
 
-		if (x < width && yposition < height && yposition > 0)
+		//
+		//
+		//  Boundary issues exist, generating level beyond boundary box, need to fix
+		//
+		//
+
+
+
+
+		if (x <= width && yposition <= height && yposition > 0)
 		{
 			if (jitterweight <= 90)
 			{
@@ -205,7 +214,7 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 				}
 				else if (variance > 1)
 				{
-					Terrain[x + ((yposition)* width)] = 'E';
+					Terrain[x + ((yposition) * width)] = 'E';
 
 					if (direction > 0)
 					{
@@ -240,8 +249,7 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 				for (int i = 0; i <= jitter; i++)
 				{
 					x++;
-					Terrain[x + (yposition * width)] = 'J';
-					
+					Terrain[x + (yposition * width)] = 'J';	
 				}
 			}
 		}
@@ -258,7 +266,6 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 		{
 			yposition++;
 		}
-
 	}
 }
 
@@ -280,7 +287,7 @@ void Level_Generator2(char(*Terrain), int width, int height, int screen_width, i
 	//
 
 	//*xTrans = (float)(0 - Level_Seed(1, (width - (screen_width / 2))));
-	// *yTrans = (float)(0 - Level_Seed(1, (height - (screen_height / 2))));
+	//*yTrans = (float)(0 - Level_Seed(1, (height - (screen_height / 2))));
 
 
 
