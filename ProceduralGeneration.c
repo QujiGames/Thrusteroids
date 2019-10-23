@@ -565,6 +565,40 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 	}
 }
 
+void Star_Field(char(*Terrain), int width, int height)
+{
+	int small_star = 0;
+	int big_star = 0;
+	int star_bool = 0;
+
+	for (int x = 40; x < width; x = x + 40)
+	{
+		for (int y = 40; y < height; y = y + 40)
+		{
+			star_bool = Level_Seed(0, 3);
+
+			int star_xpos = Level_Seed(x - 15, x + 15);
+			int star_ypos = Level_Seed(y - 15, y + 15);
+
+			if (star_xpos < width && star_ypos < height)
+			{
+				if (star_bool == 3)
+				{
+					Terrain[star_xpos + (star_ypos * width)] = '+';
+				}
+				else
+				{
+					Terrain[star_xpos + (star_ypos * width)] = '.';
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
 
 // Testing pointers and changing the starting position etc
 
@@ -594,6 +628,8 @@ void Level_Generator2(char(*Terrain), int width, int height, int screen_width, i
 	Draw_Wall(Terrain, width, height, 120);
 	Draw_Wall(Terrain, width, height, 300);
 	Draw_Wall(Terrain, width, height, 500);
+
+	Star_Field(Terrain, width, height);
 
 
 

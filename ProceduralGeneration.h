@@ -14,3 +14,5 @@ void Draw_Wall(char(*Terrain), int width, int height, int starting_position);
 void Draw_Wall2(char(*Terrain), int width, int height, int starting_position);
 
 void Draw_Wall3(char(*Terrain), int width, int height, int starting_position);
+
+void Star_Field(char(*Terrain), int width, int height);
