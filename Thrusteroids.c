@@ -11,7 +11,7 @@
 
 static int bGameIsRunning = 1;
 static char aLevel[1000000];
-static char aScreen[38400];
+static char aScreen[25600];
 static char aActors[1000000];
 
 static double velocityY = 0.000f;
@@ -20,18 +20,18 @@ static double PlayerY = 0.f;
 static double PlayerX = 0.f;
 static double acceleration = 0.001f;
 const unsigned short MSB = 0x8000;
-static int pressed = 0;
-static float angle = 0.f;
+static int pressed = 0; 
+static float angle = 0.f;     
 static float xTrans = 0;
 static float yTrans = 0;
 static float xMod = 0;
 static float yMod = 0;
 static float anglerad = 0.00000f;
 static int gunFired = 0;
-static int level_width = 1000;
-static int level_height = 1000;
-static int screen_width = 240;
-static int screen_height = 160;
+static int level_width = 1000; //change array size
+static int level_height = 1000; //change array size
+static int screen_width = 160; //change array size
+static int screen_height = 160;  //change array size
 const float Gravity = -0.000f;
 int score = 0;
 
