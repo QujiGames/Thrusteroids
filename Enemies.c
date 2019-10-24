@@ -97,14 +97,72 @@ void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, in
 }
 
 
-void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, int level_height, float velocityX, float velocityY, float time)
+void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, int level_height, float velocityX, float velocityY, float time, double(*arr2), int *bullets_fired, int xloc, int yloc)
 
 {
+	double xDiff = xloc - x_position;
+	double yDiff = yloc - y_position;
+	double x_vel = 0;
+	double y_vel = 0;
+	double angle = 0;
+
+	double distance = sqrt(xDiff * xDiff+ yDiff * yDiff) / 10000;
+
+	if (xDiff < 0)
+	{
+		if (yDiff < 0)
+		{
+			angle = atan(xDiff / yDiff) ;
+			x_vel = -distance * sin(angle) * time;
+			y_vel = -distance * cos(angle) * time;
+			
+		}
+		else if (yDiff > 0)
+		{
+			angle = atan(xDiff / yDiff)  +3.14;
+			x_vel = -distance * sin(angle) * time;
+			y_vel = -distance * cos(angle) * time;
+
+		}
+	}
+	else if (xDiff > 0)
+	{
+		if (yDiff < 0)
+		{
+		angle = atan(xDiff / yDiff) + 3.14;
+		x_vel = distance * sin(angle) * time;
+		y_vel = distance * cos(angle) * time;
+		}
+		else if (yDiff > 0)
+		{
+			
+		angle = atan(xDiff / yDiff) ;
+		x_vel = distance * sin(angle) * time;
+		y_vel = distance * cos(angle) * time;
+
+		}
+	}
+
+
+	
 
 	Arr[x_position + y_position * level_width] = '1';
 	
+	int a = *bullets_fired;
 
+	for (int i = 0; i < 10000; i++)
 
+		if (arr2[0 + i * 4] == '\0')
+		{
+			arr2[0 + i * 4] =x_position;
+			arr2[1 + i * 4] = y_position;
+			arr2[2 + i * 4] = x_vel ;
+			arr2[3 + i * 4] = y_vel ;
+
+			*bullets_fired = a + 1;
+			i = 10000;
+
+		}
 
 }
 

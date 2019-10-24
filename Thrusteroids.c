@@ -183,7 +183,7 @@ void Draw_Bullets()
 {
 	int x, y, i;
 
-	for (i = 0; i < bullets_fired; i++)
+   	for (i = 0; i < bullets_fired; i++)
 	{
 		aBullets[0 + i*4] = aBullets[0 + i*4] + aBullets[2 + (i * 4)] * Clock_GetDeltaTime();
 		aBullets[1+i*4] = aBullets[1+i*4] + aBullets[3+ i*4] * Clock_GetDeltaTime();
@@ -191,15 +191,16 @@ void Draw_Bullets()
 		x = aBullets[0+i*4];
 		y = aBullets[1+i*4];
 
-		if (x > 0 && x < level_width && y >0 && y < level_height)
+ 		if (x > 0 && x < level_width && y >0 && y < level_height)
 		{
-			aActors[x + y * level_width] = 'o';
+ 			aActors[x + y * level_width] = 'o';
 		}
 		else
 		{
 			for (int j = 0; j < 3; j++)
 			{
 				aBullets[j + i*4] = '\0';
+				
 			}
 		}
 
@@ -332,10 +333,11 @@ void Draw_Actors()
 
 {
 	
-	Draw_STAR(aLevel, aActors, 60, 60, level_height, level_width, Clock_GetElapsedTimeMs(), 0,20, 50);
+	//Draw_STAR(aLevel, aActors, 60, 60, level_height, level_width, Clock_GetElapsedTimeMs(), 0,20, 50);
 	
-	Draw_STAR(aLevel, aActors, 120, 120, level_height, level_width, Clock_GetElapsedTimeMs(), 30, 80,-100);
-	Draw_Cruiser(aActors, 40, 40, level_width, level_height, 0, 0,0);
+	//Draw_STAR(aLevel, aActors, 120, 120, level_height, level_width, Clock_GetElapsedTimeMs(), 30, 80,-100);
+	Draw_Cruiser(aActors, 40, 40, level_width, level_height, 0, 0,Clock_GetDeltaTime(),aBullets,&bullets_fired, (-xTrans +screen_width/2), (-yTrans+screen_height/2));
+	
 	
 }
 
