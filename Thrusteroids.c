@@ -37,7 +37,8 @@ int score = 0;
 
 static double aBullets[40000];
 static int bullets_fired = 0;
-static int fired = 0;
+static int fire = 0;
+static double fire_time = 0;
 
 
 
@@ -147,6 +148,8 @@ void Get_Inputs()
 		
 		
 		gunFired = 0;
+
+
 		
 		for(int i = 0;i<10000;i++)
 		
@@ -336,14 +339,40 @@ void Draw_Actors()
 	//Draw_STAR(aLevel, aActors, 60, 60, level_height, level_width, Clock_GetElapsedTimeMs(), 0,20, 50);
 	
 	//Draw_STAR(aLevel, aActors, 120, 120, level_height, level_width, Clock_GetElapsedTimeMs(), 30, 80,-100);
-	Draw_Cruiser(aActors, 40, 40, level_width, level_height, 0, 0,Clock_GetDeltaTime(),aBullets,&bullets_fired, (-xTrans +screen_width/2), (-yTrans+screen_height/2));
-	
+
+	if ((Clock_GetElapsedTimeMs() / 1000 - fire_time) > 2)
+
+	{
+		fire = 1;
+		fire_time = Clock_GetElapsedTimeMs() / 1000;
+	}
+	else
+	{
+		fire = 0;
+	}
+
+	if (fire == 1)
+	{
+		Draw_Cruiser(aActors, 80, 100, level_width, level_height, 0, 0, Clock_GetDeltaTime(), aBullets, &bullets_fired, (-xTrans + screen_width / 2), (-yTrans + screen_height / 2), 1);
+	}
+	else
+
+	{
+		Draw_Cruiser(aActors, 80, 100, level_width, level_height, 0, 0, Clock_GetDeltaTime(), aBullets, &bullets_fired, (-xTrans + screen_width / 2), (-yTrans + screen_height / 2), 0);
+
+	}
+
+	//Draw_Cruiser(aActors, 100, 100, level_width, level_height, 0, 0, Clock_GetDeltaTime(), aBullets, &bullets_fired, (-xTrans + screen_width / 2), (-yTrans + screen_height / 2));
 	
 }
 
 
 void Update()
 {
+	
+
+	
+	
 
 	anglerad = (angle * 3.1415 / 180);
 	yTrans = (float)(yTrans + (velocityY)*Clock_GetDeltaTime());
