@@ -577,8 +577,8 @@ void Star_Field(char(*Terrain), int width, int height)
 		{
 			star_bool = Level_Seed(0, 3);
 
-			int star_xpos = Level_Seed(x - 15, x + 15);
-			int star_ypos = Level_Seed(y - 15, y + 15);
+			int star_xpos = Level_Seed(x - 25, x + 25);
+			int star_ypos = Level_Seed(y - 25, y + 25);
 
 			if (star_xpos < width && star_ypos < height)
 			{

@@ -50,11 +50,11 @@ void RenderScene(char(*arr), int width, int height, int score, float angle, doub
 			}
 			else if (arr[x + y * width] == '.')
 			{
-				Console_SetRenderBuffer_Char(x, y, arr[x + y * width], 0x0001, 0x0004, 0x0001);
+				Console_SetRenderBuffer_Char(x, y, arr[x + y * width], 0x0004, 0x0001, 0x0002);
 			}
 			else if (arr[x + y * width] == '+')
 			{
-				Console_SetRenderBuffer_Char(x, y, arr[x + y * width], 0, 0x0004, 0x0004);
+				Console_SetRenderBuffer_Char(x, y, arr[x + y * width], 0x0004, 0x0001, 0x0002);
 			}
 			else
 			{
