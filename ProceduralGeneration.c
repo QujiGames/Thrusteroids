@@ -575,14 +575,18 @@ void Star_Field(char(*Terrain), int width, int height)
 	{
 		for (int y = 40; y < height; y = y + 40)
 		{
-			star_bool = Level_Seed(0, 3);
+			star_bool = Level_Seed(0, 10);
 
 			int star_xpos = Level_Seed(x - 25, x + 25);
 			int star_ypos = Level_Seed(y - 25, y + 25);
 
 			if (star_xpos < width && star_ypos < height)
 			{
-				if (star_bool == 3)
+				if (star_bool > 9)
+				{
+					Terrain[star_xpos + (star_ypos * width)] = '*';
+				}
+				else if (star_bool > 7 && star_bool <= 9)
 				{
 					Terrain[star_xpos + (star_ypos * width)] = '+';
 				}
