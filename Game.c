@@ -20,6 +20,7 @@ void Game_Init(int width, int height)
 	Console_SetWindowedMode(width, height, false);
 	Console_SetCursorVisibility(0);
 	Console_CreateRenderBuffer();
+	Console_SetWindowPos(800, 0);
 
 }
 //Sub routine to design the level, set as a straight line for now.

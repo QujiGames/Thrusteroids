@@ -50,7 +50,7 @@ void RenderScene(char(*arr), int width, int height, int score, float angle, doub
 			}
 			else if (arr[x + y * width] == '.')
 			{
-				Console_SetRenderBuffer_Char(x, y, arr[x + y * width], 0x0004, 0x0001, 0x0002);
+				Console_SetRenderBuffer_Char(x, y, arr[x + y * width], 0x0001, 0x0004,0x0002);
 			}
 			else if (arr[x + y * width] == '+')
 			{
@@ -179,6 +179,8 @@ void Draw_Screen2( float xTrans, float yTrans, float angle, int level_width, int
 		}
 	}
 
+
+	//Draw the actors onto the screen, probably want to move this to draw first so level overwrites it also
 	
 	for (y = 0; y < level_height; ++y)
 	{
@@ -206,16 +208,6 @@ void Draw_Screen2( float xTrans, float yTrans, float angle, int level_width, int
 	}
 
 	
-	
-
-
-
-
-
-
-
-
-
 
 	 //collision_detection();
 
