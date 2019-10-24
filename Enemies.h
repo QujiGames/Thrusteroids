@@ -11,3 +11,5 @@ void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, in
 
 void Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, int level_height, float velocityX, float velocityY, float time);
 
+
+void Place_Cruiser(char(*arr), int x_position, int y_position, int screen_width);

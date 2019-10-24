@@ -101,10 +101,8 @@ void Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, i
 
 {
 
-	Arr[x_position + y_position * level_width] = 'C';
-	Arr[x_position+ 1 + y_position * level_width] = 'O';
-	Arr[x_position + 2 + y_position * level_width] = 'O';
-	Arr[x_position + 3 + y_position * level_width] = 'D';
+	Arr[x_position + y_position * level_width] = '1';
+	
 
 
 
@@ -112,3 +110,12 @@ void Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, i
 
 //x = xcos - ysin
 //y = xsin + ycos
+
+void Place_Cruiser(char(*arr), int x_position, int y_position, int level_width)
+
+{
+	arr[x_position + y_position *level_width]  = 'C';
+	arr[x_position + 1 + y_position * level_width] = 'O';
+	arr[x_position + 2 + y_position * level_width] = 'O';
+	arr[x_position + 3 + y_position * level_width] = 'D';
+}

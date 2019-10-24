@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <assert.h>
 #include <math.h>
+#include "Enemies.h"
 
 #include "Console/Console.h"
 
@@ -196,8 +197,15 @@ void Draw_Screen2( float xTrans, float yTrans, float angle, int level_width, int
 
 				if (newY > 0 && newX > 0 && newY <= (screen_height - 1) && newX <= (screen_width - 1))
 				{
+					if (aActors[x + y * level_width] == '1')
 
-					aScreen[(int)floor(newX) + (int)floor(newY) * screen_width] = aActors[x + y * level_width];
+					{
+						Place_Cruiser(aScreen, newX, newY, screen_width);
+					}
+					else
+					{
+						aScreen[(int)floor(newX) + (int)floor(newY) * screen_width] = aActors[x + y * level_width];
+					}
 				}
 			}
 
