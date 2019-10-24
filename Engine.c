@@ -113,7 +113,7 @@ void RenderScene(char(*arr), int width, int height, int score, float angle, doub
 
 }
 
-void ClearScreen2(char(*arr), int screen_width, int screen_height)
+void ClearScreen(char(*arr), int screen_width, int screen_height)
 {
 	// sub routine to clear the screen array.  Probably should set this to pass an array rather than hardcoded
 	int x, y;
@@ -129,9 +129,9 @@ void ClearScreen2(char(*arr), int screen_width, int screen_height)
 
 
 
-void Draw_Screen2( float xTrans, float yTrans, float angle, int level_width, int level_height, int screen_width, int screen_height, char(*aLevel), char(*aScreen),char(*aActors), int pressed, int gunFired)
+void Draw_Screen( float xTrans, float yTrans, float angle, int level_width, int level_height, int screen_width, int screen_height, char(*aLevel), char(*aScreen),char(*aActors), int pressed, int gunFired)
 {
-	ClearScreen2(aScreen, screen_width, screen_height);
+	ClearScreen(aScreen, screen_width, screen_height);
 	
 	int x, y;
 	float newY = 0.1f, newX = 0.1f;

@@ -22,7 +22,7 @@ void Game_Init(int width, int height, float(*aBullets))
 	Console_SetCursorVisibility(0);
 	Console_CreateRenderBuffer();
 	Console_SetWindowPos(800, 0);
-	ClearScreen2(aBullets, 20, 20);
+	ClearScreen(aBullets, 20, 20);
 	
 	
 

@@ -100,6 +100,15 @@ void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, in
 void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, int level_height, float velocityX, float velocityY, float time, double(*arr2), int *bullets_fired, int xloc, int yloc, int fire)
 
 {
+
+	/*
+
+	we find difference between position of enemy and the player, then take this difference nad use it to determine an angle to the player
+
+	We then use this angle to work out x and y vector components for velocity and set the bullet array with appropriate values
+	*/
+
+
 	double xDiff = xloc - x_position;
 	double yDiff = yloc - y_position;
 	double x_vel = 0;
@@ -144,10 +153,10 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 	}
 
 
-	
+	//Draw a 1 to indicate position of this type of ship.  The ship is then drawn on top of the 1 in draw screen function to ensure it doesnt rotate.
 
 	Arr[x_position + y_position * level_width] = '1';
-	
+	// fill out bullet array, position 1 = x, 2 = y, 3 = x velocity, 4 = y velocity
 	int a = *bullets_fired;
 	if (fire == 1)
 	{
@@ -173,6 +182,9 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 void Place_Cruiser(char(*arr), int x_position, int y_position, int level_width)
 
 {
+
+	// sub routine t odraw cruiser enemy, will be called when draw screen function sees a '1'
+
 	arr[x_position + y_position *level_width]  = 'C';
 	arr[x_position + 1 + y_position * level_width] = 'O';
 	arr[x_position + 2 + y_position * level_width] = 'O';

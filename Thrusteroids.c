@@ -53,9 +53,7 @@ void Get_Inputs()
 	{
 		// When up key is held swap the velocity, pressed variable is to allow the next part to work on release
 		
-		//float y = 0.02f;
-		//velocityY = y * cos(anglerad) -0.005f;
-		//velocityX = y * sin(anglerad);
+	
 		
 		
 		acceleration = (0.01 * Clock_GetDeltaTime()) / 1000;
@@ -65,7 +63,7 @@ void Get_Inputs()
 		velocityY = velocityY - (Gravity * Clock_GetDeltaTime()/1000);
 	
 			
-		pressed = 1;
+		
 		
 	}
 	
@@ -73,7 +71,7 @@ void Get_Inputs()
 	{
 		acceleration = Gravity * Clock_GetDeltaTime() / 1000;
 		velocityY = velocityY + (acceleration);
-		//velocityX = velocityX + (acceleration * sin(anglerad));
+		
 		
 		if (velocityX > 0)
 		{
@@ -86,20 +84,10 @@ void Get_Inputs()
 
 
 		}
-			pressed = 0;
+			
 		
-		/*
-		if (pressed)
-			// return the velocity to unpressed values
-		{
-			velocityY = -0.005f;
-			velocityX = 0;
-
-
-
-			pressed = 0;
-		}
-		*/
+		
+		
 
 	}
 
@@ -149,7 +137,7 @@ void Get_Inputs()
 		
 		gunFired = 0;
 
-
+		// fill out bullet array, position 1 = x, 2 = y, 3 = x velocity, 4 = y velocity
 		
 		for(int i = 0;i<10000;i++)
 		
@@ -249,86 +237,7 @@ void collision_detection()
 
 }
 
-/*
-void Draw_Screen()
-{
-	ClearScreen();
-	int x,y;
-	float newY = 0.1f, newX = 0.1f;
-	
-	//increase velocity by gravity value, note this does nothing for directions other than down
-	//velocityY = velocityY - 0.005f* Clock_GetDeltaTime()/1000;
 
-
-	//calculate translation vectors
-	
-	//yTrans = (float)(yTrans + (velocityY) * Clock_GetDeltaTime());
-	//xTrans = (float)(xTrans + (velocityX) * Clock_GetDeltaTime());
-
-
-	//firing the laser, call it first so the level overwrites it
-	if (gunFired)
-
-	{
-		for (x = (screen_height / 2 - 1); x > 0; x--)
-		{
-
-			aScreen[(screen_width / 2) + x * screen_width] = '|';
-
-
-		}
-	}
-
-	// take the fixed aLevel array, translate and rotate it based on current positions and angles, then copy it into aScreen array ready to render.
-	int xAdjust = screen_width / 2;
-	int yAdjust =screen_height / 2;
-	for (y = 0; y < level_height; ++y)
-	{
-		for (x = 0; x < level_width; ++x)
-		{
-			if (aLevel[x + y * level_width] != '\0')
-			{
-				
-
-
-				newY = (float)(((x + xTrans - xAdjust) * sin(anglerad)) + ((y + yTrans - yAdjust) * cos(anglerad)) + yAdjust);
-				newX = (float)(((x + xTrans - xAdjust) * cos(anglerad)) - ((y + yTrans - yAdjust) * sin(anglerad)) + xAdjust);
-
-				if (newY > 0 && newX > 0 && newY <= (screen_height-1) && newX <= (screen_width-1))
-				{
-
-					aScreen[(int)floor(newX) + (int)floor(newY) * screen_width] = aLevel[x + y * level_width];
-				}
-			}
-
-		}
-	}
-	 collision_detection();
-
-	//Draw the rocket
-
-	aScreen[(screen_width/2) + (screen_height/2) * (screen_width)] = '^';
-	aScreen[(screen_width / 2) + (screen_height / 2 +1) * (screen_width)] = 'O';
-	aScreen[(screen_width / 2 -1) + (screen_height / 2 +2) * (screen_width)] = '/';
-	aScreen[(screen_width / 2 +1) + (screen_height / 2 + 2) * (screen_width)] = '\\';
-
-
-	//Only draw the flame when we accelerate
-	if (pressed > 0)
-	{
-		aScreen[(screen_width/2) + (screen_height/2+2) * screen_width] = '!';
-
-	}
-
-
-
-	
-
-
-
-
-}
-*/
 
 
 
@@ -339,6 +248,14 @@ void Draw_Actors()
 	//Draw_STAR(aLevel, aActors, 60, 60, level_height, level_width, Clock_GetElapsedTimeMs(), 0,20, 50);
 	
 	//Draw_STAR(aLevel, aActors, 120, 120, level_height, level_width, Clock_GetElapsedTimeMs(), 30, 80,-100);
+
+
+
+
+
+	// 
+	// compare elapsed time with a temporary holder to see when 2s has passed, call funciton with different values to trigger firing
+	//
 
 	if ((Clock_GetElapsedTimeMs() / 1000 - fire_time) > 2)
 
@@ -377,13 +294,13 @@ void Update()
 	anglerad = (angle * 3.1415 / 180);
 	yTrans = (float)(yTrans + (velocityY)*Clock_GetDeltaTime());
 	xTrans = (float)(xTrans + (velocityX)*Clock_GetDeltaTime());
-	//velocityY = velocityY + Gravity * Clock_GetDeltaTime() / 1000;
+	
 
 	Draw_Actors();
 	Draw_Bullets();
-	Draw_Screen2(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, aActors, pressed, gunFired);
+	Draw_Screen(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, aActors, pressed, gunFired);
 
-	ClearScreen2(aActors, level_width, level_height);
+	ClearScreen(aActors, level_width, level_height);
 
 
 }
