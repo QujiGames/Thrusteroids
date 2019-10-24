@@ -108,16 +108,16 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 
 	double distance = 0.005; //sqrt(xDiff * xDiff+ yDiff * yDiff) / 10000;
 
-	if (xDiff < 0)
+	if (xDiff <= 0)
 	{
-		if (yDiff < 0)
+		if (yDiff <= 0)
 		{
 			angle = atan(xDiff / yDiff) ;
 			x_vel = -distance * sin(angle) * time;
 			y_vel = -distance * cos(angle) * time;
 			
 		}
-		else if (yDiff > 0)
+		else if (yDiff >= 0)
 		{
 			angle = atan(xDiff / yDiff)  +3.14;
 			x_vel = -distance * sin(angle) * time;
@@ -125,15 +125,15 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 
 		}
 	}
-	else if (xDiff > 0)
+	else if (xDiff >= 0)
 	{
-		if (yDiff < 0)
+		if (yDiff <= 0)
 		{
 		angle = atan(xDiff / yDiff) + 3.14;
 		x_vel = distance * sin(angle) * time;
 		y_vel = distance * cos(angle) * time;
 		}
-		else if (yDiff > 0)
+		else if (yDiff >= 0)
 		{
 			
 		angle = atan(xDiff / yDiff) ;
