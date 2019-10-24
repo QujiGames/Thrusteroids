@@ -106,7 +106,7 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 	double y_vel = 0;
 	double angle = 0;
 
-	double distance = sqrt(xDiff * xDiff+ yDiff * yDiff) / 10000;
+	double distance = 0.005; //sqrt(xDiff * xDiff+ yDiff * yDiff) / 10000;
 
 	if (xDiff < 0)
 	{
