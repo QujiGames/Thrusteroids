@@ -3,13 +3,14 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <assert.h>
+#include "Engine.h"
 
 #include "Console/Console.h"
 #include "Random/Random.h"
 
 
 // Initiate game
-void Game_Init(int width, int height)
+void Game_Init(int width, int height, float(*aBullets))
 {
 	Console_Init();
 	Random_Init();
@@ -21,6 +22,9 @@ void Game_Init(int width, int height)
 	Console_SetCursorVisibility(0);
 	Console_CreateRenderBuffer();
 	Console_SetWindowPos(800, 0);
+	ClearScreen2(aBullets, 20, 20);
+	
+	
 
 }
 //Sub routine to design the level, set as a straight line for now.

@@ -215,6 +215,7 @@ void Console_SetRenderBuffer_String(int x, int y, const char* s);
  * \note	Should be called at the beginning of your Rendering system
  */
 void Console_ClearRenderBuffer();
+void Console_CreateRenderBuffer();
 
 
 /**

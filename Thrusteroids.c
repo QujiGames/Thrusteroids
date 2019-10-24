@@ -35,6 +35,9 @@ static int screen_height = 160;  //change array size
 const float Gravity = -0.000f;
 int score = 0;
 
+static double aBullets[40000];
+static int bullets_fired = 0;
+static int fired = 0;
 
 
 
@@ -142,9 +145,23 @@ void Get_Inputs()
 	{
 		// check for space bar pressed to fire laser
 		
-		gunFired = 1;
 		
+		gunFired = 0;
+		
+		for(int i = 0;i<10000;i++)
+		
+			if (aBullets[0 + i*4] == '\0')
+			{
+				aBullets[0 + bullets_fired * 4] = -xTrans + screen_width / 2;
+ 				aBullets[1 + bullets_fired * 4] = -yTrans + screen_height / 2;
+				aBullets[2 + bullets_fired * 4] = -velocityX - 0.05 * sin(anglerad);
+				aBullets[3 + bullets_fired * 4] = -velocityY - 0.05 * cos(anglerad);
 
+				bullets_fired++;
+				i = 10000;
+
+			}
+		
 	}
 	else 
 	{
@@ -162,6 +179,36 @@ void Get_Inputs()
 	}
 	
 }
+void Draw_Bullets()
+{
+	int x, y, i;
+
+	for (i = 0; i < bullets_fired; i++)
+	{
+		aBullets[0 + i*4] = aBullets[0 + i*4] + aBullets[2 + (i * 4)] * Clock_GetDeltaTime();
+		aBullets[1+i*4] = aBullets[1+i*4] + aBullets[3+ i*4] * Clock_GetDeltaTime();
+
+		x = aBullets[0+i*4];
+		y = aBullets[1+i*4];
+
+		if (x > 0 && x < level_width && y >0 && y < level_height)
+		{
+			aActors[x + y * level_width] = 'o';
+		}
+		else
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				aBullets[j + i*4] = '\0';
+			}
+		}
+
+	}
+}
+
+
+
+
 
 void collision_detection()
 {
@@ -302,7 +349,9 @@ void Update()
 	//velocityY = velocityY + Gravity * Clock_GetDeltaTime() / 1000;
 
 	Draw_Actors();
+	Draw_Bullets();
 	Draw_Screen2(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, aActors, pressed, gunFired);
+
 	ClearScreen2(aActors, level_width, level_height);
 
 
