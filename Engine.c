@@ -73,14 +73,72 @@ void RenderScene(char(*arr), int width, int height, int score, float angle, doub
 		}
 	}
 
-
-	
 	char scorebuffer[20];
 
 	snprintf(scorebuffer, 20, "%d", score);
 	Console_SetRenderBuffer_String(0, 40, "Score: ");
 	Console_SetRenderBuffer_String(7, 40, scorebuffer);
+
+	char anglebuffer[20];
+
+
+	snprintf(anglebuffer, 4, "%d", (int)angle);
+	Console_SetRenderBuffer_String(0, 45, "Vector: ");
+	Console_SetRenderBuffer_String(7, 45, anglebuffer);
+
+
+	velx = velx * 1000 * -1;
+	vely = vely * 1000;
+
+	char velxbuffer[20];
+
+	snprintf(velxbuffer, 20, "%d", (int)velx);
+	Console_SetRenderBuffer_String(0, 50, "VelX: ");
+	Console_SetRenderBuffer_String(7, 50, velxbuffer);
+
+	char velybuffer[20];
+
+	snprintf(velybuffer, 20, "%d", (int)vely);
+	Console_SetRenderBuffer_String(0, 55, "VelY: ");
+	Console_SetRenderBuffer_String(7, 55, velybuffer);
+
 	
+	accel = accel * 100000;
+	accel = accel + 0.00000;
+
+	char accelbuffer[20];
+
+	snprintf(accelbuffer, 20, "%d", (int)accel);
+	Console_SetRenderBuffer_String(0, 60, "Accel: ");
+	Console_SetRenderBuffer_String(7, 60, accelbuffer);
+
+	double speed = 0;
+	speed = (sqrt(pow(velx, 2) + pow(vely, 2)));
+	char speedbuffer[20];
+
+	snprintf(speedbuffer, 20, "%d", (int)speed);
+	Console_SetRenderBuffer_String(0, 65, "Speed: ");
+	Console_SetRenderBuffer_String(7, 65, speedbuffer);
+
+
+
+	//void draw_UI(score, angle, velx, vely, accel);
+
+
+	Console_SwapRenderBuffer();
+
+
+}
+
+/*
+void draw_UI(int score, float angle, double velx, double vely, double accel)
+{
+	char scorebuffer[20];
+
+	snprintf(scorebuffer, 20, "%d", score);
+	Console_SetRenderBuffer_String(0, 40, "Score: ");
+	Console_SetRenderBuffer_String(7, 40, scorebuffer);
+
 	char anglebuffer[20];
 
 	snprintf(anglebuffer, 20, "%f", angle);
@@ -107,11 +165,9 @@ void RenderScene(char(*arr), int width, int height, int score, float angle, doub
 	Console_SetRenderBuffer_String(0, 60, "Accel: ");
 	Console_SetRenderBuffer_String(7, 60, accelbuffer);
 
-
-	Console_SwapRenderBuffer();
-
-
 }
+
+*/
 
 void ClearScreen(char(*arr), int screen_width, int screen_height)
 {

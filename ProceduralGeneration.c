@@ -515,26 +515,26 @@ void Level_Constructor(char(*Terrain), int width, int height, int starting_posit
 			{
 				if (straight_length > 66)
 				{
-					alevel_map[1] == '3';
+					alevel_map[1] = '3';
 				}
 				else if (straight_length > 33)
 				{
-					alevel_map[1] == '2';
+					alevel_map[1] = '2';
 				}
 				else
 				{
-					alevel_map[1] == '1';
+					alevel_map[1] = '1';
 				}
 			}
 			else
 			{
 				if (turn > 50)
 				{
-					alevel_map[1] == 'r';
+					alevel_map[1] = 'r';
 				}
 				else
 				{
-					alevel_map[1] == 'l';
+					alevel_map[1] = 'l';
 				}
 			}
 			initialise = 1;
@@ -547,26 +547,26 @@ void Level_Constructor(char(*Terrain), int width, int height, int starting_posit
 				{
 					if (straight_length > 66)
 					{
-						alevel_map[i + 1] == '3';
+						alevel_map[i + 1] = '3';
 					}
 					else if (straight_length > 33)
 					{
-						alevel_map[i + 1] == '2';
+						alevel_map[i + 1] = '2';
 					}
 					else
 					{
-						alevel_map[i + 1] == '1';
+						alevel_map[i + 1] = '1';
 					}
 				}
 				else
 				{
 					if (turn > 50)
 					{
-						alevel_map[i + 1] == 'r';
+						alevel_map[i + 1] = 'r';
 					}
 					else
 					{
-						alevel_map[i + 1] == 'l';
+						alevel_map[i + 1] = 'l';
 					}
 				}
 			}
@@ -576,26 +576,26 @@ void Level_Constructor(char(*Terrain), int width, int height, int starting_posit
 				{
 					if (straight_length > 66)
 					{
-						alevel_map[i + 1] == '3';
+						alevel_map[i + 1] = '3';
 					}
 					else if (straight_length > 33)
 					{
-						alevel_map[i + 1] == '2';
+						alevel_map[i + 1] = '2';
 					}
 					else
 					{
-						alevel_map[i + 1] == '1';
+						alevel_map[i + 1] = '1';
 					}
 				}
 				else
 				{
 					if (turn > 50)
 					{
-						alevel_map[i + 1] == 'r';
+						alevel_map[i + 1] = 'r';
 					}
 					else
 					{
-						alevel_map[i + 1] == 'l';
+						alevel_map[i + 1] = 'l';
 					}
 				}
 			}
