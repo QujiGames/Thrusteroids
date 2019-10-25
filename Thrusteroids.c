@@ -331,11 +331,16 @@ void Draw_Actors()
 	// compare elapsed time with a temporary holder to see when 2s has passed, call funciton with different values to trigger firing
 	//
 
-	if ((Clock_GetElapsedTimeMs() / 1000 - fire_time) > 2)
+	if ((Clock_GetElapsedTimeMs() / 100 - fire_time) > 20)
 
 	{
 		fire = 1;
-		fire_time = Clock_GetElapsedTimeMs() / 1000;
+		
+		if ((Clock_GetElapsedTimeMs() / 100 - fire_time) > 21)
+		{
+			
+			fire_time = Clock_GetElapsedTimeMs() / 100;
+		}
 	}
 	else
 	{
