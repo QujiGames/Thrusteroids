@@ -74,19 +74,41 @@ void RenderScene(char(*arr), int width, int height, int score, float angle, doub
 		}
 	}
 
+
+	for (int i = 0; i < width - 2; i++)
+	{
+		Console_SetRenderBuffer_Char(i + 1, height - 10, (char)223, 0x0001, 0x0004, 0x0002);
+		for (int j = 2; j < 10; j++)
+		{
+			Console_SetRenderBuffer_Char(i + 1, height - j, (char)0, 0x0001, 0x0004, 0x0002);
+		}
+		Console_SetRenderBuffer_Char(i + 1, height - 1, (char)220, 0x0001, 0x0004, 0x0002);
+	}
+
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			Console_SetRenderBuffer_Char(0, height - j - 1, (char)219, 0x0001, 0x0004, 0x0002);
+			Console_SetRenderBuffer_Char(width - 1, height - j - 1, (char)219, 0x0001, 0x0004, 0x0002);
+		}
+	}
+
+
+
 	char scorebuffer[20];
 
 	snprintf(scorebuffer, 20, "%d", score);
-	Console_SetRenderBuffer_String(0, 40, "Score: ");
-	Console_SetRenderBuffer_String(7, 40, scorebuffer);
+	Console_SetRenderBuffer_String(3, 152, "Score: ");
+	Console_SetRenderBuffer_String(10, 152, scorebuffer);
 
 	char anglebuffer[20];
 
 	int vector = 360 - (int)angle;
 
 	snprintf(anglebuffer, 4, "%d", vector);
-	Console_SetRenderBuffer_String(0, 45, "Vector: ");
-	Console_SetRenderBuffer_String(7, 45, anglebuffer);
+	Console_SetRenderBuffer_String(30, 152, "Vector: ");
+	Console_SetRenderBuffer_String(37, 152, anglebuffer);
 
 
 	velx = velx * 1000 * -1;
@@ -95,32 +117,33 @@ void RenderScene(char(*arr), int width, int height, int score, float angle, doub
 	char velxbuffer[20];
 
 	snprintf(velxbuffer, 20, "%d", (int)velx);
-	Console_SetRenderBuffer_String(0, 50, "VelX: ");
-	Console_SetRenderBuffer_String(7, 50, velxbuffer);
+	Console_SetRenderBuffer_String(57, 152, "VelX: ");
+	Console_SetRenderBuffer_String(64, 152, velxbuffer);
 
 	char velybuffer[20];
 
 	snprintf(velybuffer, 20, "%d", (int)vely);
-	Console_SetRenderBuffer_String(0, 55, "VelY: ");
-	Console_SetRenderBuffer_String(7, 55, velybuffer);
+	Console_SetRenderBuffer_String(57, 155, "VelY: ");
+	Console_SetRenderBuffer_String(64, 155, velybuffer);
 
-	
+
 	accel = accel * 100000;
 	accel = accel + 0.00000;
 
 	char accelbuffer[20];
 
 	snprintf(accelbuffer, 20, "%d", (int)accel);
-	Console_SetRenderBuffer_String(0, 60, "Accel: ");
-	Console_SetRenderBuffer_String(7, 60, accelbuffer);
+	Console_SetRenderBuffer_String(84, 152, "Accel: ");
+	Console_SetRenderBuffer_String(91, 152, accelbuffer);
 
 	double speed = 0;
 	speed = (sqrt(pow(velx, 2) + pow(vely, 2)));
 	char speedbuffer[20];
 
 	snprintf(speedbuffer, 20, "%d", (int)speed);
-	Console_SetRenderBuffer_String(0, 65, "Speed: ");
-	Console_SetRenderBuffer_String(7, 65, speedbuffer);
+	Console_SetRenderBuffer_String(84, 155, "Speed: ");
+	Console_SetRenderBuffer_String(91, 155, speedbuffer);
+
 
 
 	Console_SwapRenderBuffer();

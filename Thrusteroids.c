@@ -259,7 +259,7 @@ void Draw_Bullets()
 
  		if (x > 0 && x < level_width && y > 0 && y < level_height)
 		{
- 			aActors[x + y * level_width] = (char)207;
+ 			aActors[x + y * level_width] = 'o';
 		}
 		else
 		{
