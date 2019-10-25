@@ -122,53 +122,11 @@ void RenderScene(char(*arr), int width, int height, int score, float angle, doub
 	Console_SetRenderBuffer_String(7, 65, speedbuffer);
 
 
-
-	//void draw_UI(score, angle, velx, vely, accel);
-
-
 	Console_SwapRenderBuffer();
 
 
 }
 
-/*
-void draw_UI(int score, float angle, double velx, double vely, double accel)
-{
-	char scorebuffer[20];
-
-	snprintf(scorebuffer, 20, "%d", score);
-	Console_SetRenderBuffer_String(0, 40, "Score: ");
-	Console_SetRenderBuffer_String(7, 40, scorebuffer);
-
-	char anglebuffer[20];
-
-	snprintf(anglebuffer, 20, "%f", angle);
-	Console_SetRenderBuffer_String(0, 45, "Angle: ");
-	Console_SetRenderBuffer_String(7, 45, anglebuffer);
-
-
-	char velxbuffer[20];
-
-	snprintf(velxbuffer, 20, "%f", velx);
-	Console_SetRenderBuffer_String(0, 50, "VelX: ");
-	Console_SetRenderBuffer_String(7, 50, velxbuffer);
-
-	char velybuffer[20];
-
-	snprintf(velybuffer, 20, "%f", vely);
-	Console_SetRenderBuffer_String(0, 55, "VelY: ");
-	Console_SetRenderBuffer_String(7, 55, velybuffer);
-
-
-	char accelbuffer[20];
-
-	snprintf(accelbuffer, 20, "%f", accel);
-	Console_SetRenderBuffer_String(0, 60, "Accel: ");
-	Console_SetRenderBuffer_String(7, 60, accelbuffer);
-
-}
-
-*/
 
 void ClearScreen(char(*arr), int screen_width, int screen_height)
 {
