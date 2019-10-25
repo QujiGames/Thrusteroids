@@ -81,8 +81,9 @@ void RenderScene(char(*arr), int width, int height, int score, float angle, doub
 
 	char anglebuffer[20];
 
+	int vector = 360 - (int)angle;
 
-	snprintf(anglebuffer, 4, "%d", (int)angle);
+	snprintf(anglebuffer, 4, "%d", vector);
 	Console_SetRenderBuffer_String(0, 45, "Vector: ");
 	Console_SetRenderBuffer_String(7, 45, anglebuffer);
 
