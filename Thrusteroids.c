@@ -213,11 +213,11 @@ void Get_Inputs()
 
 		// fill out bullet array, position 1 = x, 2 = y, 3 = x velocity, 4 = y velocity
 		
-		for(int i = 0;i<10000;i++)
+		for(int i = 0; i<10000; i++)
 		
-			if (aBullets[0 + i*4] == '\0')
+			if (aBullets[0 + i * 4] == '\0')
 			{
-				aBullets[0 + i* 4] = -xTrans + screen_width / 2;
+				aBullets[0 + i * 4] = -xTrans + screen_width / 2;
  				aBullets[1 + i * 4] = -yTrans + screen_height / 2;
 				aBullets[2 + i * 4] = -velocityX - 0.05 * sin(anglerad);
 				aBullets[3 + i * 4] = -velocityY - 0.05 * cos(anglerad);
@@ -251,21 +251,21 @@ void Draw_Bullets()
    	for (i = 0; i < 10000; i++)
 	{
 		
-		aBullets[0 + i*4] = aBullets[0 + i*4] + aBullets[2 + (i * 4)] * Clock_GetDeltaTime();
-		aBullets[1+i*4] = aBullets[1+i*4] + aBullets[3+ i*4] * Clock_GetDeltaTime();
+		aBullets[0 + (i * 4)] = aBullets[0 + (i * 4)] + aBullets[2 + (i * 4)] * Clock_GetDeltaTime();
+		aBullets[1 + (i * 4)] = aBullets[1 + (i * 4)] + aBullets[3 + (i * 4)] * Clock_GetDeltaTime();
 
-		x = aBullets[0+i*4];
-		y = aBullets[1+i*4];
+		x = aBullets[0 + (i * 4)];
+		y = aBullets[1 + (i * 4)];
 
- 		if (x > 0 && x < level_width && y >0 && y < level_height)
+ 		if (x > 0 && x < level_width && y > 0 && y < level_height)
 		{
- 			aActors[x + y * level_width] = 'o';
+ 			aActors[x + y * level_width] = (char)207;
 		}
 		else
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				aBullets[j + i*4] = '\0';
+				aBullets[j + (i * 4)] = '\0';
 			//	bullets_fired--;
 			}
 		}
@@ -407,7 +407,7 @@ int main()
 	Level_Generator2(aLevel, level_width, level_height, screen_width, screen_height, &xTrans, &yTrans, 30);
 
 
-
+	
 	while (bGameIsRunning)
 	{
 		Clock_GameLoopStart();
@@ -423,5 +423,54 @@ int main()
 		
 		
 	}
+
+
+	/*
+	
+	Draws ASCII characters table, ignore otherwise
+
+
+
+	while (bGameIsRunning == 2)
+	{
+		Clock_GameLoopStart();
+
+		Get_Inputs();
+		Update();
+
+		Console_ClearRenderBuffer();
+
+		int counter = 0;
+		char aSymbols[400];
+		for (int i = 0; i < 256; i++)
+		{
+			aSymbols[i] = 'i';
+		}
+		for (int i = 0; i < 16; i++)
+		{
+			for (int j = 0; j < 16; j++)
+			{
+				snprintf(aSymbols, 256, "%d", counter);
+				Console_SetRenderBuffer_String((j + 1) * 8, (i + 1) * 5, aSymbols);
+				Console_SetRenderBuffer_String((j + 1) * 8 + 3, (i + 1) * 5, ": ");
+				
+
+
+				Console_SetRenderBuffer_Char((j + 1) * 8 + 5, (i + 1) * 5, (char)(counter), 0x0001, 0x0004, 0x0002);
+				counter++;
+			}
+		}
+
+	
+
+
+		Console_SwapRenderBuffer();
+
+
+	}
+	*/
+
+
+
 	GameShutdown();
 }
