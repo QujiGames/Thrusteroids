@@ -217,13 +217,13 @@ void Get_Inputs()
 		
 			if (aBullets[0 + i*4] == '\0')
 			{
-				aBullets[0 + bullets_fired * 4] = -xTrans + screen_width / 2;
- 				aBullets[1 + bullets_fired * 4] = -yTrans + screen_height / 2;
-				aBullets[2 + bullets_fired * 4] = -velocityX - 0.05 * sin(anglerad);
-				aBullets[3 + bullets_fired * 4] = -velocityY - 0.05 * cos(anglerad);
+				aBullets[0 + i* 4] = -xTrans + screen_width / 2;
+ 				aBullets[1 + i * 4] = -yTrans + screen_height / 2;
+				aBullets[2 + i * 4] = -velocityX - 0.05 * sin(anglerad);
+				aBullets[3 + i * 4] = -velocityY - 0.05 * cos(anglerad);
 
-				bullets_fired++;
-				i = 10000;
+				//bullets_fired++;
+				i = 10000;     
 
 			}
 		
@@ -248,8 +248,9 @@ void Draw_Bullets()
 {
 	int x, y, i;
 
-   	for (i = 0; i < bullets_fired; i++)
+   	for (i = 0; i < 10000; i++)
 	{
+		
 		aBullets[0 + i*4] = aBullets[0 + i*4] + aBullets[2 + (i * 4)] * Clock_GetDeltaTime();
 		aBullets[1+i*4] = aBullets[1+i*4] + aBullets[3+ i*4] * Clock_GetDeltaTime();
 
@@ -265,7 +266,7 @@ void Draw_Bullets()
 			for (int j = 0; j < 3; j++)
 			{
 				aBullets[j + i*4] = '\0';
-				
+			//	bullets_fired--;
 			}
 		}
 

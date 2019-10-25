@@ -115,22 +115,25 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 	double y_vel = 0;
 	double angle = 0;
 
-	double distance = 0.005; //sqrt(xDiff * xDiff+ yDiff * yDiff) / 10000;
+	double bullet_speed = 0.005; //sqrt(xDiff * xDiff+ yDiff * yDiff) / 10000;
+
+
+	//multiply by time to give different speed bullets
 
 	if (xDiff <= 0)
 	{
 		if (yDiff <= 0)
 		{
 			angle = atan(xDiff / yDiff) ;
-			x_vel = -distance * sin(angle) * time;
-			y_vel = -distance * cos(angle) * time;
+			x_vel = -bullet_speed * sin(angle) *time;
+			y_vel = -bullet_speed * cos(angle) * time;
 			
 		}
 		else if (yDiff >= 0)
 		{
 			angle = atan(xDiff / yDiff)  +3.14;
-			x_vel = -distance * sin(angle) * time;
-			y_vel = -distance * cos(angle) * time;
+			x_vel = -bullet_speed * sin(angle) * time;
+			y_vel = -bullet_speed * cos(angle) * time;
 
 		}
 	}
@@ -139,15 +142,15 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 		if (yDiff <= 0)
 		{
 		angle = atan(xDiff / yDiff) + 3.14;
-		x_vel = distance * sin(angle) * time;
-		y_vel = distance * cos(angle) * time;
+		x_vel = bullet_speed * sin(angle) * time;
+		y_vel = bullet_speed * cos(angle) * time;
 		}
 		else if (yDiff >= 0)
 		{
 			
 		angle = atan(xDiff / yDiff) ;
-		x_vel = distance * sin(angle) * time;
-		y_vel = distance * cos(angle) * time;
+		x_vel = bullet_speed * sin(angle) * time;
+		y_vel = bullet_speed * cos(angle) * time;
 
 		}
 	}
