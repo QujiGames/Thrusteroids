@@ -426,13 +426,16 @@ int main()
 
 
 	/*
-	
-	Draws ASCII characters table, ignore otherwise
 
 
-
-	while (bGameIsRunning == 2)
+	while (bGameIsRunning)
 	{
+		
+		//
+		//Draws ASCII characters table, ignore otherwise
+		//
+		
+		
 		Clock_GameLoopStart();
 
 		Get_Inputs();
