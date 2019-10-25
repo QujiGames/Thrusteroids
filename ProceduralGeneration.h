@@ -15,4 +15,9 @@ void Draw_Wall2(char(*Terrain), int width, int height, int starting_position);
 
 void Draw_Wall3(char(*Terrain), int width, int height, int starting_position);
 
+void Level_Constructor(char(*Terrain), int width, int height, int starting_position, int map_size);
+
+
+void Wall_Unit(char(*Terrain), int width, int height, int starting_position, int length, int bias, int orientation);
+
 void Star_Field(char(*Terrain), int width, int height);

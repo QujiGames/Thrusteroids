@@ -427,6 +427,346 @@ void Draw_Wall3(char(*Terrain), int width, int height, int starting_position)
 	}
 }
 
+void Level_Constructor(char(*Terrain), int width, int height, int starting_position, int map_size)
+{
+	int turn = Level_Seed(0, 100);
+	int straight_tunnel = Level_Seed(0, 1);
+	int branch = Level_Seed(0, 100);
+	int crossroad = Level_Seed(0, 1);
+	int cavern = Level_Seed(0, 1);
+	int tunnel_width_straight = Level_Seed(0, 1);
+	int straight_length = Level_Seed(0, 100);
+	int straight_or_turn = Level_Seed(0, 100);
+	int start_direction = Level_Seed(0, 3);
+
+
+	int initialise = 0;
+	int lturn_count = 0;
+	int rturn_counnt = 0;
+	int straight_count = 0;
+	int branch_count = 0;
+	int cavern_count = 0;
+	int crossroad_count = 0;
+
+
+
+	// last component necessary? can iterate array?
+	// char last_component = '0';
+
+	char alevel_map[50];
+
+	//
+	//make enum:
+	//
+	if (start_direction == 0)
+	{
+		alevel_map[0] = 'E';
+	}
+	else if (start_direction == 1)
+	{
+		alevel_map[0] = 'S';
+	}
+	else if (start_direction == 2)
+	{
+		alevel_map[0] = 'W';
+	}
+	else
+	{
+		alevel_map[0] = 'N';
+	}
+
+	//
+	//		straight tunnel: 1 = short length, 2 = medium length, 3 = long tunnel
+	//		Turns: r = right turn, l = left turn
+	//		x = crossroad?
+	//		wall to cap tunnel is endcap = e
+	//		large cave = cavern = c
+	//		branches split tunnel into 2 different tunnels:
+	//		right branch = R
+	//		left branch  = L
+	//
+	//		wall unit length = 60 chars? split into 2 x 30 for + and - bias walls?
+	//
+
+
+
+
+
+	for (int i = 1; i < (map_size - 1); i++)
+	{
+		turn = Level_Seed(0, 100);
+		straight_tunnel = Level_Seed(0, 1);
+		branch = Level_Seed(0, 100);
+		crossroad = Level_Seed(0, 1);
+		cavern = Level_Seed(0, 1);
+		tunnel_width_straight = Level_Seed(0, 1);
+		straight_length = Level_Seed(0, 100);
+		straight_or_turn = Level_Seed(0, 100);
+		
+		
+		
+		//
+		//	need enum again? probably!
+		//
+
+		if ((alevel_map[0] == 'N' || alevel_map[0] == 'E' || alevel_map[0] == 'S' || alevel_map[0] == 'W') && initialise == 0)
+		{
+			if (straight_or_turn > 50)
+			{
+				if (straight_length > 66)
+				{
+					alevel_map[1] == '3';
+				}
+				else if (straight_length > 33)
+				{
+					alevel_map[1] == '2';
+				}
+				else
+				{
+					alevel_map[1] == '1';
+				}
+			}
+			else
+			{
+				if (turn > 50)
+				{
+					alevel_map[1] == 'r';
+				}
+				else
+				{
+					alevel_map[1] == 'l';
+				}
+			}
+			initialise = 1;
+		}
+		else if ((alevel_map[i] == '1' || alevel_map[i] == '2' || alevel_map[i] == '3' || alevel_map[i] == 'r' || alevel_map[i] == 'l') && i < 5)
+		{
+			if (alevel_map[i] == 'r' || alevel_map[i] == 'l')
+			{
+				if (straight_or_turn > 10)
+				{
+					if (straight_length > 66)
+					{
+						alevel_map[i + 1] == '3';
+					}
+					else if (straight_length > 33)
+					{
+						alevel_map[i + 1] == '2';
+					}
+					else
+					{
+						alevel_map[i + 1] == '1';
+					}
+				}
+				else
+				{
+					if (turn > 50)
+					{
+						alevel_map[i + 1] == 'r';
+					}
+					else
+					{
+						alevel_map[i + 1] == 'l';
+					}
+				}
+			}
+			else
+			{
+				if (straight_or_turn > 50)
+				{
+					if (straight_length > 66)
+					{
+						alevel_map[i + 1] == '3';
+					}
+					else if (straight_length > 33)
+					{
+						alevel_map[i + 1] == '2';
+					}
+					else
+					{
+						alevel_map[i + 1] == '1';
+					}
+				}
+				else
+				{
+					if (turn > 50)
+					{
+						alevel_map[i + 1] == 'r';
+					}
+					else
+					{
+						alevel_map[i + 1] == 'l';
+					}
+				}
+			}
+		}
+		else if ((alevel_map[i] == '1' || alevel_map[i] == '2' || alevel_map[i] == '3' || alevel_map[i] == 'r' || alevel_map[i] == 'l') && i > 6)
+		{
+
+
+		}
+
+
+
+	}
+
+
+
+
+
+}
+
+
+
+
+
+void Wall_Unit(char(*Terrain), int width, int height, int starting_position, int length, int bias, int orientation)
+{
+	int start_position = starting_position;
+
+	// bias is the general direction of the wall, +y is downward trend, -y is upward trend
+	//	-1 = -y, 1 = +y.
+	//	for vertial walls: +1 = +x, -1 = -x
+	bias = 0;
+
+
+	//
+	//	orientation is whether the wall is horizontal or vertical
+	//	horizontal = 1, vertical = -1
+	//
+	orientation = 0;
+
+
+	// length is in units. One unit is 50 char long
+	// length is in multiples of 2, so that we can use one -1 bias and one +1 bias wall to make a 100 char long wall with minimal deviation from the start position.
+
+	length = 0;
+
+
+	int jitterweight;
+	int jitter = Level_Seed(1, 5);
+	int variance = Level_Seed(1, 5);
+	int direction = Level_Seed(-1, 1);
+	int yposition = start_position + variance;
+
+	for (int x = 0; x < width; x++)
+	{
+		jitterweight = Level_Seed(1, 100);
+		jitter = Level_Seed(1, 5);
+		variance = Level_Seed(1, 2);
+		direction = Level_Seed(-1, 1);
+
+		int oldyposition = yposition;
+
+
+		//
+		//
+		//  Boundary issues exist, generating level beyond boundary box, need to fix
+		//
+		//
+
+
+
+
+		if (x <= width && yposition <= height && yposition > 0)
+		{
+			if (jitterweight <= 90)
+			{
+				if (variance == 1)
+				{
+					if (direction > 0)
+					{
+						Terrain[x + ((yposition)*width)] = 'w';
+						Terrain[x + ((yposition - 1) * width)] = 'W';
+					}
+					else if (direction < 0)
+					{
+						Terrain[x + ((yposition)*width)] = 'e';
+						Terrain[x + ((yposition + 1) * width)] = 'E';
+					}
+					else
+					{
+						Terrain[x + (yposition * width)] = 'R';
+						Terrain[x + 1 + (yposition * width)] = 'r';
+					}
+				}
+
+				else if (variance > 1)
+				{
+					if (direction > 0)
+					{
+						int ycount = 0;
+						for (int i = 0; i <= variance; i++)
+						{
+							Terrain[x + ((yposition + 1 + i) * width)] = 'T';
+							ycount++;
+						}
+						yposition = yposition + ycount - 1;
+					}
+					else if (direction < 0)
+					{
+						int ycount = 0;
+						for (int i = 0; i <= variance; i++)
+						{
+
+							Terrain[x + ((yposition - 1 - i) * width)] = 'J';
+							ycount++;
+						}
+						yposition = yposition - ycount + 1;
+					}
+					else
+					{
+						for (int i = 0; i <= variance; i++)
+						{
+
+							Terrain[x + ((yposition)*width)] = 'X';
+						}
+					}
+				}
+
+			}
+			else if (jitterweight > 90)
+			{
+				int xcount = 0;
+
+				for (int i = 0; i <= jitter; i++)
+				{
+					Terrain[(x + i) + (yposition * width)] = 'Z';
+					xcount++;
+				}
+				x = x + xcount - 1;
+			}
+		}
+
+		if (direction > 0)
+		{
+			if (variance > 1)
+			{
+				yposition = yposition + variance - 2;
+			}
+			else
+			{
+				yposition = yposition + variance - 1;
+			}
+		}
+		else if (direction < 0)
+		{
+			if (variance > 1)
+			{
+				yposition = yposition - variance + 2;
+			}
+			else
+			{
+				yposition = yposition - variance + 1;
+			}
+		}
+		else
+		{
+			yposition++;
+		}
+	}
+}
+
 
 
 
@@ -632,6 +972,11 @@ void Level_Generator2(char(*Terrain), int width, int height, int screen_width, i
 	Draw_Wall(Terrain, width, height, 120);
 	Draw_Wall(Terrain, width, height, 300);
 	Draw_Wall(Terrain, width, height, 500);
+
+	
+	
+	Level_Constructor(Terrain, width, height, starting_position, 20);
+
 
 	Star_Field(Terrain, width, height);
 
