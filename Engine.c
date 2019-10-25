@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <math.h>
 #include "Enemies.h"
+#include "Random/Random.h"
 
 #include "Console/Console.h"
 
@@ -262,3 +263,89 @@ void Draw_Screen( float xTrans, float yTrans, float angle, int level_width, int 
 
 }
 
+int Generate_valid_location(int level_width, int level_height, char(*arr))
+
+{
+	int i, x, y, top = 0, bottom = 0;
+	int top_done = 0;
+	Random_Init();
+	x = Random_Range(0, level_width);
+
+
+
+
+
+	for (i = 1; i < level_height; i++)
+
+	{
+		if (arr[x + i * level_width] == '#')
+		{
+			Generate_valid_location(level_width, level_height, arr);
+		}
+		else if (arr[x + i * level_height] != '\0')
+		{
+			if (top_done == 1)
+			{
+				bottom = i;
+				i = level_height + 1;
+
+			}
+			else
+			{
+				top = i;
+				top_done = 1;
+				i = i + 5;
+			}
+		}
+	}
+
+	y = Random_Range(top, bottom);
+
+	return (x + y * level_width);
+
+}
+
+
+
+
+int Is_Location_Valid(int x, int y, int level_width, int level_height, char(*arr))
+
+{
+	int i, top = 0, bottom = 0;
+	int top_done = 0;
+
+
+	for (i = 1; i < level_height; i++)
+
+	{
+		if (arr[x + i * level_width] == '#')
+		{
+			return 0;
+		}
+		else if (arr[x + i * level_height] != '\0')
+		{
+			if (top_done == 1)
+			{
+				bottom = i;
+				i = level_height + 1;
+
+			}
+			else
+			{
+				top = i;
+				top_done = 1;
+				i = i + 5;
+			}
+		}
+	}
+
+	if( y > top && y < bottom)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+
+}

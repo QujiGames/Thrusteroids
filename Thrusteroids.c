@@ -367,7 +367,7 @@ void Draw_Actors()
 void Update()
 {
 	
-
+	int i = Is_Location_Valid(80 , 100, level_width, level_height, aLevel);
 	
 	
 
