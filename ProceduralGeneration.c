@@ -970,8 +970,8 @@ void Level_Generator2(char(*Terrain), int width, int height, int screen_width, i
 
 	Draw_Wall3(Terrain, width, height, starting_position);
 	Draw_Wall(Terrain, width, height, 120);
-	Draw_Wall(Terrain, width, height, 300);
-	Draw_Wall(Terrain, width, height, 500);
+	//Draw_Wall(Terrain, width, height, 300);
+	//Draw_Wall(Terrain, width, height, 500);
 
 	
 	

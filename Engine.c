@@ -301,11 +301,8 @@ int Generate_valid_location(int level_width, int level_height, char(*arr))
 	for (i = 1; i < level_height; i++)
 
 	{
-		if (arr[x + i * level_width] == '#')
-		{
-			Generate_valid_location(level_width, level_height, arr);
-		}
-		else if (arr[x + i * level_height] != '\0')
+		
+		if (arr[x + i * level_height] != '\0')
 		{
 			if (top_done == 1)
 			{
@@ -321,6 +318,9 @@ int Generate_valid_location(int level_width, int level_height, char(*arr))
 			}
 		}
 	}
+	x = 30;
+	top = 50;
+	bottom = 100;
 
 	y = Random_Range(top, bottom);
 

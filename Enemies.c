@@ -95,9 +95,38 @@ void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, in
 
 
 }
+void Create_Cruiser(int valid_loc,int level_width,double(*arr), int how_many)
+{
+	double x, y;
+	double x_vel = -0.005, y_vel = 0.005;
+
+	x = valid_loc % level_width;
+	y = (valid_loc - x) / level_width;
+
+	for (int i = 4; i < (5*how_many);i++)
+	{
+		if (arr[i] == 0)
+		{
+			arr[i - 4] = x;
+			arr[i - 3] = y;
+			arr[i - 2] = x_vel;
+			arr[i - 1] = y_vel;
+			arr[i] = 1;
+
+		}
+			
 
 
-void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, int level_height, float velocityX, float velocityY, float time, double(*arr2), int *bullets_fired, int xloc, int yloc, int fire)
+	}
+
+
+
+}
+
+void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, int level_height, float velocityX, float velocityY, float time, double(*arr2), int *bullets_fired, int xloc, int yloc, int fire, int(*aCruisers))
+
+
+
 
 {
 
@@ -107,7 +136,7 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 
 	We then use this angle to work out x and y vector components for velocity and set the bullet array with appropriate values
 	*/
-
+	
 
 	double xDiff = xloc - x_position;
 	double yDiff = yloc - y_position;
@@ -192,4 +221,161 @@ void Place_Cruiser(char(*arr), int x_position, int y_position, int level_width)
 	arr[x_position + 1 + y_position * level_width] = 'O';
 	arr[x_position + 2 + y_position * level_width] = 'O';
 	arr[x_position + 3 + y_position * level_width] = 'D';
+}
+
+
+void Cruiser_AI(double(*aCruisers), char(*aLevel), int shipX, int shipY, int level_width)
+
+{
+	int i, j, x, y;
+	
+	for (i = 4; i < 4000; i += 5)
+	{
+		if (aCruisers[i] == 1)
+		{
+
+			
+			double xDiff = shipX - aCruisers[i-4];
+			double yDiff = shipY - aCruisers[i-3];
+			double x_vel = 0;
+			double y_vel = 0;
+			double angle = 0;
+
+			double ship_speed = 0.005; 
+
+
+			
+
+			if (xDiff <= 0)
+			{
+				if (yDiff <= 0)
+				{
+					angle = atan(xDiff / yDiff);
+					x_vel = -ship_speed * sin(angle) ;
+					y_vel = -ship_speed * cos(angle) ;
+
+				}
+				else if (yDiff >= 0)
+				{
+					angle = atan(xDiff / yDiff) + 3.14;
+					x_vel = -ship_speed * sin(angle) ;
+					y_vel = -ship_speed * cos(angle) ;
+
+				}
+			}
+			else if (xDiff >= 0)
+			{
+				if (yDiff <= 0)
+				{
+					angle = atan(xDiff / yDiff) + 3.14;
+					x_vel = ship_speed * sin(angle) ;
+					y_vel = ship_speed * cos(angle) ;
+				}
+				else if (yDiff >= 0)
+				{
+
+					angle = atan(xDiff / yDiff);
+					x_vel = ship_speed * sin(angle) ;
+					y_vel = ship_speed * cos(angle) ;
+
+				}
+			}
+			
+			aCruisers[i - 2] = x_vel;
+			aCruisers[i - 1] = y_vel;
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//loop to check for collison with vertical walls
+
+			
+			for (j = 1; j <10; j++) 
+
+			{
+				x = (int)aCruisers[i - 4];
+				y = (int)aCruisers[i - 3] - j;
+				
+
+				if (aLevel[x+y * level_width] != '\0' && aLevel[x + y * level_width] != '.' && aLevel[x + y * level_width] != '*' && aLevel[x + y * level_width] != '+')  //test to see if there is a wall within 5 spaces above and set velocity to downwards if there is
+				{
+					aCruisers[i - 1] = 0.005;
+					
+
+					if (aCruisers[i - 2] == 0)
+					{
+					aCruisers[i - 2] = 0.005;
+					}
+
+				}
+				y = (int)aCruisers[i - 3] + j;
+				if (aLevel[x + y * level_width] != '\0' && aLevel[x + y * level_width] != '.' && aLevel[x + y * level_width] != '*' && aLevel[x + y * level_width] != '+') //test to see if there is a wall within 5 spaces below and set velocity to downwards if there is
+				{
+					aCruisers[i - 1] = -0.005;
+					if (aCruisers[i - 2] == 0)
+					{
+						aCruisers[i - 2] = 0.005;
+
+					}
+
+				}
+			}
+
+
+			//loop toe check for collison with horizontal walls
+
+
+			for (j = 1; j < 10;j++)
+
+			{
+				x = (int)aCruisers[i - 4] - j;
+				y = (int)aCruisers[i - 3] ;
+			
+
+				if (aLevel[x + y * level_width] != '\0' && aLevel[x + y * level_width] != '.' && aLevel[x + y * level_width] != '*' && aLevel[x + y * level_width] != '+')  //test to see if there is a wall within 5 spaces above and set velocity to downwards if there is
+				{
+					aCruisers[i - 2] = 0.005;
+
+
+					if (aCruisers[i - 1] == 0)
+					{
+						aCruisers[i - 1] = 0.005;
+					}
+
+				}
+				x = aCruisers[i - 4] + j;
+				if (aLevel[x + y * level_width] != '\0' && aLevel[x + y * level_width] != '.' && aLevel[x + y * level_width] != '*' && aLevel[x + y * level_width] != '+') //test to see if there is a wall within 5 spaces below and set velocity to downwards if there is
+				{
+					aCruisers[i - 2] = -0.005;
+					if ((int)aCruisers[i - 1] == 0)
+					{
+						aCruisers[i - 1] = 0.005;
+
+					}
+
+				}
+			}
+
+
+
+		}
+
+
+	}
+
+	
+
+
+
+
+
 }

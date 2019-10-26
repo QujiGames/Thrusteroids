@@ -41,6 +41,12 @@ static int fire = 0;
 static double fire_time = 0;
 
 
+//enemies
+
+static double aCruisers[1000];  // array for cruisers 1 = x pos, 2 = y pos, 3 = x vel, 4 = y vel, 5 = bool for isalive
+
+
+
 /******************************************************************************
 *******************************************************************************
 *******************************************************************************
@@ -320,6 +326,7 @@ void Draw_Actors()
 
 {
 	
+	Cruiser_AI(aCruisers, aLevel, -xTrans + screen_width / 2, -yTrans + screen_height / 2, level_width);
 	//Draw_STAR(aLevel, aActors, 60, 60, level_height, level_width, Clock_GetElapsedTimeMs(), 0,20, 50);
 	
 	//Draw_STAR(aLevel, aActors, 120, 120, level_height, level_width, Clock_GetElapsedTimeMs(), 30, 80,-100);
@@ -348,15 +355,31 @@ void Draw_Actors()
 		fire = 0;
 	}
 
-	if (fire == 1)
-	{
-		Draw_Cruiser(aActors, 80, 100, level_width, level_height, 0, 0, Clock_GetDeltaTime(), aBullets, &bullets_fired, (-xTrans + screen_width / 2), (-yTrans + screen_height / 2), 1);
-	}
-	else
+	int i;
+	Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 1);
+	
 
+	for (i = 4; i < 1000; i += 5)
 	{
-		Draw_Cruiser(aActors, 80, 100, level_width, level_height, 0, 0, Clock_GetDeltaTime(), aBullets, &bullets_fired, (-xTrans + screen_width / 2), (-yTrans + screen_height / 2), 0);
+		if (aCruisers[i] == 1)
+		{
+			aCruisers[i - 4] = aCruisers[i - 4] + aCruisers[i - 2] * Clock_GetDeltaTime();
+			aCruisers[i - 3] = aCruisers[i - 3] + aCruisers[i - 1] * Clock_GetDeltaTime();
+			
+			
+			if (fire == 1)
+			{
 
+				Draw_Cruiser(aActors, aCruisers[i-4], aCruisers[i-3], level_width, level_height, 0, 0, Clock_GetDeltaTime(), aBullets, &bullets_fired, (-xTrans + screen_width / 2), (-yTrans + screen_height / 2), 1, aCruisers);
+			}
+
+
+			else
+
+			{
+				Draw_Cruiser(aActors, aCruisers[i - 4], aCruisers[i - 3], level_width, level_height, 0, 0, Clock_GetDeltaTime(), aBullets, &bullets_fired, (-xTrans + screen_width / 2), (-yTrans + screen_height / 2), 0, aCruisers);
+			}
+		}
 	}
 
 	//Draw_Cruiser(aActors, 100, 100, level_width, level_height, 0, 0, Clock_GetDeltaTime(), aBullets, &bullets_fired, (-xTrans + screen_width / 2), (-yTrans + screen_height / 2));
@@ -367,7 +390,7 @@ void Draw_Actors()
 void Update()
 {
 	
-	int i = Is_Location_Valid(80 , 100, level_width, level_height, aLevel);
+	
 	
 	
 
@@ -399,33 +422,37 @@ int main()
 
 
 	Game_Init(screen_width, screen_height);
-	 
-	
-	
+	aCruisers[2] = -0.005;
+	aCruisers[3] = 0.005;
+
+
 	acceleration = 0.00f * Clock_GetDeltaTime() / 1000;
 
 	Level_Generator2(aLevel, level_width, level_height, screen_width, screen_height, &xTrans, &yTrans, 30);
 
 
-	
+
 	while (bGameIsRunning)
 	{
 		Clock_GameLoopStart();
-		
+
 		Get_Inputs();
 		Update();
-		
-		
-		
-		
 
-		RenderScene(aScreen, screen_width , screen_height, score, angle, acceleration, velocityX, velocityY);
-		
-		
+
+
+
+
+		RenderScene(aScreen, screen_width, screen_height, score, angle, acceleration, velocityX, velocityY);
+
+
 	}
 
-
+}
 	/*
+	
+	Draws ASCII characters table, ignore otherwise
+	
 
 
 	while (bGameIsRunning)
@@ -471,9 +498,10 @@ int main()
 
 
 	}
-	*/
+	
 
 
 
 	GameShutdown();
 }
+*/
