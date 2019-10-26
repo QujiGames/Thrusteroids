@@ -357,6 +357,8 @@ void Draw_Actors()
 
 	int i;
 	Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 1);
+	Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 2);
+	Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 3);
 	
 
 	for (i = 4; i < 1000; i += 5)
@@ -371,6 +373,7 @@ void Draw_Actors()
 			{
 
 				Draw_Cruiser(aActors, aCruisers[i-4], aCruisers[i-3], level_width, level_height, 0, 0, Clock_GetDeltaTime(), aBullets, &bullets_fired, (-xTrans + screen_width / 2), (-yTrans + screen_height / 2), 1, aCruisers);
+				
 			}
 
 

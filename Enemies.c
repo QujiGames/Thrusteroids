@@ -103,7 +103,7 @@ void Create_Cruiser(int valid_loc,int level_width,double(*arr), int how_many)
 	x = valid_loc % level_width;
 	y = (valid_loc - x) / level_width;
 
-	for (int i = 4; i < (5*how_many);i++)
+	for (int i = 4; i < (5*how_many);i+=5)
 	{
 		if (arr[i] == 0)
 		{
@@ -243,7 +243,7 @@ void Cruiser_AI(double(*aCruisers), char(*aLevel), int shipX, int shipY, int lev
 
 			double ship_speed = 0.005; 
 
-
+			//Starts off working out ship location and aims towards it as a default action
 			
 
 			if (xDiff <= 0)
@@ -289,7 +289,7 @@ void Cruiser_AI(double(*aCruisers), char(*aLevel), int shipX, int shipY, int lev
 			
 			
 			
-			
+			// next check for collison, this will overwrite default velocities
 			
 			
 			

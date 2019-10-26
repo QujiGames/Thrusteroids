@@ -291,7 +291,8 @@ int Generate_valid_location(int level_width, int level_height, char(*arr))
 {
 	int i, x, y, top = 0, bottom = 0;
 	int top_done = 0;
-	Random_Init();
+	
+	
 	x = Random_Range(0, level_width);
 
 
@@ -306,25 +307,31 @@ int Generate_valid_location(int level_width, int level_height, char(*arr))
 		{
 			if (top_done == 1)
 			{
-				bottom = i;
+				bottom = i-5;
 				i = level_height + 1;
 
 			}
 			else
 			{
-				top = i;
+				top = i+5;
 				top_done = 1;
 				i = i + 5;
 			}
 		}
 	}
-	x = 30;
-	top = 50;
-	bottom = 100;
+	
+	
+	if (bottom > top)
+	{
+		y = Random_Range(top, bottom);
+		return (x + y * level_width);
+	}
+	else
+	{
+		Generate_valid_location(level_width, level_height, arr);
+	}
 
-	y = Random_Range(top, bottom);
-
-	return (x + y * level_width);
+	
 
 }
 
