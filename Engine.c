@@ -11,12 +11,21 @@
 
 
 
+void Draw_rocket(int x, int y, int screen_width, char(*aScreen))
+{
+	aScreen[x + y * (screen_width)] = '^';
+	aScreen[(x - 1) + (y + 1) * (screen_width)] = '<';
+	aScreen[(x - 2) + (y + 1) * (screen_width)] = '-';
+	aScreen[x + (y + 1) * (screen_width)] = 'O';
+	aScreen[(x + 1) + (y + 1) * (screen_width)] = '>';
+	aScreen[(x + 2) + (y + 1) * (screen_width)] = '-';
+	aScreen[(x - 1) + (y + 2) * (screen_width)] = '/';
+	aScreen[(x + 1) + (y + 2) * (screen_width)] = '\\';
 
-
-
+}
 //sub routine to take an array input and draw it to the screen.  arr is the array passed eg aScreen
 
-void RenderScene(char(*arr), int width, int height, int score, float angle, double accel, double velx, double vely)
+void RenderScene(char(*arr), int width, int height, int score, float angle, double accel, double velx, double vely, int lives)
 {
 	Console_ClearRenderBuffer();
 
@@ -74,13 +83,16 @@ void RenderScene(char(*arr), int width, int height, int score, float angle, doub
 		}
 	}
 
+	//below is even worse, this should be a seperate function
 
+	//Draw UI
+	//top box
 	for (int i = 0; i < width - 2; i++)
 	{
 		Console_SetRenderBuffer_Char(i + 1, height - 10, (char)223, 0x0001, 0x0004, 0x0002);
-		for (int j = 2; j < 10; j++)
+		for (int j = 1; j < 10; j++)
 		{
-			Console_SetRenderBuffer_Char(i + 1, height - j, (char)0, 0x0001, 0x0004, 0x0002);
+			Console_SetRenderBuffer_Char(i + 1,  j, (char)0, 0x0001, 0x0004, 0x0002);
 		}
 		Console_SetRenderBuffer_Char(i + 1, height - 1, (char)220, 0x0001, 0x0004, 0x0002);
 	}
@@ -93,7 +105,44 @@ void RenderScene(char(*arr), int width, int height, int score, float angle, doub
 			Console_SetRenderBuffer_Char(width - 1, height - j - 1, (char)219, 0x0001, 0x0004, 0x0002);
 		}
 	}
+	
+	
+	for (int i = 0; i < lives; i++)
+	{
+		int x = width - 21 + (i * 8);
 
+		Console_SetRenderBuffer_Char(x, 3, (char)94, 0x0001, 0x0004, 0x0002);
+		Console_SetRenderBuffer_Char(x-1, 4, (char)60, 0x0001, 0x0004, 0x0002);
+		Console_SetRenderBuffer_Char(x-2, 4, (char)45, 0x0001, 0x0004, 0x0002);
+		Console_SetRenderBuffer_Char(x, 4, (char)48, 0x0001, 0x0004, 0x0002);
+		Console_SetRenderBuffer_Char(x+1, 4, (char)62, 0x0001, 0x0004, 0x0002);
+		Console_SetRenderBuffer_Char(x+2, 4, (char)45, 0x0001, 0x0004, 0x0002);
+		Console_SetRenderBuffer_Char(x-1, 5, (char)47, 0x0001, 0x0004, 0x0002);
+		Console_SetRenderBuffer_Char(x + 1, 5, (char)92, 0x0001, 0x0004, 0x0002);
+		
+
+	}
+	
+	//bottom box
+
+	for (int i = 0; i < width - 2; i++)
+	{
+		Console_SetRenderBuffer_Char(i + 1, 0, (char)223, 0x0001, 0x0004, 0x0002);
+		for (int j = 2; j < 10; j++)
+		{
+			Console_SetRenderBuffer_Char(i + 1, height- j, (char)0, 0x0001, 0x0004, 0x0002);
+		}
+		Console_SetRenderBuffer_Char(i + 1, 9, (char)220, 0x0001, 0x0004, 0x0002);
+	}
+
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			Console_SetRenderBuffer_Char(0,  j , (char)219, 0x0001, 0x0004, 0x0002);
+			Console_SetRenderBuffer_Char(width - 1, j, (char)219, 0x0001, 0x0004, 0x0002);
+		}
+	}
 
 
 	char scorebuffer[20];
@@ -168,7 +217,7 @@ void ClearScreen(char(*arr), int screen_width, int screen_height)
 
 
 
-void Draw_Screen( float xTrans, float yTrans, float angle, int level_width, int level_height, int screen_width, int screen_height, char(*aLevel), char(*aScreen),char(*aActors), int pressed, int gunFired)
+void Draw_Screen( float xTrans, float yTrans, float angle, int level_width, int level_height, int screen_width, int screen_height, char(*aLevel), char(*aScreen),char(*aActors), int pressed, int gunFired, int lives)
 {
 	ClearScreen(aScreen, screen_width, screen_height);
 	
@@ -260,15 +309,9 @@ void Draw_Screen( float xTrans, float yTrans, float angle, int level_width, int 
 
 	//Draw the rocket
 
-	aScreen[(screen_width / 2) + (screen_height / 2) * (screen_width)] = '^';
-	aScreen[(screen_width / 2 - 1) + (screen_height / 2 + 1) * (screen_width)] = '<';
-	aScreen[(screen_width / 2 - 2) + (screen_height / 2 + 1) * (screen_width)] = '-';
-	aScreen[(screen_width / 2) + (screen_height / 2 + 1) * (screen_width)] = 'O';
-	aScreen[(screen_width / 2 + 1) + (screen_height / 2 + 1) * (screen_width)] = '>';
-	aScreen[(screen_width / 2 + 2) + (screen_height / 2 + 1) * (screen_width)] = '-';
-	aScreen[(screen_width / 2 - 1) + (screen_height / 2 + 2) * (screen_width)] = '/';
-	aScreen[(screen_width / 2 + 1) + (screen_height / 2 + 2) * (screen_width)] = '\\';
-
+	Draw_rocket(screen_width / 2, screen_height / 2, screen_width, aScreen);
+	
+	
 
 	//Only draw the flame when we accelerate
 	if (pressed > 0)
@@ -279,7 +322,7 @@ void Draw_Screen( float xTrans, float yTrans, float angle, int level_width, int 
 
 
 
-	//Dwraw the laser
+	//Draw the laser
 
 
 
@@ -293,29 +336,36 @@ int Generate_valid_location(int level_width, int level_height, char(*arr))
 	int top_done = 0;
 	
 	
-	x = Random_Range(0, level_width);
+	x = Random_Range(1, level_width-2);
 
 
 
 
 
-	for (i = 1; i < level_height; i++)
+	for (i = 5; i < level_height; i++)
 
 	{
 		
-		if (arr[x + i * level_height] != '\0')
+		
+		if (arr[x + i * level_width] != '\0'  && arr[x + i * level_width] != '.' && arr[x + i * level_width] != '+' && arr[x + i * level_width] != '*')
 		{
+			if (arr[x + i * level_width] == '#')
+		{
+			Generate_valid_location(level_width, level_height, arr);
+
+		}
+			
 			if (top_done == 1)
 			{
-				bottom = i-5;
-				i = level_height + 1;
-
+				bottom = i-10;
+				i = level_height ;
+				
 			}
 			else
 			{
-				top = i+5;
+				top = i+10;
 				top_done = 1;
-				i = i + 5;
+				i = i + 10;
 			}
 		}
 	}

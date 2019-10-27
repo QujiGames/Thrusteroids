@@ -33,7 +33,8 @@ static int level_height = 400; //change array size
 static int screen_width = 160; //change array size
 static int screen_height = 160;  //change array size
 const float Gravity = -0.000f;
-int score = 0;
+static int score = 0;
+static int lives = 3;
 
 static double aBullets[50000];
 static int bullets_fired = 0;  // 0 x position, 1 y position, 2 x vel, 3 y vel 4 bullet type
@@ -142,7 +143,7 @@ void Get_Inputs()
 		velocityX = velocityX + (acceleration * sin(anglerad));
 		velocityY = velocityY - (Gravity * Clock_GetDeltaTime()/1000);
 	
-			
+		pressed = 1;
 		
 		
 	}
@@ -164,7 +165,7 @@ void Get_Inputs()
 
 
 		}
-			
+		pressed = 0;
 		
 		
 		
@@ -336,7 +337,8 @@ void collision_detection()
 			if (aScreen[((screen_width / 2) - i) + (((screen_height / 2) - j) * screen_width)] != '\0'  
 				&& aScreen[((screen_width / 2) - i) + (((screen_height / 2) - j) * screen_width)] != '+'
 				&& aScreen[((screen_width / 2) - i) + (((screen_height / 2) - j) * screen_width)] != '.'
-				&& aScreen[((screen_width / 2) - i) + (((screen_height / 2) - j) * screen_width)] != '*')
+				&& aScreen[((screen_width / 2) - i) + (((screen_height / 2) - j) * screen_width)] != '*'
+				&& aScreen[((screen_width / 2) - i) + (((screen_height / 2) - j) * screen_width)] != 'o')
 			{
 				if (angle < 20 || angle >340)
 				{
@@ -350,6 +352,11 @@ void collision_detection()
 					Console_SetRenderBuffer_String(screen_width / 2, screen_height / 2, "You died");
 					velocityX = 0;
 					velocityY = 0;
+					if (lives > 0)
+					{
+
+						lives--;
+					}
 				}
 
 
@@ -411,7 +418,8 @@ void collision_detection()
 							aBullets[2 + i * 5] = '\0';
 							aBullets[3 + i * 5] = '\0';
 
-               							Destroy_Cruiser(aCruisers, x, y);
+               							Destroy_Cruiser(aCruisers, x, y, &score);
+										score = score + 10;
 						}
 					}
 				
@@ -508,7 +516,7 @@ void Update()
 
 	Draw_Actors();
 	Draw_Bullets();
-	Draw_Screen(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, aActors, pressed, gunFired);
+	Draw_Screen(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, aActors, pressed, gunFired, lives);
 
 	ClearScreen(aActors, level_width, level_height);
 
@@ -549,7 +557,7 @@ int main()
 
 
 
-		RenderScene(aScreen, screen_width, screen_height, score, angle, acceleration, velocityX, velocityY);
+		RenderScene(aScreen, screen_width, screen_height, score, angle, acceleration, velocityX, velocityY, lives);
 
 
 	}

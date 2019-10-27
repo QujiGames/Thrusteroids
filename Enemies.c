@@ -197,10 +197,10 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 
 			if (arr2[0 + i * 5] == '\0')
 			{
-				arr2[0 + i * 5] = x_position + 1;
-				arr2[1 + i * 5] = y_position + 1;
-				arr2[2 + i * 5] = x_vel;
-				arr2[3 + i * 5] = y_vel;
+				arr2[0 + i * 5] = (double)(x_position + 1);
+				arr2[1 + i * 5] = (double)(y_position + 1);
+				arr2[2 + i * 5] = (double)(x_vel);
+				arr2[3 + i * 5] = (double)(y_vel);
 				arr2[4 + i * 5] = 2;
 
 
@@ -407,6 +407,7 @@ void Destroy_Cruiser(double(*aCruisers), int x, int y)
 			aCruisers[i+3] = '\0';
 			aCruisers[i + 4] = 0;
 
+			
 
 					   	}
 
