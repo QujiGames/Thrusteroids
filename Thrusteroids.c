@@ -35,8 +35,8 @@ static int screen_height = 160;  //change array size
 const float Gravity = -0.000f;
 int score = 0;
 
-static double aBullets[40000];
-static int bullets_fired = 0;  // 0 x position, 1 y position, 2 x vel, 3 y vel
+static double aBullets[50000];
+static int bullets_fired = 0;  // 0 x position, 1 y position, 2 x vel, 3 y vel 4 bullet type
 static int fire = 0;
 static double fire_time = 0;
 
@@ -221,36 +221,40 @@ void Get_Inputs()
 		
 		for(int i = 0; i<10000; i++)
 		
-			if (aBullets[0 + i * 4] == '\0')
+			if (aBullets[0 + i * 5] == '\0')
 			{
 				if (angle > 0 && angle < 90)
 				{
-					aBullets[0 + i * 4] = -xTrans -1 + screen_width / 2;
-					aBullets[1 + i * 4] = -yTrans +1+ screen_height / 2;
-					aBullets[2 + i * 4] = -velocityX - 0.05 * sin(anglerad);
-					aBullets[3 + i * 4] = -velocityY - 0.05 * cos(anglerad);
+					aBullets[0 + i * 5] = -xTrans -1 + screen_width / 2;
+					aBullets[1 + i * 5] = -yTrans +1+ screen_height / 2;
+					aBullets[2 + i * 5] = -velocityX - 0.05 * sin(anglerad);
+					aBullets[3 + i * 5] = -velocityY - 0.05 * cos(anglerad);
+					aBullets[4 + i * 5] = 1;
 				}
 				else if (angle >=90 && angle <180)
 				{
-					aBullets[0 + i * 4] = -xTrans-1 + screen_width / 2;
-					aBullets[1 + i * 4] = -yTrans +1+ screen_height / 2;
-					aBullets[2 + i * 4] = -velocityX - 0.05 * sin(anglerad);
-					aBullets[3 + i * 4] = -velocityY - 0.05 * cos(anglerad);
+					aBullets[0 + i * 5] = -xTrans-1 + screen_width / 2;
+					aBullets[1 + i * 5] = -yTrans +1+ screen_height / 2;
+					aBullets[2 + i * 5] = -velocityX - 0.05 * sin(anglerad);
+					aBullets[3 + i * 5] = -velocityY - 0.05 * cos(anglerad);
+					aBullets[4 + i * 5] = 1;
 				}
 				else if(angle >=180 && angle <270)
 
 				{
-					aBullets[0 + i * 4] = -xTrans +1 + screen_width / 2;
-					aBullets[1 + i * 4] = -yTrans +1+ screen_height / 2;
-					aBullets[2 + i * 4] = -velocityX - 0.05 * sin(anglerad);
-					aBullets[3 + i * 4] = -velocityY - 0.05 * cos(anglerad);
+					aBullets[0 + i * 5] = -xTrans +1 + screen_width / 2;
+					aBullets[1 + i * 5] = -yTrans +1+ screen_height / 2;
+					aBullets[2 + i * 5] = -velocityX - 0.05 * sin(anglerad);
+					aBullets[3 + i * 5] = -velocityY - 0.05 * cos(anglerad);
+					aBullets[4 + i * 5] = 1;
 				}
 				else
 				{
-					aBullets[0 + i * 4] = -xTrans +1 + screen_width / 2;
-					aBullets[1 + i * 4] = -yTrans -1 + screen_height / 2;
-					aBullets[2 + i * 4] = -velocityX - 0.05 * sin(anglerad);
-					aBullets[3 + i * 4] = -velocityY - 0.05 * cos(anglerad);
+					aBullets[0 + i * 5] = -xTrans +1 + screen_width / 2;
+					aBullets[1 + i * 5] = -yTrans -1 + screen_height / 2;
+  					aBullets[2 + i * 5] = -velocityX - 0.05 * sin(anglerad);
+					aBullets[3 + i * 5] = -velocityY - 0.05 * cos(anglerad);
+					aBullets[4 + i * 5] = 1;
 				}
 
 
@@ -284,21 +288,29 @@ void Draw_Bullets()
    	for (i = 0; i < 10000; i++)
 	{
 		
-		aBullets[0 + (i * 4)] = aBullets[0 + (i * 4)] + aBullets[2 + (i * 4)] * Clock_GetDeltaTime();
-		aBullets[1 + (i * 4)] = aBullets[1 + (i * 4)] + aBullets[3 + (i * 4)] * Clock_GetDeltaTime();
+		aBullets[0 + (i * 5)] = aBullets[0 + (i * 5)] + aBullets[2 + (i * 5)] * Clock_GetDeltaTime();
+		aBullets[1 + (i * 5)] = aBullets[1 + (i * 5)] + aBullets[3 + (i * 5)] * Clock_GetDeltaTime();
 
-		x = aBullets[0 + (i * 4)];
-		y = aBullets[1 + (i * 4)];
+		x = aBullets[0 + (i * 5)];
+		y = aBullets[1 + (i * 5)];
 
  		if (x > 0 && x < level_width && y > 0 && y < level_height)
 		{
- 			aActors[x + y * level_width] = 'o';
+			if (aBullets[4 + (i * 5)] == 1)
+			{
+				aActors[x + y * level_width] = 'o';
+			}
+			else if (aBullets[4 + (i * 5)] == 2)
+			{
+				aActors[x + y * level_width] = 'O';
+			}
+
 		}
 		else
 		{
-			for (int j = 0; j < 3; j++)
+			for (int j = 0; j < 4; j++)
 			{
-				aBullets[j + (i * 4)] = '\0';
+				aBullets[j + (i * 5)] = '\0';
 			//	bullets_fired--;
 			}
 		}
@@ -314,19 +326,21 @@ void collision_detection()
 {
 	int i, j;
 	//detect if something hits the ship
-	/*
+	
 	for (i = -1; i < 2; i++)
 	{
 		for (j = -1; j < 2; j++)
 		{
 			// landing collision
 
-			if (aScreen[((screen_width / 2) - i) + (((screen_height / 2) - j) * screen_width)] != '\0')
+			if (aScreen[((screen_width / 2) - i) + (((screen_height / 2) - j) * screen_width)] != '\0'  
+				&& aScreen[((screen_width / 2) - i) + (((screen_height / 2) - j) * screen_width)] != '+'
+				&& aScreen[((screen_width / 2) - i) + (((screen_height / 2) - j) * screen_width)] != '.'
+				&& aScreen[((screen_width / 2) - i) + (((screen_height / 2) - j) * screen_width)] != '*')
 			{
 				if (angle < 20 || angle >340)
 				{
-					velocityX = 0;
-					velocityY = 0;
+					
 				}
 
 				//anything else at the centre of the screen is a bad collision and kill us
@@ -343,7 +357,7 @@ void collision_detection()
 			}
 		}
 	}
-	*/
+	
 
 
 	if (aScreen[screen_width / 2 + (screen_height / 2) * screen_width] != '\0')
@@ -358,25 +372,54 @@ void collision_detection()
 
 	for (int i = 0; i < 10000; i++)
 	{
-		int x = aBullets[i * 4];
-		int y = aBullets[1 + i * 4];
+		int x = aBullets[i * 5];
+		int y = aBullets[1 + i * 5];
 
-		if (aLevel[x + y * level_width] != '\0')
+		if (aLevel[x + y * level_width] != '\0' && aLevel[x + y * level_width] != '*' && aLevel[x + y * level_width] != '.' && aLevel[x + y * level_width] != '+')
 		{
-			aBullets[0 + i * 4] = '\0';
-				aBullets[1 + i * 4] = '\0';
-				aBullets[2 + i * 4] = '\0';
-				aBullets[3 + i * 4] = '\0';
+			aBullets[0 + i * 5] = '\0';
+				aBullets[1 + i * 5] = '\0';
+				aBullets[2 + i * 5] = '\0';
+				aBullets[3 + i * 5] = '\0';
 		}
 	}
-
+	
 			
 			
 
 	//detect if bullets hit ships and delete them
+	
+	for (int i = 0; i < 10000; i++)
+	{
+		int x = aBullets[i * 5];
+		int y = aBullets[1 + i * 5];
 
 
+		for(j = -1;j<2;j++)
+		{
+			for (int k = -1; k < 2; k++)
+			{
+				
+				
+				if (aBullets[4 + i * 5] == 1)
+					
+					{
+					if (aActors[(x + k) + ((y + j) * level_width)] == '1')
+						{
+							aBullets[0 + i * 5] = '\0';
+    						aBullets[1 + i * 5] = '\0';
+							aBullets[2 + i * 5] = '\0';
+							aBullets[3 + i * 5] = '\0';
 
+               							Destroy_Cruiser(aCruisers, x, y);
+						}
+					}
+				
+			}
+		}
+		
+	}
+	
 }
 
 
@@ -417,14 +460,14 @@ void Draw_Actors()
 	}
 
 	int i;
-	//Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 1);
-	//Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 2);
+	Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 1);
+	Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 2);
 	//Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 3);
 	
 
 	for (i = 4; i < 1000; i += 5)
 	{
-		if (aCruisers[i] == 1)
+		if (aCruisers[i] == 1 && aCruisers[i-4] >5)
 		{
 			aCruisers[i - 4] = aCruisers[i - 4] + aCruisers[i - 2] * Clock_GetDeltaTime();
 			aCruisers[i - 3] = aCruisers[i - 3] + aCruisers[i - 1] * Clock_GetDeltaTime();

@@ -189,23 +189,27 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 
 	Arr[x_position + y_position * level_width] = '1';
 	// fill out bullet array, position 1 = x, 2 = y, 3 = x velocity, 4 = y velocity
-	int a = *bullets_fired;
+	
+
 	if (fire == 1)
 	{
 		for (int i = 0; i < 10000; i++)
 
-			if (arr2[0 + i * 4] == '\0')
+			if (arr2[0 + i * 5] == '\0')
 			{
-				arr2[0 + i * 4] = x_position + 1;
-				arr2[1 + i * 4] = y_position + 1;
-				arr2[2 + i * 4] = x_vel;
-				arr2[3 + i * 4] = y_vel;
+				arr2[0 + i * 5] = x_position + 1;
+				arr2[1 + i * 5] = y_position + 1;
+				arr2[2 + i * 5] = x_vel;
+				arr2[3 + i * 5] = y_vel;
+				arr2[4 + i * 5] = 2;
 
-				*bullets_fired = a + 1;
+
+				
 				i = 10000;
 
 			}
 	}
+	
 }
 
 //x = xcos - ysin
@@ -379,3 +383,38 @@ void Cruiser_AI(double(*aCruisers), char(*aLevel), int shipX, int shipY, int lev
 
 
 }
+
+void Destroy_Cruiser(double(*aCruisers), int x, int y)
+
+{
+	
+
+	int i, j, x_diff, y_diff;
+	
+
+
+     	for (i = 0; i < 1000; i+=5)
+	{
+
+ 		x_diff = abs(aCruisers[i] - x);
+		y_diff = abs(aCruisers[i + 1] - y);
+
+		if (x_diff <5  && y_diff <5)
+		{
+			aCruisers[i] = '\0';
+			aCruisers[i+1] = '\0';
+			aCruisers[i+2] = '\0';
+			aCruisers[i+3] = '\0';
+			aCruisers[i + 4] = 0;
+
+
+					   	}
+
+
+
+	}
+
+
+
+}
+
