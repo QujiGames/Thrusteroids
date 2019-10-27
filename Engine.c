@@ -305,7 +305,7 @@ void Draw_Screen( float xTrans, float yTrans, float angle, int level_width, int 
 
 	
 
-	collision_detection();
+	//collision_detection();
 
 	//Draw the rocket
 
@@ -342,7 +342,7 @@ int Generate_valid_location(int level_width, int level_height, char(*arr))
 
 
 
-	for (i = 5; i < level_height; i++)
+	for (i = 5; i < level_height ; i++)
 
 	{
 		
@@ -354,23 +354,29 @@ int Generate_valid_location(int level_width, int level_height, char(*arr))
 			Generate_valid_location(level_width, level_height, arr);
 
 		}
-			
-			if (top_done == 1)
-			{
-				bottom = i-10;
-				i = level_height ;
-				
-			}
 			else
 			{
-				top = i+10;
-				top_done = 1;
-				i = i + 10;
+
+				if (top_done == 1)
+				{
+					bottom = i - 10;
+					i = level_height;
+
+				}
+				else
+				{
+					top = i + 10;
+					top_done = 1;
+					i = i + 10;
+				}
 			}
 		}
 	}
 	
-	
+	if (bottom > 300)
+	{
+		bottom = 1;
+	}
 	if (bottom > top)
 	{
 		y = Random_Range(top, bottom);

@@ -389,7 +389,7 @@ void Destroy_Cruiser(double(*aCruisers), int x, int y)
 {
 	
 
-	int i, j, x_diff, y_diff;
+	int i, x_diff, y_diff;
 	
 
 

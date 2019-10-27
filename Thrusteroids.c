@@ -367,13 +367,7 @@ void collision_detection()
 	
 
 
-	if (aScreen[screen_width / 2 + (screen_height / 2) * screen_width] != '\0')
-	{
-		velocityX = 0;
-		velocityY = 0;
 
-
-	}
 
 	//detect if bullets hit the walls and delete them
 
@@ -468,8 +462,11 @@ void Draw_Actors()
 	}
 
 	int i;
-	Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 1);
-	Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 2);
+	for (i = 1; i < 20; i++)
+	{
+		Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, i);
+	}
+	//Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 2);
 	//Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 3);
 	
 
