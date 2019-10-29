@@ -15,7 +15,7 @@ void StateMachine_StartFrame();
 void StateMachine_ChangeState(GameState newState);
 void StateMachine_ProcessInput();
 void StateMachine_Update();
-void StateMachine_Render();
+void StateMachine_Render(char(*arr), int width, int height, int score, float angle, double accel, double velx, double vely, int lives);
 
 #endif // STATEMACHINE_H
 

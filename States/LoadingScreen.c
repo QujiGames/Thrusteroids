@@ -16,7 +16,7 @@ static int	SelectedMenu = 0;
 void LoadingScreen_ProcessInput()
 {
 	if (GetAsyncKeyState(VK_RETURN) & 1)
-		StateMachine_ChangeState(State_Game);
+		StateMachine_ChangeState(State_MainMenu);
 
 	if (GetAsyncKeyState(VK_ESCAPE) & 1)
 		Global_Exit();

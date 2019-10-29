@@ -18,6 +18,9 @@ void MainMenu_ProcessInput()
 	if (GetAsyncKeyState(VK_RETURN) & 1)
 		StateMachine_ChangeState(State_Game);
 
+	if ((GetAsyncKeyState(0x49)) || (GetAsyncKeyState(0x69)))
+		StateMachine_ChangeState(State_Instructions);
+
 	if (GetAsyncKeyState(VK_ESCAPE) & 1)
 		Global_Exit();
 }
@@ -43,6 +46,7 @@ void MainMenu_Render()
 	Console_SetRenderBuffer_String(0, y++, "This is the main menu");
 	Console_SetRenderBuffer_String(0, y++, "");
 	Console_SetRenderBuffer_String(0, y++, "=========");
+	Console_SetRenderBuffer_String(0, y++, "Press >i< for instructions");
 	Console_SetRenderBuffer_String(0, y++, "Press >Enter< to Play");
 	Console_SetRenderBuffer_String(0, y++, "Press >Escape< to Quit the program");
 }
