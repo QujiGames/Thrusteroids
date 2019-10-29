@@ -513,7 +513,7 @@ void Update()
 
 	Draw_Actors();
 	Draw_Bullets();
-	Draw_Screen(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, aActors, pressed, gunFired, lives);
+	Draw_Screen(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, aActors, pressed, gunFired);
 
 	ClearScreen(aActors, level_width, level_height);
 

@@ -106,7 +106,7 @@ void RenderScene(char(*arr), int width, int height, int score, float angle, doub
 		}
 	}
 	
-	
+	// draw lives
 	for (int i = 0; i < lives; i++)
 	{
 		int x = width - 21 + (i * 8);
@@ -217,7 +217,7 @@ void ClearScreen(char(*arr), int screen_width, int screen_height)
 
 
 
-void Draw_Screen( float xTrans, float yTrans, float angle, int level_width, int level_height, int screen_width, int screen_height, char(*aLevel), char(*aScreen),char(*aActors), int pressed, int gunFired, int lives)
+void Draw_Screen( float xTrans, float yTrans, float angle, int level_width, int level_height, int screen_width, int screen_height, char(*aLevel), char(*aScreen),char(*aActors), int pressed, int gunFired)
 {
 	ClearScreen(aScreen, screen_width, screen_height);
 	
