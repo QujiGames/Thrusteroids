@@ -465,7 +465,7 @@ void collision_detection()
 							aBullets[3 + i * 5] = '\0';
 
                							Destroy_Cruiser(aCruisers, x, y, &score);
-										score = score + 10;
+										//score = score + 10;
 						}
 					}
 				

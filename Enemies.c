@@ -397,7 +397,7 @@ void Cruiser_AI(double(*aCruisers), char(*aLevel), int shipX, int shipY, int lev
 
 }
 
-void Destroy_Cruiser(double(*aCruisers), int x, int y)
+void Destroy_Cruiser(double(*aCruisers), int x, int y, int *score)
 
 {
 	
@@ -420,7 +420,7 @@ void Destroy_Cruiser(double(*aCruisers), int x, int y)
 			aCruisers[i+3] = '\0';
 			aCruisers[i + 4] = 0;
 
-			
+			*score = *score + 10;
 
 					   	}
 
