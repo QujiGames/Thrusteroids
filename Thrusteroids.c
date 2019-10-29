@@ -142,13 +142,25 @@ void Game_Init(int width, int height, float(*bulletArray))
 	Console_SetCursorVisibility(0);
 	Console_CreateRenderBuffer();
 	Console_SetWindowPos(800, 0);
-	ClearScreen(bulletArray, 20, 20);
+	ClearScreen(bulletArray, 50000, 1);
+	
 
 }
 
 
 
+void Game_Reset()
+{
+	xTrans = 0;
+	yTrans = 0;
+	velocityX = 0;
+	velocityY = 0;
+	angle = 0;
+	ClearScreen(aBullets, 50000, 1);
+	fire_time = 0;
 
+
+}
 
 
 
@@ -384,13 +396,19 @@ void collision_detection()
 				else
 				{
 					Console_SetRenderBuffer_String(screen_width / 2, screen_height / 2, "You died");
-					velocityX = 0;
-					velocityY = 0;
+					
 					if (lives > 0)
 					{
-
+						Game_Reset();
 						lives--;
 					}
+					else
+					{
+
+						StateMachine_ChangeState(State_GameOver);
+					}
+
+
 				}
 
 
@@ -496,12 +514,11 @@ void Draw_Actors()
 	}
 
 	int i;
-	for (i = 1; i < 20; i++)
+	for (i = 1; i < 2; i++)
 	{
 		Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, i);
 	}
-	//Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 2);
-	//Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, 3);
+
 	
 
 	for (i = 4; i < 1000; i += 5)
@@ -547,7 +564,7 @@ void Update()
 
 	Draw_Actors();
 	Draw_Bullets();
-	Draw_Screen(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, aActors, pressed, gunFired);
+	Draw_Screen(xTrans, yTrans, angle, level_width, level_height, screen_width, screen_height, aLevel, aScreen, aActors, pressed, gunFired, lives);
 
 	ClearScreen(aActors, level_width, level_height);
 
