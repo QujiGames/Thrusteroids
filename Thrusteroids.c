@@ -1,15 +1,21 @@
-﻿#include "Random/Random.h"
-#include "Console/Console.h"
-#include <Windows.h>
-#include "Game.h"
+﻿#include <Windows.h>
+#include <windows.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+#include <math.h>
+
 #include "Engine.h"
 #include "Clock/Clock.h"
-#include <math.h>
+#include "Random/Random.h"
+#include "Console/Console.h"
 #include "ProceduralGeneration.h"
 #include "Enemies.h"
+#include "Global.h"
+#include "StateMachine.h"
 
 
-static int bGameIsRunning = 1;
 static char aLevel[160000];
 static char aScreen[25600];
 static char aActors[160000];
@@ -122,6 +128,29 @@ static double aCruisers[1000];  // array for cruisers 1 = x pos, 2 = y pos, 3 = 
 *******************************************************************************
 *******************************************************************************
 *******************************************************************************/
+
+
+void Game_Init(int width, int height, float(*bulletArray))
+{
+	Console_Init();
+	Random_Init();
+
+	Console_SetTitle("Thrusteroids 0.1");
+
+	Console_SetSquareFont();
+	Console_SetWindowedMode(width, height, false);
+	Console_SetCursorVisibility(0);
+	Console_CreateRenderBuffer();
+	Console_SetWindowPos(800, 0);
+	ClearScreen(bulletArray, 20, 20);
+
+}
+
+
+
+
+
+
 
 
 
@@ -532,9 +561,13 @@ void Update()
 int main()
 {
 
+	Game_Init(screen_width, screen_height, aBullets);
 
-	Game_Init(screen_width, screen_height);
-	
+
+	//
+	//	Comment the statemachine line below out if you want to see the game
+	//
+	StateMachine_ChangeState(State_LoadingScreen);
 
 
 	acceleration = 0.00f * Clock_GetDeltaTime() / 1000;
@@ -543,28 +576,43 @@ int main()
 
 
 
-	while (bGameIsRunning)
+	while (Global_IsGameRunning())
 	{
-		Clock_GameLoopStart();
+		//
+		//	uncomment these for the game
+		//
+		//Clock_GameLoopStart();
+		//Get_Inputs();
+		//Update();
 
-		Get_Inputs();
-		Update();
+
+
+
+		//
+		//	uncomment renderscene below to see the game
+		//
+		//RenderScene(aScreen, screen_width, screen_height, score, angle, acceleration, velocityX, velocityY, lives);
 
 
 
 
-
-		RenderScene(aScreen, screen_width, screen_height, score, angle, acceleration, velocityX, velocityY, lives);
+		//
+		//	Comment these statemachine lines below out if you want to see the game
+		//
+		StateMachine_StartFrame();
+		StateMachine_ProcessInput();
+		StateMachine_Update();
+		StateMachine_Render();
 
 
 	}
 
+	Console_CleanUp();
+
 }
-	/*
-	
-	Draws ASCII characters table, ignore otherwise
 	
 
+	/*
 
 	while (bGameIsRunning)
 	{
@@ -607,12 +655,6 @@ int main()
 
 		Console_SwapRenderBuffer();
 
-
 	}
-	
+	*/
 
-
-
-	GameShutdown();
-}
-*/

@@ -17,7 +17,7 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 
 void Place_Cruiser(char(*arr), int x_position, int y_position, int screen_width);
 
-void Create_Cruiser(int valid_loc, int level_width, int(*arr), int how_many);
+void Create_Cruiser(int valid_loc, int level_width, double(*arr), int how_many);
 
-void Cruiser_AI(int(*aCruisers), char(*aLevel), int shipX, int shipY, int screen_width);
+void Cruiser_AI(double(*aCruisers), char(*aLevel), int shipX, int shipY, int screen_width);
 void Destroy_Cruiser(double(*aCruisers), int x, int y);

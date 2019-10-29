@@ -11,9 +11,6 @@
     <Filter Include="Console">
       <UniqueIdentifier>{b1ce0a13-fb73-492b-bdb3-d8686e6d38ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game">
-      <UniqueIdentifier>{70f3a886-92ea-4dd2-ae01-308ee4c01388}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Random">
       <UniqueIdentifier>{55c7f2d7-4bf3-431f-b686-c7b5b01ed95a}</UniqueIdentifier>
     </Filter>
@@ -25,6 +22,9 @@
     </Filter>
     <Filter Include="Enemies">
       <UniqueIdentifier>{8b3e32b8-f3a7-4e91-a794-091ca698f433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{89a4158f-e49e-4619-936e-370316c81b07}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -40,9 +40,6 @@
     <ClCompile Include="Random\Random.c">
       <Filter>Random</Filter>
     </ClCompile>
-    <ClCompile Include="Game.c">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="ProceduralGeneration.c">
       <Filter>Procedural Generation</Filter>
     </ClCompile>
@@ -51,6 +48,27 @@
     </ClCompile>
     <ClCompile Include="Enemies.c">
       <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="States\Game.c">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\GameOver.c">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\MainMenu.c">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Global.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMachine.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="States\Instructions.c">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\LoadingScreen.c">
+      <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,14 +84,35 @@
     <ClInclude Include="Random\Random.h">
       <Filter>Random</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="ProceduralGeneration.h">
       <Filter>Procedural Generation</Filter>
     </ClInclude>
     <ClInclude Include="Enemies.h">
       <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="States\Game.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\GameOver.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\MainMenu.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\Instructions.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\LoadingScreen.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Thrusteroids.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
