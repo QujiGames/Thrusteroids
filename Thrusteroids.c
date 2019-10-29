@@ -157,7 +157,7 @@ void Game_Reset()
 	velocityY = 0;
 	angle = 0;
 	ClearScreen(aBullets, 50000, 1);
-	fire_time = 0;
+	fire_time = Clock_GetElapsedTimeMs() / 100;
 
 
 }
@@ -497,15 +497,15 @@ void Draw_Actors()
 	// compare elapsed time with a temporary holder to see when 2s has passed, call funciton with different values to trigger firing
 	//
 
-	if ((Clock_GetElapsedTimeMs() / 100 - fire_time) > 20)
+	if ((Clock_GetElapsedTimeMs() / 10 - fire_time) > 100)
 
 	{
 		fire = 1;
 		
-		if ((Clock_GetElapsedTimeMs() / 100 - fire_time) > 21)
+		if ((Clock_GetElapsedTimeMs() / 10 - fire_time) > 101)
 		{
 			
-			fire_time = Clock_GetElapsedTimeMs() / 100;
+			fire_time = Clock_GetElapsedTimeMs() / 10;
 		}
 	}
 	else
@@ -514,7 +514,7 @@ void Draw_Actors()
 	}
 
 	int i;
-	for (i = 1; i < 2; i++)
+	for (i = 1; i < 5; i++)
 	{
 		Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, i);
 	}

@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <math.h>
 #include "Engine.h"
-
+#include "Random/Random.h"
 #include "Console/Console.h"
 
 
@@ -190,6 +190,19 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 	Arr[x_position + y_position * level_width] = '1';
 	// fill out bullet array, position 1 = x, 2 = y, 3 = x velocity, 4 = y velocity
 	
+
+	//randomise if it fires or not
+
+	int x = Random_Range(0, 100);
+
+	if (fire == 1 && x > 80)
+	{
+		fire = 1;
+	}
+	else
+	{
+		fire = 0;
+	}
 
 	if (fire == 1)
 	{
