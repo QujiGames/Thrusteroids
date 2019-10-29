@@ -79,7 +79,7 @@ void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, in
 		//right
 
 		
-		for (x = x_position; x < x_position+size; x++)
+		for (x = x_position; x < x_position + size; x++)
 		{
 			a = (float)(((x-x_position)*sin(angle)) + ((y)*cos(angle)) + y_position);
 			b = (float)(((x-x_position)*cos(angle)) - ((y)*sin(angle)) + x_position);
@@ -95,7 +95,7 @@ void Draw_STAR(char(*aLevel), char(*aActors), int x_position, int y_position, in
 
 
 }
-void Create_Cruiser(int valid_loc,int level_width,double(*arr), int how_many)
+void Create_Cruiser(int valid_loc, int level_width, double(*arr), int how_many)
 {
 	double x, y;
 	double x_vel = -0.005, y_vel = 0.005;

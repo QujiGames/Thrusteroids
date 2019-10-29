@@ -14,7 +14,7 @@ static HANDLE		sConsoleHandle = 0x00;
 static bool			sConsoleInitialized = false;
 static float		sConsoleDisplayRatio = 4.f / 3.f;
 static COORD		sConsoleSize;
-static CHAR_INFO* sRenderBuffer = 0x00;
+static CHAR_INFO*	sRenderBuffer = 0x00;
 static int			sRenderBufferSize = 0;
 
 static const COORD ORIGIN = { 0,0 };
