@@ -9,6 +9,7 @@
 #include "../Random/Random.h"
 #include "../Console/Console.h"
 #include "../StateMachine.h"
+#include "../Thrusteroids.h"
 
 
 //*********************************************************************************
@@ -22,8 +23,7 @@ static int	SelectedMenu = 0;
 //*********************************************************************************
 void Game_ProcessInput()
 {
-	if (GetAsyncKeyState(VK_ESCAPE) & 1)
-		StateMachine_ChangeState(State_GameOver);
+	Get_Inputs();
 }
 
 //*********************************************************************************
@@ -31,23 +31,16 @@ void Game_ProcessInput()
 //*********************************************************************************
 void Game_Update()
 {
-
+	Update();
 }
 
 
 //*********************************************************************************
 //									RENDER
 //*********************************************************************************
-void Game_Render()
+void Game_Render(char(*arr), int width, int height, int score, float angle, double accel, double velx, double vely, int lives)
 {
-	int y = 0;
-	Console_SetRenderBuffer_String(0, y++, "GAME");
-	Console_SetRenderBuffer_String(0, y++, "=========");
-	Console_SetRenderBuffer_String(0, y++, "");
-	Console_SetRenderBuffer_String(0, y++, "The game is running here");
-	Console_SetRenderBuffer_String(0, y++, "");
-	Console_SetRenderBuffer_String(0, y++, "=========");
-	Console_SetRenderBuffer_String(0, y++, "Press >Escape< to GameOver");
+	RenderScene(arr, width, height, score, angle, accel, velx, vely, lives);
 }
 
 

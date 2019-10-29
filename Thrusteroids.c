@@ -309,6 +309,11 @@ void Get_Inputs()
 
 
 	}
+
+
+	if (GetAsyncKeyState(VK_ESCAPE) & 1)
+		StateMachine_ChangeState(State_GameOver);
+
 	
 }
 void Draw_Bullets()
@@ -581,7 +586,8 @@ int main()
 		//
 		//	uncomment these for the game
 		//
-		//Clock_GameLoopStart();
+		
+		Clock_GameLoopStart();
 		//Get_Inputs();
 		//Update();
 
@@ -602,7 +608,7 @@ int main()
 		StateMachine_StartFrame();
 		StateMachine_ProcessInput();
 		StateMachine_Update();
-		StateMachine_Render();
+		StateMachine_Render(aScreen, screen_width, screen_height, score, angle, acceleration, velocityX, velocityY, lives);
 
 
 	}

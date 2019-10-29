@@ -17,6 +17,8 @@
 #include "States/GameOver.h"
 #include "States/Instructions.h"
 #include "Console/Console.h"
+#include "Thrusteroids.h"
+#include "Engine.h"
 
 static GameState sCurrentState = State_Default;
 static GameState sRequestedState = State_Default;
@@ -86,7 +88,7 @@ void StateMachine_Update()
 	}
 }
 
-void StateMachine_Render()
+void StateMachine_Render(char(*arr), int width, int height, int score, float angle, double accel, double velx, double vely, int lives)
 {
 	// Clear the Rendering Buffer
 	Console_ClearRenderBuffer();
@@ -97,7 +99,7 @@ void StateMachine_Render()
 		case State_LoadingScreen:		LoadingScreen_Render();		break;
 		case State_MainMenu:			MainMenu_Render();			break;
 		case State_Instructions:		Instructions_Render();		break;
-		case State_Game:				Game_Render();				break;
+		case State_Game:				Game_Render(arr, width, height, score, angle, accel, velx, vely, lives);	break;
 		case State_GameOver:			GameOver_Render();			break;
 		default:						break;
 	}
