@@ -3,6 +3,36 @@
 #include "../Console/Console.h"
 #include "../StateMachine.h"
 #include "../Global.h"
+#include <stdlib.h>
+
+
+
+static double astars[1000];
+
+
+void stars()
+{
+
+
+
+	int i, x, y;
+
+	for (i = 0; i < 500; i+=3)
+	{
+
+		Console_SetRenderBuffer_Char((int)((astars[i] * astars[i + 2])/100) + 79, (int)((astars[i + 1] * astars[i + 2])/100) + 45, '.', 0x0001, 0x0004, 0x0002);
+		astars[i + 2] = astars[i + 2] +0.2;
+
+
+		if (astars[i + 2] >=100)
+		{
+
+			astars[i + 2] = 1;
+		}
+
+	}
+
+}
 
 //*********************************************************************************
 //								LOCAL VARIABLES
@@ -38,7 +68,7 @@ void LoadingScreen_Render()
 {
 	int x = 20;
 	int y = 40;
-
+	stars();
 
 	// start T
 	for (int i = 0; i < 9; i++)
@@ -247,7 +277,7 @@ void LoadingScreen_Render()
 		Console_SetRenderBuffer_Char(x + 120, y + 5 + i, (char)219, 0x0001, 0x0004, 0x0002);
 	}
 	// end S
-
+	
 
 	Console_SetRenderBuffer_String(50, 80, "Press >Enter< to Play");
 	Console_SetRenderBuffer_String(50, 85, "Press >Escape< to Quit the program");
@@ -260,8 +290,29 @@ void LoadingScreen_Render()
 //*********************************************************************************
 void LoadingScreen_EnterState()
 {
+	int i;
+
+	for (i = 0; i < 500; i += 3)
+	{
+
+
+		int x = Random_Range(-79, 79);
+
+		int y = Random_Range(-44, 114);
+
+
+		int z = Random_Range(1,100);
+
+		astars[i] = x;
+		astars[i + 1] = y;
+		astars[i + 2] = z;
+
+	}
 }
 
 void LoadingScreen_ExitState()
 {
 }
+
+
+
