@@ -382,7 +382,14 @@ void Cruiser_AI(double(*aCruisers), char(*aLevel), int shipX, int shipY, int lev
 				}
 			}
 
+			int distance = sqrt(pow(xDiff, 2) + pow(yDiff, 2));
+			if (distance < 10)
+			{
+				aCruisers[i - 1] = 0;
+				aCruisers[i - 2] = 0;
 
+
+			}
 
 		}
 
