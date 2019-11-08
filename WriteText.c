@@ -48,6 +48,12 @@ void Write_Text(int x, int y, const char* text)
 			case 86:
 				largeLetterV(x, y, i, after_i);
 				break;
+			case 78:
+				largeLetterN(x, y, i, after_i);
+				break;
+			case 67:
+				largeLetterC(x, y, i, after_i);
+				break;
 
 			default:
 				break;

@@ -93,6 +93,40 @@ void largeLetterM(int x, int y, int increment, int after_i)
 }
 
 
+void largeLetterN(int x, int y, int increment, int after_i)
+{
+	// start N
+
+	int xpos = 0;
+
+	if (after_i == 0)
+	{
+		xpos = 11 * increment;
+	}
+	else
+	{
+		xpos = 11 * increment - (8 * after_i);
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		Console_SetRenderBuffer_Char(x + xpos, y + i, (char)219, 0x0001, 0x0004, 0x0002);
+	}
+	for (int i = 0; i < 10; i++)
+	{
+		Console_SetRenderBuffer_Char(x + xpos + 8, y + i, (char)219, 0x0001, 0x0004, 0x0002);
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		Console_SetRenderBuffer_Char(x + xpos + 1 + i, y + 1 + i, (char)219, 0x0001, 0x0004, 0x0002);
+	}
+
+
+	// end N
+}
+
+
 
 
 void largeLetterR(int x, int y, int increment, int after_i)
@@ -400,6 +434,40 @@ void largeLetterD(int x, int y, int increment, int after_i)
 		Console_SetRenderBuffer_Char(x + xpos + 1 + i, y + 9, (char)219, 0x0001, 0x0004, 0x0002);
 	}
 	// end D
+}
+
+
+void largeLetterC(int x, int y, int increment, int after_i)
+{
+	// start C
+
+	int xpos = 0;
+
+	if (after_i == 0)
+	{
+		xpos = 11 * increment;
+	}
+	else
+	{
+		xpos = 11 * increment - (8 * after_i);
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		Console_SetRenderBuffer_Char(x + xpos, y + 1 + i, (char)219, 0x0001, 0x0004, 0x0002);
+	}
+	for (int i = 0; i < 7; i++)
+	{
+		Console_SetRenderBuffer_Char(x + xpos + 1 + i, y, (char)219, 0x0001, 0x0004, 0x0002);
+	}
+	Console_SetRenderBuffer_Char(x + xpos + 8, y + 1, (char)219, 0x0001, 0x0004, 0x0002);
+	Console_SetRenderBuffer_Char(x + xpos + 8, y + 8, (char)219, 0x0001, 0x0004, 0x0002);
+
+	for (int i = 0; i < 7; i++)
+	{
+		Console_SetRenderBuffer_Char(x + xpos + 1 + i, y + 9, (char)219, 0x0001, 0x0004, 0x0002);
+	}
+	// end C
 }
 
 

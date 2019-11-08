@@ -36,15 +36,16 @@ void Instructions_Update()
 //*********************************************************************************
 void Instructions_Render()
 {
-	int y = 0;
-	Console_SetRenderBuffer_String(0, y++, "Instructions");
-	Console_SetRenderBuffer_String(0, y++, "=========");
-	Console_SetRenderBuffer_String(0, y++, "");
-	Console_SetRenderBuffer_String(0, y++, "This is the main menu");
-	Console_SetRenderBuffer_String(0, y++, "");
-	Console_SetRenderBuffer_String(0, y++, "=========");
-	Console_SetRenderBuffer_String(0, y++, "Press >Enter< to Play");
-	Console_SetRenderBuffer_String(0, y++, "Press >Escape< to Quit the program");
+	int x = 20;
+	int y = 40;
+	stars();
+
+	char text[] = "INSTRUCTIONS";
+
+	Write_Text(x, y, text);
+
+	Console_SetRenderBuffer_String(50, 80, "Press >Enter< to Play");
+	Console_SetRenderBuffer_String(50, 85, "Press >Escape< to Quit the program");
 }
 
 

@@ -23,3 +23,7 @@ void largeLetterM(int x, int y, int increment, int after_i);
 void largeLetterG(int x, int y, int increment, int after_i);
 
 void largeLetterV(int x, int y, int increment, int after_i);
+
+void largeLetterN(int x, int y, int increment, int after_i);
+
+void largeLetterC(int x, int y, int increment, int after_i);
