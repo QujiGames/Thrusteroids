@@ -1,0 +1,1 @@
+void Write_Text(int x, int y, const char* text);

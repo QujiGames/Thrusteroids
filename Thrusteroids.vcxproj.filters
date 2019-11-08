@@ -70,6 +70,12 @@
     <ClCompile Include="States\LoadingScreen.c">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="Letters.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WriteText.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Clock\Clock.h">
@@ -112,6 +118,12 @@
       <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="Thrusteroids.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Letters.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WriteText.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

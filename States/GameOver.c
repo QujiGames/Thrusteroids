@@ -31,14 +31,15 @@ void GameOver_Update()
 //*********************************************************************************
 void GameOver_Render()
 {
-	int y = 0;
-	Console_SetRenderBuffer_String(0, y++, "GAME OVER");
-	Console_SetRenderBuffer_String(0, y++, "=========");
-	Console_SetRenderBuffer_String(0, y++, "");
-	Console_SetRenderBuffer_String(0, y++, "Nothing here");
-	Console_SetRenderBuffer_String(0, y++, "");
-	Console_SetRenderBuffer_String(0, y++, "=========");
-	Console_SetRenderBuffer_String(0, y++, "Press >Escape< to exit to the Main Menu");
+	int x = 20;
+	int y = 40;
+	stars();
+
+	char text[] = "GAME OVER";
+
+	Write_Text(x, y, text);
+
+	Console_SetRenderBuffer_String(50, 85, "Press >Escape< to exit to the Main Menu");
 }
 
 
