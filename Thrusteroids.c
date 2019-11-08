@@ -158,6 +158,7 @@ void Game_Reset()
 	angle = 0;
 	ClearScreen(aBullets, 50000, 1);
 	fire_time = Clock_GetElapsedTimeMs() / 100;
+	
 
 
 }
@@ -406,6 +407,7 @@ void collision_detection()
 					{
 
 						StateMachine_ChangeState(State_GameOver);
+						lives = 3;
 					}
 
 

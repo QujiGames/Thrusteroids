@@ -309,7 +309,7 @@ void Cruiser_AI(double(*aCruisers), char(*aLevel), int shipX, int shipY, int lev
 			// next check for collison, this will overwrite default velocities
 			
 			
-			
+		
 			
 			
 			
@@ -340,7 +340,7 @@ void Cruiser_AI(double(*aCruisers), char(*aLevel), int shipX, int shipY, int lev
 					aCruisers[i - 1] = -0.005;
 					if (aCruisers[i - 2] == 0)
 					{
-						aCruisers[i - 2] = 0.005;
+	 					aCruisers[i - 2] = 0.005;
 
 					}
 
@@ -381,6 +381,8 @@ void Cruiser_AI(double(*aCruisers), char(*aLevel), int shipX, int shipY, int lev
 
 				}
 			}
+
+			//stop if it comes within 10
 
 			int distance = sqrt(pow(xDiff, 2) + pow(yDiff, 2));
 			if (distance < 10)
