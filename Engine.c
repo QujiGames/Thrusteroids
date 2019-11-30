@@ -353,7 +353,9 @@ int Generate_valid_location(int level_width, int level_height, char(*arr))
 		{
 			if (arr[x + i * level_width] == '#')
 		{
-			Generate_valid_location(level_width, level_height, arr);
+				x = Random_Range(1, level_width - 2);
+				i = 5;
+				top_done = 0;
 
 		}
 			else
@@ -361,21 +363,21 @@ int Generate_valid_location(int level_width, int level_height, char(*arr))
 
 				if (top_done == 1)
 				{
-					bottom = i - 10;
+					bottom = i - 3;
 					i = level_height;
 
 				}
 				else
 				{
-					top = i + 10;
+					top = i + 3;
 					top_done = 1;
-					i = i + 10;
+					i = i + 3;
 				}
 			}
 		}
 	}
 	
-	if (bottom > 300)
+	if (bottom > level_height -5)
 	{
 		bottom = 1;
 	}
@@ -386,7 +388,9 @@ int Generate_valid_location(int level_width, int level_height, char(*arr))
 	}
 	else
 	{
-		Generate_valid_location(level_width, level_height, arr);
+		x = Random_Range(1, level_width - 2);
+		i = 5;
+		top_done = 0;
 	}
 
 	
