@@ -601,7 +601,7 @@ int main()
 
 	//Level_Generator2(aLevel, level_width, level_height, screen_width, screen_height, &xTrans, &yTrans, 30);
 
-	Blob_Generator(aBlob, aLevel, xblob, yblob, level_width, level_height, &xTrans, &yTrans);
+	Blob_Generator(aBlob, aLevel, xblob, yblob, level_width, level_height);
 
 
 	while (Global_IsGameRunning())

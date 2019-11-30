@@ -1428,23 +1428,22 @@ void IntroduceChaos(char* (aBlob), int level_width, int level_height)
 
 
 
-void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level_width, int level_height, int xTrans, int yTrans)
+void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level_width, int level_height)
 {
+	
 	//initialise with stuff to remove later? needed at all? I think not
 	//for (int i = 0; i < 4000000; i++)
 	//{
 	//	aBlob[i] = '>';
 	//}
-
-	int blobs = Random_Range(11, 13);
+	
+	
+	int blobs = Random_Range(7, 9);
 
 	int aRadius[20];
 	int aOrigin[20];
 
-	int start_position = 500100;
-
-	xTrans = 100;
-	yTrans = 500;
+	int start_position = 500150;
 
 	int blob_weight = 0;
 
@@ -1461,7 +1460,7 @@ void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level
 		blob_weight = Random_Range(0, 100);
 		if (blob_weight < 20)
 		{
-			aRadius[i] = Random_Range(35, 45);
+			aRadius[i] = Random_Range(40, 60);
 			if (i > 0)
 			{
 				aOrigin[i] = Blob_Position(aRadius[i], aRadius[i - 1], aOrigin[i - 1], xblob);
@@ -1469,7 +1468,7 @@ void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level
 		}
 		else if (blob_weight > 20 && blob_weight < 75)
 		{
-			aRadius[i] = Random_Range(55, 80);
+			aRadius[i] = Random_Range(55, 95);
 			if (i > 0)
 			{
 				aOrigin[i] = Blob_Position(aRadius[i], aRadius[i - 1], aOrigin[i - 1], xblob);
@@ -1477,7 +1476,7 @@ void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level
 		}
 		else if (blob_weight > 75)
 		{
-			aRadius[i] = Random_Range(45, 60);
+			aRadius[i] = Random_Range(60, 80);
 			if (i > 0)
 			{
 				aOrigin[i] = Blob_Position(aRadius[i], aRadius[i - 1], aOrigin[i - 1], xblob);
@@ -1501,6 +1500,10 @@ void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level
 			aBlob[i] = '\0';
 		}
 	}
+
+	/*
+
+	to trim the aBlob array before copying into the aLevel array, currently they are the same size, the aBlob array was initially much larger.
 
 	int stop = 0;
 
@@ -1575,6 +1578,8 @@ void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level
 			
 		}
 	}
+
+	*/
 
 	Star_Field(aBlob, level_width, level_height);
 
