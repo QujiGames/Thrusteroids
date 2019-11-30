@@ -519,10 +519,10 @@ void Draw_Actors()
 	}
 
 	int i;
-	//for (i = 1; i < 5; i++)
-	//{
-	//	Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, i);
-	//}
+	for (i = 1; i < 5; i++)
+	{
+		Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, i);
+	}
 
 	
 
