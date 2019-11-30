@@ -920,7 +920,7 @@ void Star_Field(char(*Terrain), int width, int height)
 			int star_xpos = Level_Seed(x - 25, x + 25);
 			int star_ypos = Level_Seed(y - 25, y + 25);
 
-			if (star_xpos < width && star_ypos < height)
+			if (star_xpos < width && star_ypos < height && Terrain[star_xpos + (star_ypos * width)] != 'S')
 			{
 				if (star_bool > 9)
 				{
@@ -1133,9 +1133,9 @@ void Draw_Filled_Circle(char(*Terrain), int radius, int starting_position, int l
 
 	double ellipse = 0.0;
 
-	for (int angle = 0; angle <= 720; angle++)
+	for (int angle = 0; angle <= 1440; angle++)
 	{
-		anglerad = (double)angle * pi / 360.0;
+		anglerad = (double)angle * pi / 720.0;
 		cosangle = cos(anglerad);
 		sinangle = sin(anglerad);
 
@@ -1311,7 +1311,7 @@ int Blob_Position(int new_radius, int previous_radius, int previous_origin, int 
 	double sinangle;
 	int angle;
 
-	int distance = new_radius + previous_radius - Random_Range(5, 15);
+	int distance = new_radius + previous_radius - Random_Range(10, 25);
 
 	int weight = Random_Range(0, 120);
 
@@ -1345,10 +1345,90 @@ int Blob_Position(int new_radius, int previous_radius, int previous_origin, int 
 	return new_origin;
 }
 
+void IntroduceChaos(char* (aBlob), int level_width, int level_height)
+{
+	int chaos = 0;
+	
+	for (int i = 0; i < level_width * level_height; i++)
+	{
+		if (aBlob[i] == 'S')
+		{
+			chaos = Random_Range(0, 100);
+
+			if (chaos < 10)
+			{
+				aBlob[i] = 'J';
+				aBlob[i - 1] = 'u';
+			}
+			else if (chaos > 10 && chaos < 20)
+			{
+				aBlob[i] = 'b';
+				aBlob[i + 1] = 'e';
+				aBlob[i + 1 - level_width] = 'q';
+			}
+			else if (chaos > 20 && chaos < 30)
+			{
+				aBlob[i] = 'S';
+				aBlob[i + 1] = 'w';
+				aBlob[i + 1 + (2 * level_width)] = 't';
+			}
+			else if (chaos > 30 && chaos < 40)
+			{
+				aBlob[i] = 'k';
+				aBlob[i + 1] = 'c';
+				aBlob[i - 1 - level_width] = 'b';
+			}
+			else if (chaos > 40 && chaos < 50)
+			{
+				aBlob[i] = 'R';
+				aBlob[i + 1] = 'w';
+				aBlob[i - 1 + level_width] = 'q';
+				aBlob[i + level_width] = 'z';
+				aBlob[i + (2 * level_width)] = 'z';
+			}
+			else if (chaos > 50 && chaos < 60)
+			{
+				aBlob[i] = 'R';
+				aBlob[i - 1] = 'n';
+				aBlob[i - 1] = 'N';
+				aBlob[i - level_width] = 'Y';
+				aBlob[i - (2 *level_width)] = 'Y';
+			}
+			else if (chaos > 60 && chaos < 70)
+			{
+				aBlob[i] = 'f';
+				aBlob[i + 1] = 'e';
+				aBlob[i + 1 + level_width] = 'w';
+			}
+			else if (chaos > 70 && chaos < 80)
+			{
+				aBlob[i] = 'S';
+				aBlob[i + 1] = 'a';
+				aBlob[i - 1] = 'a';
+				aBlob[i - 2] = 'a';
+				aBlob[i + 1 + level_width] = 'j';
+			}
+			else if (chaos > 80 && chaos < 90)
+			{
+				aBlob[i] = 'S';
+				aBlob[i + 1] = 'w';
+				aBlob[i + 1 + level_width] = 'q';
+				aBlob[i + 1 - (2 * level_width)] = 'q';
+			}
+			else if (chaos > 90 && chaos < 100)
+			{
+				aBlob[i] = 'T';
+				aBlob[i + 1] = 'B';
+				aBlob[i + 1 + level_width] = 'Z';
+			}
+		}
+	}
+}
 
 
 
-void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level_width, int level_height)
+
+void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level_width, int level_height, int xTrans, int yTrans)
 {
 	//initialise with stuff to remove later? needed at all? I think not
 	//for (int i = 0; i < 4000000; i++)
@@ -1356,12 +1436,15 @@ void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level
 	//	aBlob[i] = '>';
 	//}
 
-	int blobs = Random_Range(11, 15);
+	int blobs = Random_Range(11, 13);
 
 	int aRadius[20];
 	int aOrigin[20];
 
-	int start_position = 500050;
+	int start_position = 500100;
+
+	xTrans = 100;
+	yTrans = 500;
 
 	int blob_weight = 0;
 
@@ -1376,25 +1459,25 @@ void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level
 	for (int i = 0; i < blobs; i++)
 	{
 		blob_weight = Random_Range(0, 100);
-		if (blob_weight < 10)
+		if (blob_weight < 20)
 		{
-			aRadius[i] = Random_Range(25, 40);
+			aRadius[i] = Random_Range(35, 45);
 			if (i > 0)
 			{
 				aOrigin[i] = Blob_Position(aRadius[i], aRadius[i - 1], aOrigin[i - 1], xblob);
 			}
 		}
-		else if (blob_weight > 20 && blob_weight < 80)
+		else if (blob_weight > 20 && blob_weight < 75)
 		{
-			aRadius[i] = Random_Range(45, 70);
+			aRadius[i] = Random_Range(55, 80);
 			if (i > 0)
 			{
 				aOrigin[i] = Blob_Position(aRadius[i], aRadius[i - 1], aOrigin[i - 1], xblob);
 			}
 		}
-		else if (blob_weight > 80)
+		else if (blob_weight > 75)
 		{
-			aRadius[i] = Random_Range(30, 50);
+			aRadius[i] = Random_Range(45, 60);
 			if (i > 0)
 			{
 				aOrigin[i] = Blob_Position(aRadius[i], aRadius[i - 1], aOrigin[i - 1], xblob);
@@ -1402,9 +1485,13 @@ void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level
 		}
 	}
 
+	
+
 	for (int i = 0; i < blobs; i++)
 	{
 		Draw_Filled_Circle(aBlob, aRadius[i], aOrigin[i], xblob, yblob);
+		// part circles for debugging
+		//Draw_Part_Circle(aBlob, aRadius[i], aOrigin[i], xblob, yblob, 60);
 	}
 
 	for (int i = 0; i < xblob * yblob; i++)
@@ -1489,11 +1576,14 @@ void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level
 		}
 	}
 
+	Star_Field(aBlob, level_width, level_height);
+
+	Bounding_Box(aBlob, level_width, level_height);
+
+	IntroduceChaos(aBlob, level_width, level_height);
+
 	for (int i = 0; i < level_width * level_height; i++)
 	{
 		aLevel[i] = aBlob[i];
 	}
-
-	Bounding_Box(aLevel, level_width, level_height);
-
 }
