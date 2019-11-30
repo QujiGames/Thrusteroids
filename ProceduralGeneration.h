@@ -20,7 +20,7 @@ void Level_Constructor(char(*Terrain), int width, int height, int starting_posit
 
 void Wall_Unit(char(*Terrain), int width, int height, int starting_position, int length, int bias, int orientation);
 
-void Star_Field(char(*Terrain), int width, int height);
+void Star_Field(char(*aBlob), char(*aLevel), int width, int height);
 
 int Blob_Position(int new_radius, int previous_radius, int previous_origin, int xblob);
 

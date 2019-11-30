@@ -905,7 +905,7 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 	}
 }
 
-void Star_Field(char(*Terrain), int width, int height)
+void Star_Field(char(*aBlob), char(*aLevel), int width, int height)
 {
 	int small_star = 0;
 	int big_star = 0;
@@ -920,19 +920,20 @@ void Star_Field(char(*Terrain), int width, int height)
 			int star_xpos = Level_Seed(x - 25, x + 25);
 			int star_ypos = Level_Seed(y - 25, y + 25);
 
-			if (star_xpos < width && star_ypos < height && Terrain[star_xpos + (star_ypos * width)] != 'S')
+			//if (star_xpos < width && star_ypos < height && Terrain[star_xpos + (star_ypos * width)] != 'S' && star_xpos < width && star_ypos < height && Terrain[star_xpos + (star_ypos * width)] != 'P')
+			if (star_xpos < width && star_ypos < height && aBlob[star_xpos + (star_ypos * width)] == '\0')
 			{
 				if (star_bool > 9)
 				{
-					Terrain[star_xpos + (star_ypos * width)] = '*';
+					aLevel[star_xpos + (star_ypos * width)] = '*';
 				}
 				else if (star_bool > 7 && star_bool <= 9)
 				{
-					Terrain[star_xpos + (star_ypos * width)] = '+';
+					aLevel[star_xpos + (star_ypos * width)] = '+';
 				}
 				else
 				{
-					Terrain[star_xpos + (star_ypos * width)] = '.';
+					aLevel[star_xpos + (star_ypos * width)] = '.';
 				}
 			}
 		}
@@ -978,7 +979,7 @@ void Level_Generator2(char(*Terrain), int width, int height, int screen_width, i
 	Level_Constructor(Terrain, width, height, starting_position, 20);
 
 
-	Star_Field(Terrain, width, height);
+	//Star_Field(Terrain, width, height);
 
 
 
@@ -1432,10 +1433,11 @@ void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level
 {
 	
 	//initialise with stuff to remove later? needed at all? I think not
-	//for (int i = 0; i < 4000000; i++)
-	//{
-	//	aBlob[i] = '>';
-	//}
+
+	for (int i = 0; i < level_width * level_height; i++)
+	{
+		aBlob[i] = 'P';
+	}
 	
 	
 	int blobs = Random_Range(7, 9);
@@ -1581,14 +1583,19 @@ void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level
 
 	*/
 
-	Star_Field(aBlob, level_width, level_height);
-
-	Bounding_Box(aBlob, level_width, level_height);
+	//Bounding_Box(aBlob, level_width, level_height);
 
 	IntroduceChaos(aBlob, level_width, level_height);
 
 	for (int i = 0; i < level_width * level_height; i++)
 	{
-		aLevel[i] = aBlob[i];
+		if (aBlob[i] != 'P')
+		{
+			aLevel[i] = aBlob[i];
+		}
 	}
+
+	Star_Field(aBlob, aLevel, level_width, level_height);
+
+	IntroduceChaos(aLevel , level_width, level_height);
 }
