@@ -338,49 +338,48 @@ int Generate_valid_location(int level_width, int level_height, char(*arr))
 	int top_done = 0;
 	
 	
-	x = Random_Range(1, level_width-2);
+	
 
 
-
-
-
-	for (i = 5; i < level_height ; i++)
-
+	while (bottom == 0)
 	{
-		
-		
-		if (arr[x + i * level_width] != '\0'  && arr[x + i * level_width] != '.' && arr[x + i * level_width] != '+' && arr[x + i * level_width] != '*')
-		{
-			if (arr[x + i * level_width] == '#')
-		{
-				x = Random_Range(1, level_width - 2);
-				i = 5;
-				top_done = 0;
+		x = Random_Range(1, level_width - 2);
 
-		}
-			else
+		for (i = 5; i < level_height; i++)
+
+		{
+
+
+			if (arr[x + i * level_width] != '\0' && arr[x + i * level_width] != '.' && arr[x + i * level_width] != '+' && arr[x + i * level_width] != '*')
 			{
-
-				if (top_done == 1)
+				if (arr[x + i * level_width] == '#')
 				{
-					bottom = i - 3;
-					i = level_height;
+					x = Random_Range(1, level_width - 2);
+					i = 5;
+					top_done = 0;
 
 				}
 				else
 				{
-					top = i + 3;
-					top_done = 1;
-					i = i + 3;
+
+					if (top_done == 1)
+					{
+						bottom = i - 3;
+						i = level_height;
+
+					}
+					else
+					{
+						top = i + 3;
+						top_done = 1;
+						i = i + 3;
+					}
 				}
 			}
 		}
+
 	}
 	
-	if (bottom > level_height -5)
-	{
-		bottom = 1;
-	}
 	if (bottom > top)
 	{
 		y = Random_Range(top, bottom);
@@ -388,9 +387,7 @@ int Generate_valid_location(int level_width, int level_height, char(*arr))
 	}
 	else
 	{
-		x = Random_Range(1, level_width - 2);
-		i = 5;
-		top_done = 0;
+		Generate_valid_location(level_width, level_height, arr);
 	}
 
 	
