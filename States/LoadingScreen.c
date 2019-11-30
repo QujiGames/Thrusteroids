@@ -1,6 +1,7 @@
 #include "MainMenu.h"
 #include <Windows.h>
 #include "../Console/Console.h"
+#include "../Random/Random.h"
 #include "../StateMachine.h"
 #include "../Global.h"
 #include <stdlib.h>
@@ -11,7 +12,7 @@ static double astars[1000];
 
 void stars()
 {
-	int i, x, y;
+	int i;
 
 	for (i = 0; i < 500; i+=3)
 	{
@@ -65,10 +66,9 @@ void LoadingScreen_Render()
 	stars();
 
 	char text[] = "THRUSTEROIDS";
+	//char text[] = "KWXYZ";
 
 	Write_Text(x, y, text);
-
-
 
 
 	Console_SetRenderBuffer_String(50, 80, "Press >Enter< to Play");

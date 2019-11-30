@@ -16,9 +16,10 @@
 #include "StateMachine.h"
 
 
-static char aLevel[160000];
+static char aBlob[1000000];
+static char aLevel[1000000];
 static char aScreen[25600];
-static char aActors[160000];
+static char aActors[1000000];
 
 static double velocityY = 0.000f;
 static double velocityX = 0;
@@ -34,8 +35,10 @@ static float xMod = 0;
 static float yMod = 0;
 static float anglerad = 0.00000f;
 static int gunFired = 0;
-static int level_width = 400; //change array size
-static int level_height = 400; //change array size
+static int xblob = 1000;
+static int yblob = 1000;
+static int level_width = 1000; //change array size
+static int level_height = 1000; //change array size
 static int screen_width = 160; //change array size
 static int screen_height = 160;  //change array size
 const float Gravity = -0.000f;
@@ -130,7 +133,7 @@ static double aCruisers[1000];  // array for cruisers 1 = x pos, 2 = y pos, 3 = 
 *******************************************************************************/
 
 
-void Game_Init(int width, int height, float(*bulletArray))
+void Game_Init(int width, int height, double(*bulletArray))
 {
 	Console_Init();
 	Random_Init();
@@ -268,16 +271,16 @@ void Get_Inputs()
 			{
 				if (angle > 0 && angle < 90)
 				{
-					aBullets[0 + i * 5] = -xTrans -1 + screen_width / 2;
-					aBullets[1 + i * 5] = -yTrans +1+ screen_height / 2;
+					aBullets[0 + i * 5] = (double)-xTrans -1 + screen_width / 2;
+					aBullets[1 + i * 5] = (double)-yTrans +1+ screen_height / 2;
 					aBullets[2 + i * 5] = -velocityX - 0.05 * sin(anglerad);
 					aBullets[3 + i * 5] = -velocityY - 0.05 * cos(anglerad);
 					aBullets[4 + i * 5] = 1;
 				}
 				else if (angle >=90 && angle <180)
 				{
-					aBullets[0 + i * 5] = -xTrans-1 + screen_width / 2;
-					aBullets[1 + i * 5] = -yTrans +1+ screen_height / 2;
+					aBullets[0 + i * 5] = (double)-xTrans-1 + screen_width / 2;
+					aBullets[1 + i * 5] = (double)-yTrans +1+ screen_height / 2;
 					aBullets[2 + i * 5] = -velocityX - 0.05 * sin(anglerad);
 					aBullets[3 + i * 5] = -velocityY - 0.05 * cos(anglerad);
 					aBullets[4 + i * 5] = 1;
@@ -285,16 +288,16 @@ void Get_Inputs()
 				else if(angle >=180 && angle <270)
 
 				{
-					aBullets[0 + i * 5] = -xTrans +1 + screen_width / 2;
-					aBullets[1 + i * 5] = -yTrans +1+ screen_height / 2;
+					aBullets[0 + i * 5] = (double)-xTrans +1 + screen_width / 2;
+					aBullets[1 + i * 5] = (double)-yTrans +1+ screen_height / 2;
 					aBullets[2 + i * 5] = -velocityX - 0.05 * sin(anglerad);
 					aBullets[3 + i * 5] = -velocityY - 0.05 * cos(anglerad);
 					aBullets[4 + i * 5] = 1;
 				}
 				else
 				{
-					aBullets[0 + i * 5] = -xTrans +1 + screen_width / 2;
-					aBullets[1 + i * 5] = -yTrans -1 + screen_height / 2;
+					aBullets[0 + i * 5] = (double)-xTrans +1 + screen_width / 2;
+					aBullets[1 + i * 5] = (double)-yTrans -1 + screen_height / 2;
   					aBullets[2 + i * 5] = -velocityX - 0.05 * sin(anglerad);
 					aBullets[3 + i * 5] = -velocityY - 0.05 * cos(anglerad);
 					aBullets[4 + i * 5] = 1;
@@ -339,8 +342,8 @@ void Draw_Bullets()
 		aBullets[0 + (i * 5)] = aBullets[0 + (i * 5)] + aBullets[2 + (i * 5)] * Clock_GetDeltaTime();
 		aBullets[1 + (i * 5)] = aBullets[1 + (i * 5)] + aBullets[3 + (i * 5)] * Clock_GetDeltaTime();
 
-		x = aBullets[0 + (i * 5)];
-		y = aBullets[1 + (i * 5)];
+		x = (int)aBullets[0 + (i * 5)];
+		y = (int)aBullets[1 + (i * 5)];
 
  		if (x > 0 && x < level_width && y > 0 && y < level_height)
 		{
@@ -427,8 +430,8 @@ void collision_detection()
 
 	for (int i = 0; i < 10000; i++)
 	{
-		int x = aBullets[i * 5];
-		int y = aBullets[1 + i * 5];
+		int x = (int)aBullets[i * 5];
+		int y = (int)aBullets[1 + i * 5];
 
 		if (aLevel[x + y * level_width] != '\0' && aLevel[x + y * level_width] != '*' && aLevel[x + y * level_width] != '.' && aLevel[x + y * level_width] != '+')
 		{
@@ -516,10 +519,10 @@ void Draw_Actors()
 	}
 
 	int i;
-	for (i = 1; i < 5; i++)
-	{
-		Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, i);
-	}
+	//for (i = 1; i < 5; i++)
+	//{
+	//	Create_Cruiser(Generate_valid_location(level_width, level_height, aLevel), level_width, aCruisers, i);
+	//}
 
 	
 
@@ -596,8 +599,9 @@ int main()
 
 	acceleration = 0.00f * Clock_GetDeltaTime() / 1000;
 
-	Level_Generator2(aLevel, level_width, level_height, screen_width, screen_height, &xTrans, &yTrans, 30);
+	//Level_Generator2(aLevel, level_width, level_height, screen_width, screen_height, &xTrans, &yTrans, 30);
 
+	Blob_Generator(aBlob, aLevel, xblob, yblob, level_width, level_height);
 
 
 	while (Global_IsGameRunning())

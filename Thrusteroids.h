@@ -1,4 +1,4 @@
-void Game_Init(int width, int height, float(*bulletArray));
+void Game_Init(int width, int height, double(*bulletArray));
 
 void Get_Inputs();
 

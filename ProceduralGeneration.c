@@ -883,7 +883,7 @@ void Level_Generator(char(*Terrain), int width, int height, int starting_positio
 					Terrain[x + ((yposition - i) * width)] = 'R';
 					for (int j = 0; j <= jitter; j++)
 					{
-						x+j;
+						//x+j;
 						Terrain[x + ((yposition - i) * width)] = 'J';
 					}
 				}
@@ -1083,6 +1083,7 @@ void Level_Generator2(char(*Terrain), int width, int height, int screen_width, i
 
 
 	*/
+
 }
 
 
@@ -1090,7 +1091,409 @@ void Level_Generator2(char(*Terrain), int width, int height, int screen_width, i
 
 
 
+void Draw_Circle(char(*Terrain), int radius, int starting_position, int level_width, int level_height)
+{
+	//double pi = acos(-1);
+	//double anglerad = 0.0;
+	//double cosangle;
+	//double sinangle;
+
+
+	//for (int angle = 0; angle <= 360; angle++)
+	//{
+	//	anglerad = (double)angle * pi / 180.0;
+	//	cosangle = cos(anglerad);
+	//	sinangle = sin(anglerad);
+	//	
+	//	if (starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) > 0 && starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) < (level_width * level_height) )
+	//	{
+	//		Terrain[starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width)] = 'S';
+	//	}
+	//}
+
+	for (int y = -radius; y < radius; y++)
+	{
+		for (int x = -radius; x < radius; x++)
+		{
+			if ((x * x) + (y * y) <= (radius * radius))
+			{
+				Terrain[starting_position + x + y * level_width] = 'U';
+			}
+		}
+	}
+}
+
+void Draw_Filled_Circle(char(*Terrain), int radius, int starting_position, int level_width, int level_height)
+{
+	double pi = acos(-1);
+	double anglerad = 0.0;
+	int boundary = 0;
+	double cosangle;
+	double sinangle;
+
+	double ellipse = 0.0;
+
+	for (int angle = 0; angle <= 720; angle++)
+	{
+		anglerad = (double)angle * pi / 360.0;
+		cosangle = cos(anglerad);
+		sinangle = sin(anglerad);
+
+		ellipse = Random_Range(50, 150) / 100;
+		
+		for (int i = 0; i < radius; i++)
+		{
+			if (starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width) > 0 && starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width) < (level_width * level_height))
+			{
+				Terrain[starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width)] = 'U';
+			}
+		}
+
+		if (starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) > 0 && starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) < (level_width * level_height))
+		{
+			if (Terrain[starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width)] != 'U')
+			{
+				Terrain[starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width)] = 'S';
+				Terrain[starting_position + ((int)(sinangle * ((__int64)radius + 1)) + (int)(cosangle * ((__int64)radius + 1)) * level_width)] = 'S';
+			}
+		}
+	}
+}
+
+
+/*
+void Draw_Rectanguloid(char(*Terrain), int radius, int starting_position, int level_width, int level_height)
+{
+	double pi = acos(-1);
+	double anglerad = 0.0;
+	int boundary = 0;
+	double cosangle;
+	double sinangle;
+
+	int xlength = Random_Range(2, 15);
+	int ylength = Random_Range(2, 11);
+
+
+	for (int angle = 0; angle <= 90; angle++)
+	{
+		anglerad = (double)angle * pi / 180.0;
+		cosangle = cos(anglerad);
+		sinangle = sin(anglerad);
+
+
+		for (int i = 0; i < radius; i++)
+		{
+			if (starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width) > 0 && starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width) < (level_width * level_height))
+			{
+				Terrain[starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width)] = 'U';
+			}
+		}
+
+		if (starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) > 0 && starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) < (level_width * level_height))
+		{
+			if (Terrain[starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width)] != 'U')
+			{
+				Terrain[starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width)] = 'S';
+				Terrain[starting_position + ((int)(sinangle * ((__int64)radius + 1)) + (int)(cosangle * ((__int64)radius + 1)) * level_width)] = 'S';
+			}
+		}
+	}
+
+	for (int angle = 90; angle <= 180; angle++)
+	{
+		anglerad = (double)angle * pi / 180.0;
+		cosangle = cos(anglerad);
+		sinangle = sin(anglerad);
+
+
+		for (int i = 0; i < radius; i++)
+		{
+			if (starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width) > 0 && starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width) < (level_width * level_height))
+			{
+				Terrain[starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width)] = 'U';
+			}
+		}
+
+		if (starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) > 0 && starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) < (level_width * level_height))
+		{
+			if (Terrain[starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width)] != 'U')
+			{
+				Terrain[starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width)] = 'S';
+				Terrain[starting_position + ((int)(sinangle * ((__int64)radius + 1)) + (int)(cosangle * ((__int64)radius + 1)) * level_width)] = 'S';
+			}
+		}
+	}
+
+	for (int angle = 180; angle <= 270; angle++)
+	{
+		anglerad = (double)angle * pi / 180.0;
+		cosangle = cos(anglerad);
+		sinangle = sin(anglerad);
+
+
+		for (int i = 0; i < radius; i++)
+		{
+			if (starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width) > 0 && starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width) < (level_width * level_height))
+			{
+				Terrain[starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width)] = 'U';
+			}
+		}
+
+		if (starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) > 0 && starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) < (level_width * level_height))
+		{
+			if (Terrain[starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width)] != 'U')
+			{
+				Terrain[starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width)] = 'S';
+				Terrain[starting_position + ((int)(sinangle * ((__int64)radius + 1)) + (int)(cosangle * ((__int64)radius + 1)) * level_width)] = 'S';
+			}
+		}
+	}
+
+	for (int angle = 270; angle <= 360; angle++)
+	{
+		anglerad = (double)angle * pi / 180.0;
+		cosangle = cos(anglerad);
+		sinangle = sin(anglerad);
+
+
+		for (int i = 0; i < radius; i++)
+		{
+			if (starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width) > 0 && starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width) < (level_width * level_height))
+			{
+				Terrain[starting_position + ((int)(sinangle * i) + (int)(cosangle * i) * level_width)] = 'U';
+			}
+		}
+
+		if (starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) > 0 && starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) < (level_width * level_height))
+		{
+			if (Terrain[starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width)] != 'U')
+			{
+				Terrain[starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width)] = 'S';
+				Terrain[starting_position + ((int)(sinangle * ((__int64)radius + 1)) + (int)(cosangle * ((__int64)radius + 1)) * level_width)] = 'S';
+			}
+		}
+	}
+}
+*/
+
+
+
+void Draw_Part_Circle(char(*Terrain), int radius, int starting_position, int level_width, int level_height, int angle)
+{
+	double pi = acos(-1);
+	double anglerad = 0.0;
+	double cosangle;
+	double sinangle;
+
+	for (int i = 0; i <= angle; i++)
+	{
+		anglerad = (double)i * pi / 180.0;
+		cosangle = cos(anglerad);
+		sinangle = sin(anglerad);
+
+		if (starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) > 0 && starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width) < (level_width * level_height))
+		{
+			Terrain[starting_position + ((int)(sinangle * radius) + (int)(cosangle * radius) * level_width)] = 'S';
+		}
+	}
+}
+
+
+
+// aOrigin[0] == starting_position
+int Blob_Position(int new_radius, int previous_radius, int previous_origin, int xblob)
+{
+	int new_origin;
+
+	double pi = acos(-1);
+	double anglerad = 0.0;
+	double cosangle;
+	double sinangle;
+	int angle;
+
+	int distance = new_radius + previous_radius - Random_Range(5, 15);
+
+	int weight = Random_Range(0, 120);
+
+	//if (weight <= 100)
+	//{
+	//	angle = Random_Range(0, 225);
+	//}
+	//else if (weight > 100)
+	//{
+	//	angle = Random_Range(315, 360);
+	//}
+
+	if (weight <= 120)
+	{
+		angle = Random_Range(0, 180);
+	}
 
 
 
 
+
+
+	anglerad = (double)angle * pi / 180.0;
+	cosangle = cos(anglerad);
+	sinangle = sin(anglerad);
+
+	// hardcoded level width for blob generation array, the 'blob' then gets cut and pasted into the actual level array.
+	// The level array is assumed to always be 1000000 in size, i.e. 1000 x 1000.
+	new_origin = previous_origin + ((int)(sinangle * distance) + (int)(cosangle * distance) * xblob);
+
+	return new_origin;
+}
+
+
+
+
+void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level_width, int level_height)
+{
+	//initialise with stuff to remove later? needed at all? I think not
+	//for (int i = 0; i < 4000000; i++)
+	//{
+	//	aBlob[i] = '>';
+	//}
+
+	int blobs = Random_Range(11, 15);
+
+	int aRadius[20];
+	int aOrigin[20];
+
+	int start_position = 500050;
+
+	int blob_weight = 0;
+
+	int first;
+	int last;
+	int left;
+
+	// set start location for first 'blob' (a circle in this case)
+	aOrigin[0] = start_position;
+
+
+	for (int i = 0; i < blobs; i++)
+	{
+		blob_weight = Random_Range(0, 100);
+		if (blob_weight < 10)
+		{
+			aRadius[i] = Random_Range(25, 40);
+			if (i > 0)
+			{
+				aOrigin[i] = Blob_Position(aRadius[i], aRadius[i - 1], aOrigin[i - 1], xblob);
+			}
+		}
+		else if (blob_weight > 20 && blob_weight < 80)
+		{
+			aRadius[i] = Random_Range(45, 70);
+			if (i > 0)
+			{
+				aOrigin[i] = Blob_Position(aRadius[i], aRadius[i - 1], aOrigin[i - 1], xblob);
+			}
+		}
+		else if (blob_weight > 80)
+		{
+			aRadius[i] = Random_Range(30, 50);
+			if (i > 0)
+			{
+				aOrigin[i] = Blob_Position(aRadius[i], aRadius[i - 1], aOrigin[i - 1], xblob);
+			}
+		}
+	}
+
+	for (int i = 0; i < blobs; i++)
+	{
+		Draw_Filled_Circle(aBlob, aRadius[i], aOrigin[i], xblob, yblob);
+	}
+
+	for (int i = 0; i < xblob * yblob; i++)
+	{
+		if (aBlob[i] == 'U')
+		{
+			aBlob[i] = '\0';
+		}
+	}
+
+	int stop = 0;
+
+	for (int i = 0; i < xblob * yblob; i++)
+	{
+		if (aBlob[i] == 'S' && stop == 0)
+		{
+			first = i;
+			stop = 1;
+		}
+	}
+
+	stop = 0;
+
+	for (int i = xblob * yblob; i > 0; i--)
+	{
+		if (aBlob[i] == 'S' && stop == 0)
+		{
+			last = i;
+			stop = 1;
+		}
+	}
+
+	stop = 0;
+
+	for (int i = 0; i < xblob; i++)
+	{
+		for (int j = 0; j < yblob; j++)
+		{
+			if (aBlob[i + j * xblob] == 'S' && stop == 0)
+			{
+				left = i + j * xblob;
+				stop = 1;
+			}
+		}
+	}
+
+	int remove_top = 0;
+	int remove_left = 0;
+
+	stop = 0;
+	
+	for (int i = 1; i < yblob; i++)
+	{
+		if (first % (xblob * i) < 6000 && stop == 0)
+		{
+			remove_top = i;
+			stop = 1;
+		}
+	}
+
+	stop = 0;
+
+	for (int i = 1; i < xblob; i++)
+	{
+		for (int j = 1; j < yblob; j++)
+		{
+			if (left % (j + i * xblob) < 10 && stop == 0)
+			{
+				remove_left = left % (j + i * yblob);
+				stop = 1;
+			}
+		}
+	}
+
+
+
+	for (int i = remove_top; i < level_height; i++)
+	{
+		for (int j = remove_left; j < level_width; j++)
+		{ 
+			
+		}
+	}
+
+	for (int i = 0; i < level_width * level_height; i++)
+	{
+		aLevel[i] = aBlob[i];
+	}
+
+	Bounding_Box(aLevel, level_width, level_height);
+
+}
