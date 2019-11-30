@@ -1428,7 +1428,7 @@ void IntroduceChaos(char* (aBlob), int level_width, int level_height)
 
 
 
-void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level_width, int level_height, int xTrans, int yTrans)
+void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level_width, int level_height)
 {
 	//initialise with stuff to remove later? needed at all? I think not
 	//for (int i = 0; i < 4000000; i++)
@@ -1443,8 +1443,6 @@ void Blob_Generator(char(*aBlob), char(*aLevel), int xblob, int yblob, int level
 
 	int start_position = 500100;
 
-	xTrans = 100;
-	yTrans = 500;
 
 	int blob_weight = 0;
 
