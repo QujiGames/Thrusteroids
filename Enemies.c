@@ -144,7 +144,7 @@ void  Draw_Cruiser(char(*Arr), int x_position, int y_position, int level_width, 
 	double y_vel = 0;
 	double angle = 0;
 
-	double bullet_speed = 0.005; //sqrt(xDiff * xDiff+ yDiff * yDiff) / 10000;
+	double bullet_speed = 0.002; //sqrt(xDiff * xDiff+ yDiff * yDiff) / 10000;
 
 
 	//multiply by time to give different speed bullets

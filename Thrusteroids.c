@@ -156,14 +156,15 @@ void Game_Init(int width, int height, double(*bulletArray))
 
 void Game_Reset()
 {
-	xTrans = 0;
-	yTrans = 0;
+	
 	velocityX = 0;
 	velocityY = 0;
 	angle = 0;
 	ClearScreen(aBullets, 50000, 1);
 	fire_time = Clock_GetElapsedTimeMs() / 100;
-	
+	int i = Generate_valid_location(level_width, level_height, aLevel);
+	xTrans = -i % level_width + (screen_width / 2);
+	yTrans = (-i - xTrans) / level_width + (screen_height / 2);
 
 
 }
@@ -223,7 +224,7 @@ void Get_Inputs()
 	if (((GetAsyncKeyState(VK_UP) && MSB) || (GetAsyncKeyState(0x57) && MSB)) && (GetAsyncKeyState(0x46)))
 	{
 		//boost speed!!!
-		acceleration = (0.03 * Clock_GetDeltaTime()) / 1000;
+		acceleration = (0.05 * Clock_GetDeltaTime()) / 1000;
 		velocityY = velocityY + (acceleration)*cos(anglerad);
 		velocityX = velocityX + (acceleration * sin(anglerad));
 
