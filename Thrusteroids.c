@@ -605,9 +605,11 @@ int main()
 	//Level_Generator2(aLevel, level_width, level_height, screen_width, screen_height, &xTrans, &yTrans, 30);
 
 	Blob_Generator(aBlob, aLevel, xblob, yblob, level_width, level_height);
+
 	int i = Generate_valid_location(level_width, level_height, aLevel);
 	xTrans = -i % level_width + (screen_width/2);
 	yTrans = (-i - xTrans) / level_width + (screen_height/2);
+
 
 
 	while (Global_IsGameRunning())
